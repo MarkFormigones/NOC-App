@@ -1,0 +1,92 @@
+﻿@model Hydron.Models.Definitions.ProcessCategoryModel
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-12 profile-info">
+
+
+                <h1 class="form-section">@Model.Name</h1>
+
+
+                <ul class="list-unstyled">
+                   
+                    <li>
+                        <i class="fa fa-check-circle-o"></i><label class="control-label">Status:</label><a href="#">
+                            @switch (Model.IsActive)
+                            {
+                                case true: <span class="label label-sm label-success">Active</span>
+                                    break;
+                                case false: <span class="label label-sm label-warning">Not Active</span>
+                                    break;
+                            }
+                        </a>
+                    </li>
+
+                    <li><i class="fa fa-calendar"></i><label class="control-label">Date:</label> @Model.Dated.Day/@Model.Dated.Month/@Model.Dated.Year  </li>
+                    <li><i class="fa fa-pencil"></i><label class="control-label">Value:</label> @Model.Value </li>
+                    
+                    <li><i class="fa fa-pencil"></i><label class="control-label">CompanyId:</label> @Model.CompanyId </li>
+                    <li><i class="fa fa-pencil"></i><label class="control-label">ProcessId:</label> @Model.ProcessId </li>
+                    <li><i class="fa fa-pencil"></i><label class="control-label">BUnitId:</label> @Model.BUnitId </li>
+                    <li><i class="fa fa-pencil"></i><label class="control-label">DivisionId:</label> @Model.DivisionId </li>
+                    <li><i class="fa fa-pencil"></i><label class="control-label">ParentId:</label> @Model.ParentId </li>
+                    <li><i class="fa fa-pencil"></i><label class="control-label">TypeId:</label> @Model.TypeId </li>
+
+                    <li>
+
+                    </li>
+                </ul>
+            </div>
+        </div>    
+
+                <!--end col-md-8-->
+                <!--end col-md-4-->
+            </div>
+            <!--end row-->
+
+          
+        </div>
+
+
+
+
+
+
+
+<script>
+   
+</script>
+        <script type="text/javascript">
+
+
+            //function getBranchList(e) {
+               
+            //    var el = jQuery('#Treediv');
+            //    App.blockUI(el);
+            //    window.setTimeout(function () {
+            //        App.unblockUI(el);
+            //    }, 2000);
+
+            //    $.get("/BCompanies/_subTree?parentId=" + $(e).attr("id"), function (data) {
+
+
+            //        $('#Treediv').html(data);
+
+
+
+
+            //    }).fail(function () {
+
+            //        showtoasteralert('warning', 'Ajax', 'error', this);
+
+            //    })
+
+            //    ;
+            //};
+
+          
+            
+            
+
+        </script> 

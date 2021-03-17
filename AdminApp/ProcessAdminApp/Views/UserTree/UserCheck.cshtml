@@ -1,0 +1,257 @@
+﻿@*<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>*@
+ 
+@{
+    Layout = "~/Views/Shared/_LayoutBasic.cshtml";
+}
+<script src="~/assets/tree/jquery-3.4.1.min.js"></script>
+<script src="~/assets/tree/jquery-ui.min.js"></script>
+
+
+ 
+<link href="~/assets/tree/src/skin-win8/ui.fancytree.css" rel="stylesheet">
+<script src="~/assets/tree/src/jquery.fancytree.js"></script>
+ 
+<style type="text/css">
+</style>
+<script type="text/javascript">
+    var pId = -1;
+
+    var nParentGroupId = 2683; //manually set the parentGroupId for your test
+    var nSerial = "00001"; // manually set the serial for your test
+
+    //region UPDATE
+    var nGroupId = 0; //2697
+    var nLeaderId = 0; // Manager or team leader userId
+    var nRole = -1;    //User = 1; team leader = 2; manager = 3
+    //endregion
+
+	$(function(){
+		// ---------------------------------------------------------------------
+		$("#btnDeselectAll3").click(function(){
+			$("#tree3").fancytree("getTree").visit(function(node){
+				node.setSelected(false);
+			});
+			return false;
+		});
+		$("#btnSelectAll3").click(function(){
+		    $("#tree3").fancytree("getTree").visit(function (node) {
+		        
+				node.setSelected(true);
+			});
+			return false;
+		});
+
+
+		$("#tree3").fancytree({
+			checkbox: true,
+			selectMode: 3,
+			source: {
+			    url: "/userTree/GetTemplateTCheckTree?parentGroupId=" + nParentGroupId
+                + "&serial=" + nSerial
+                + "&groupId=" + nGroupId
+                + "&leaderId=" + nLeaderId
+			    + "&roleId=" + nRole,
+			    cache: false
+			},  
+			init: function(event, data) {
+			    data.tree.rootNode.fixSelection3FromEndNodes();
+			    data.tree.visit(function (n) {
+			        
+			        if (n.getLevel() == 1) {
+			            n.key = "G-" + n.key; //set the group Id on G- + the key so that it will not conflict on userId when saving.			           
+			            n.setExpanded(true);			          		           
+			        }
+			        else{
+			            n.setExpanded(true);
+			            if (n.isFolder && n.lazy) { //auto load the lazyload node.			                
+			                n.load();
+			            }
+			        }
+
+
+			    });
+
+			   
+			},
+			lazyLoad: function (event, ctx) {
+			    var groupId = -1;
+
+                ctx.node.visitParents(function (node) {
+                        if (node.getLevel() == 1) {
+                            groupId = Number(node.key.replace('G-', ''));
+                        }                       
+                    }, true);
+
+
+                ctx.result = {
+                    url: "/userTree/GetSubTemplateTCheckTree?Node=" + ctx.node.key
+                        + "&groupId=" + groupId
+                        + "&serial=" + nSerial
+                };
+
+			},
+			loadChildren: function (event, ctx) {
+			    ctx.node.fixSelection3AfterClick();
+			    ctx.tree.rootNode.fixSelection3FromEndNodes();
+                //allow to load all lazy load
+			    var node = ctx.node;			    
+			    $(node.children).each(function () {
+			        node.setExpanded(true);
+			        if (this.lazy) {			            
+			            this.load();
+			        }
+
+			    });
+
+                setCheck();
+
+			},
+            //region Update
+			icon: function (event, data) {
+			    var node = data.node;
+			    // Create custom icons
+			    if (node.data.userRole == 0) { //admin
+			        return "fa fa-gear";
+			    }
+			    else if (node.data.userRole == 1) { //user
+			        return "fa fa-user";
+			    }
+			    else if (node.data.userRole == 2) { //team leader
+			        return "fa fa-users";
+			    }
+			    else if (node.data.userRole == 3) { //manager
+			        return "fa fa-user-circle";
+			    }
+
+			    // Otherwise no value is returned, so continue with default processing
+			},
+            //endregion
+			select: function (event, data) {
+			    var groupId = -1;
+
+			    // Get a list of all selected nodes, and convert to a key array
+				var selKeys = $.map(data.tree.getSelectedNodes(), function(node){
+				    node.visitParents(function (node) {
+				        if (node.getLevel() == 1) {
+				            groupId = Number(node.key.replace('G-', ''));
+				        }
+				    }, true);
+				    return node.key + ":" + groupId;
+				});
+
+
+				$("#echoSelection3").text(selKeys.join(", "));
+
+			    //region UPDATE 21-10-19
+				var partsel = new Array();
+				$(".fancytree-partsel:not(.fancytree-selected)").each(function () {
+				    var node = $.ui.fancytree.getNode(this);
+				    if (node.key.substring(0, 1) != "G") {
+
+				        var gId = 0;
+				        node.visitParents(function (node) {
+				            if (node.getLevel() == 1) {
+				                gId = Number(node.key.replace('G-', '')); // just remove the G-
+				            }
+				        }, true);
+
+				        partsel.push("M-" + node.key + ":" + gId);
+				    }
+				});
+				selKeys = selKeys.concat(partsel);
+				$('#echoSelection3').text(selKeys.join(", "));
+			    //endregion
+
+				// Get a list of all selected TOP nodes
+				var selRootNodes = data.tree.getSelectedNodes(true);
+				// ... and convert to a key array:
+				var selRootKeys = $.map(selRootNodes, function(node){
+					return node.key;
+				});
+				$("#echoSelectionRootKeys3").text(selRootKeys.join(", "));
+
+			},
+			// The following options are only required, if we have more than one tree on one page:
+			cookieId: "fancytree-Cb3",
+			idPrefix: "fancytree-Cb3-",
+
+		});
+
+	});
+
+	function setCheck() {
+	    $("#tree3").fancytree("getTree").visit(function (node) {
+	        if (node.extraClasses == "1") {
+	            node.setSelected(true);
+	        }
+	        else {
+	            node.setSelected(false);
+	        }
+	    });
+
+	}
+
+	function reloadTree(selectedId) {
+	    var nParentGroupId = 2683;
+	    var nSerial = "00001";
+
+	    $.ui.fancytree.getTree("#tree3").reload({
+	        url: "/userTree/GetTemplateTCheckTree?parentGroupId=" + nParentGroupId
+                 + "&serial=" + nSerial
+	    }).done(function () {
+	        setCheck();
+	    });
+	}
+
+	function SaveTree() {
+	    var nSerial = "00001";
+	    var nParentGroupId = "2683";
+        //region UPDATE
+	    var nIsUpdating = true;
+        //endregion
+	    var selectedList = $('#echoSelection3').text();
+
+	    if (selectedList == null || selectedList == "") {
+	        alert("must check atleast one or more user. ");
+	    }
+	    else {
+	        //region UPDATE
+	        $.post('/userTree/SaveTemplateTCheckTree', { serial: nSerial, parentGroupId: nParentGroupId, selectedIds: selectedList, isUpdate: nIsUpdating},
+            //endregion
+                function (returnedData) {
+                    if (returnedData) {
+                        alert("Save Succcessfully");
+                    }
+                    else {
+                        alert("Failed to save");
+                    }
+
+                }).fail(function () {
+                    alert("Error on saving");
+                });
+	    }
+	}
+
+</script>
+
+
+<div class="example">
+    <h1>Tree Checkbox</h1>
+    <div>
+        <label for="skinswitcher">Skin:</label> <select id="skinswitcher"></select>
+    </div>
+    <!-- Tree #3 -->
+    <p>
+        <a href="#" id="btnSelectAll3">Select all</a> -
+        <a href="#" id="btnDeselectAll3">Deselect all</a>
+    </p>
+    <div id="tree3"></div>
+
+    <div>Selected keys: <span id="echoSelection3">-</span></div>
+    <div>Selected root keys: <span id="echoSelectionRootKeys3">-</span></div>
+
+
+    <a class="btn btn-success" onclick="SaveTree();">Save Tree</a>
+    <a class="btn btn-danger" onclick="reloadTree();">Reload Tree</a>
+</div>

@@ -1,0 +1,170 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+    <title>Fancytree - Example: Select</title>
+    <script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <link href="~/assets/tree/src/skin-win8/ui.fancytree.css" rel="stylesheet">
+    <script src="~/assets/tree/src/jquery.fancytree.js"></script>
+    <script src="~/assets/tree/src/jquery.fancytree.edit.js"></script>
+    <link href="~/assets/tree/sample.css" rel="stylesheet">
+    <script src="~/assets/tree/sample.js"></script>
+
+    <style type="text/css">
+    </style>
+    <script type="text/javascript">
+	$(function(){
+		// ---------------------------------------------------------------------
+		$("#btnDeselectAll3").click(function(){
+			$("#tree3").fancytree("getTree").visit(function(node){
+				node.setSelected(false);
+			});
+			return false;
+		});
+		$("#btnSelectAll3").click(function(){
+			$("#tree3").fancytree("getTree").visit(function(node){
+				node.setSelected(true);
+			});
+			return false;
+		});
+		$("#tree3").fancytree({
+		    extensions: ["edit"],
+			checkbox: true,
+			selectMode: 3,
+			source: [
+				{title: "n1", expanded: true, children: [
+					{title: "n1.1 (selected)"},
+					{title: "n1.2"},
+					{title: "n1.3"}
+				]}
+				],
+			init: function(event, data) {
+				// Set key from first part of title (just for this demo output)
+				data.tree.visit(function(n) {
+					n.key = n.title.split(" ")[0];
+					n.expanded = true;
+				});
+			},
+			lazyLoad: function(event, ctx) {
+				ctx.result = {url: "ajax-sub2.json", debugDelay: 1000};
+			},
+			loadChildren: function(event, ctx) {
+				ctx.node.fixSelection3AfterClick();
+			},
+			select: function(event, data) {
+				// Get a list of all selected nodes, and convert to a key array:
+				var selKeys = $.map(data.tree.getSelectedNodes(), function(node){
+					return node.key;
+				});
+				$("#echoSelection3").text(selKeys.join(", "));
+
+				// Get a list of all selected TOP nodes
+				var selRootNodes = data.tree.getSelectedNodes(true);
+				// ... and convert to a key array:
+				var selRootKeys = $.map(selRootNodes, function(node){
+					return node.key;
+				});
+				$("#echoSelectionRootKeys3").text(selRootKeys.join(", "));
+				// $("#echoSelectionRoots3").text(selRootNodes.join(", "));
+			},
+			// The following options are only required, if we have more than one tree on one page:
+			cookieId: "fancytree-Cb3",
+			idPrefix: "fancytree-Cb3-",
+			edit: {
+			    triggerStart: ["clickActive", "dblclick", "f2", "mac+enter", "shift+click"],
+			    beforeEdit: function (event, data) {
+			        // Return false to prevent edit mode
+			    },
+			    edit: function (event, data) {
+			        // Editor was opened (available as data.input)
+			    },
+			    beforeClose: function (event, data) {
+			        // Return false to prevent cancel/save (data.input is available)
+			        console.log(event.type, event, data);
+			        if (data.originalEvent.type === "mousedown") {
+			            // We could prevent the mouse click from generating a blur event
+			            // (which would then again close the editor) and return `false` to keep
+			            // the editor open:
+			            //                  data.originalEvent.preventDefault();
+			            //                  return false;
+			            // Or go on with closing the editor, but discard any changes:
+			            //                  data.save = false;
+			        }
+			    },
+			    save: function (event, data) {
+			        // Save data.input.val() or return false to keep editor open
+			        console.log("save...", this, data);
+			        // Simulate to start a slow ajax request...
+			        setTimeout(function () {
+			            $(data.node.span).removeClass("pending");
+			            // Let's pretend the server returned a slightly modified
+			            // title:
+			            data.node.setTitle(data.node.title + "!");
+			        }, 2000);
+			        // We return true, so ext-edit will set the current user input
+			        // as title
+			        return true;
+			    },
+			    close: function (event, data) {
+			        // Editor was removed
+			        if (data.save) {
+			            // Since we started an async request, mark the node as preliminary
+			            $(data.node.span).addClass("pending");
+			        }
+			    }
+			}
+
+		});
+
+		addSampleButton({
+		    label: "Add child",
+		    newline: false,
+		    code: function () {
+		        var node = $("#tree3").fancytree("getActiveNode");
+		        if (!node) {
+		            alert("Please activate a parent node.");
+		            return;
+		        }
+		        node.editCreateNode("child", "Node title");
+		    }
+		});
+
+		addSampleButton({
+		    label: "Remove selected nodes (but keep children)",
+		    newline: true,
+		    code: function () {
+		        var tree = $("#tree3").fancytree("getTree"),
+                    selNodes = tree.getSelectedNodes();
+
+		        selNodes.forEach(function (node) {
+		            while (node.hasChildren()) {
+		                node.getFirstChild().moveTo(node.parent, "child");
+		            }
+		            node.remove();
+		        });
+		    }
+		});
+
+
+	});
+    </script>
+</head>
+<body class="example">
+    <h1>Tree Checkbox</h1>
+    <div>
+        <label for="skinswitcher">Skin:</label> <select id="skinswitcher"></select>
+    </div>
+    <!-- Tree #3 -->
+    <p>
+        <a href="#" id="btnSelectAll3">Select all</a> -
+        <a href="#" id="btnDeselectAll3">Deselect all</a>
+    </p>
+    <div id="tree3"></div>
+    <div>Selected keys: <span id="echoSelection3">-</span></div>
+    <div>Selected root keys: <span id="echoSelectionRootKeys3">-</span></div>
+    <!-- 	<div>Selected root nodes: <span id="echoSelectionRoots3">-</span></div> -->
+    <p id="sampleButtons">
+</body>
+</html>
+

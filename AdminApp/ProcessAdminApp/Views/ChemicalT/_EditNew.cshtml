@@ -1,0 +1,476 @@
+﻿@model Hydron.Models.Definitions.ProcessMasterExtModel
+
+<link href="~/assets/css/custom.css" rel="stylesheet" />
+
+@using (Html.BeginForm("DefineNew", "ChemicalT", FormMethod.Post, new { enctype = "multipart/form-data", id = "DefineNew" }))
+{   @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+
+        @*<legend>Departments </legend>*@
+
+        @{
+            if (ViewData.ModelState["error"] != null)
+            {  <div class="alert alert-danger ">
+            <button class="close" data-close="alert"></button>
+            @ViewData.ModelState["error"].Errors[0].ErrorMessage
+
+        </div>}
+        }
+        <div class="alert alert-danger display-hide">
+            <button class="close" data-close="alert"></button>
+            You have some form errors. Please check below.
+
+        </div>
+        <div class="alert alert-success display-hide">
+            <button class="close" data-close="alert"></button>
+            Your form validation is successful!
+        </div>
+        <div class="form-horizontal form-bordered">
+            <div class="form-body">              
+                <div class="containe r">
+                    <div class="product-detail-tabs">
+                        <ul class="nav nav-tabs">
+                            <li class="nav-item"><a class="nav-link active show" data-toggle="tab" href="#chemical-information">Chemical Approval Process</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active show" id="chemical-information">
+                                <table border="1">
+                                    <tbody>
+                                        <tr><th colspan="2" style="padding: 5px 20px; background-color:#2e90f4; color: white;"><strong>To be filled by Requestor</strong></th></tr>
+                                        
+                                        @Html.HiddenFor(m => m.ExtendId)
+                                        @*<tr><th>Name of Substance:</th>
+                                        <td>
+                                            @Html.TextBoxFor(m => m.SubstanceName, new { @class = "form-control placeholder-no-fix ", type = "text", autocomplete = "off", maxlength = "50", placeholder = "Substance Name", name = "SubstanceName" })
+                                              @Html.ValidationMessageFor(m => m.SubstanceName)
+                                            </td>
+                                        </tr>
+
+                                        <tr><th>Supplier (inc Address & Tel):</th>
+                                        <td>
+                                            @Html.TextAreaFor(m => m.Supplier, new { @class = "form-control placeholder-no-fix", type = "text", autocomplete = "off", maxlength = "500", rows = "2", placeholder = "Supplier", name = "Supplier" })                                       
+                                            </td>
+                                        </tr>
+
+                                        <tr><th>Detailed description of proposed use(s):</th>
+                                        <td>
+                                            @Html.TextAreaFor(m => m.Description, new { @class = "form-control placeholder-no-fix", type = "text", autocomplete = "off", maxlength = "500", rows = "2", placeholder = "Description", name = "Description" })                                        
+                                            </td>
+                                        </tr>*@
+
+                                        <tr><th>Is this chemical will be discharged to environment (either gas or liquid form) as part of planned operations? </th>
+                                        <td>                                          
+                                            <div class="make-switch" data-on="success" data-off="warning" data-on-label="&nbsp;YES&nbsp;" data-off-label="&nbsp;NO&nbsp;&nbsp;">
+
+                                                @Html.CheckBoxFor(m => m.Chem_isDischarged, new { name = "Chem_isDischarged", @checked = "", @class = "toggle" })
+
+                                            </div>
+
+                                            </td>
+                                        </tr> 
+                                        
+                                        <tr><th>Plant equipment / Area of use:</th>
+                                        <td>
+                                            @Html.TextBoxFor(m => m.Chem_EquipArea, new { @class = "form-control placeholder-no-fix ", type = "text", autocomplete = "off", maxlength = "50", placeholder = "Plant equipment / Area Use", name = "Chem_EquipArea" })
+                                            @Html.ValidationMessageFor(m => m.Chem_EquipArea)
+                                         </td>
+                                        </tr>
+                                                                              
+                                        <tr><th>Material quantity (total inventory) / pack size</th>
+                                        <td>
+                                            @Html.TextBoxFor(m => m.Chem_Qty, new { @class = "form-control placeholder-no-fix ", type = "text", autocomplete = "off", maxlength = "50", placeholder = "Quantity", name = "Quantity" })
+                                            @Html.ValidationMessageFor(m => m.Chem_Qty)
+                                            </td>
+                                        </tr>
+                                        
+                                        <tr><th>Form material supplied / used (e.g. solid / liquid /gas)</th>
+                                        <td>
+                                            @Html.TextBoxFor(m => m.Chem_FormMaterial, new { @class = "form-control placeholder-no-fix ", type = "text", autocomplete = "off", maxlength = "50", placeholder = "Material Supplied / Used", name = "Chem_FormMaterial" })
+                                            @Html.ValidationMessageFor(m => m.Chem_FormMaterial)
+                                            </td>
+                                        </tr>
+                                                                                
+                                        <tr><th>Type of storage container for this chemical</th>
+                                        <td>
+                                            @Html.TextBoxFor(m => m.Chem_TypeStorage, new { @class = "form-control placeholder-no-fix ", type = "text", autocomplete = "off", maxlength = "50", placeholder = "", name = "Chem_TypeStorage" })
+                                            @Html.ValidationMessageFor(m => m.Chem_TypeStorage)
+                                            </td>
+                                        </tr>
+                                        
+                                        <tr><th>Proposed disposal of containers:</th>
+                                        <td>
+                                            @Html.TextBoxFor(m => m.Chem_DisposeContainer, new { @class = "form-control placeholder-no-fix ", type = "text", autocomplete = "off", maxlength = "50", placeholder = "Disposal Containers", name = "Chem_DisposeContainer" })
+                                            @Html.ValidationMessageFor(m => m.Chem_DisposeContainer)
+                                            </td>
+                                        </tr>
+                                        
+                                        <tr><th>Proposed disposal of spent chemical:</th>
+                                        <td>
+                                            @Html.TextBoxFor(m => m.Chem_DisposeChemical, new { @class = "form-control placeholder-no-fix ", type = "text", autocomplete = "off", maxlength = "50", placeholder = "Disposal Chemical", name = "Chem_DisposeChemical" })
+                                            @Html.ValidationMessageFor(m => m.Chem_DisposeChemical)
+                                            </td>
+                                        </tr>
+                                        
+                                        <tr><th>Intened use of chemical:</th>
+                                        <td>
+                                            @Html.TextBoxFor(m => m.Chem_Use, new { @class = "form-control placeholder-no-fix ", type = "text", autocomplete = "off", maxlength = "50", placeholder = "Chemical Use", name = "Chem_Use" })
+                                            @Html.ValidationMessageFor(m => m.Chem_Use)
+                                            </td>
+                                        </tr>
+
+                                        <tr><th>Intended date of receipt:</th>
+                                        <td>
+                                            @Html.TextBoxFor(m => m.Chem_DateReceipt, new { @class = "form-control placeholder-no-fix date-picker", type = "text", autocomplete = "off", placeholder = "Date Reciept", name = "Chem_DateReceipt" })
+                                            @Html.ValidationMessageFor(m => m.Chem_DateReceipt)
+                                            </td>
+                                        </tr>
+
+                                        <tr><th colspan="2" style="padding: 5px 20px;background-color:#2e90f4; color: white;"><strong>To be filled by Warehouse in-charge</strong></th></tr>
+                                        <tr><th>Proposed storage location:</th>
+                                        <td>
+                                            @Html.TextBoxFor(m => m.Storage, new { @class = "form-control placeholder-no-fix ", type = "text", autocomplete = "off", maxlength = "50", placeholder = "Storage Location", name = "Storage" })
+                                            @Html.ValidationMessageFor(m => m.Storage)
+                                            </td>
+                                        </tr>
+                                        
+                                        <tr><th colspan="2" style="padding: 5px 20px;background-color:#2e90f4; color: white;"><strong>To be filled by HSE Representative</strong></th></tr>
+                                        <tr><th>Is this regulated by the law?</th>
+                                        <td>
+                                            <div class="make-switch" data-on="success" data-off="warning" data-on-label="&nbsp;YES&nbsp;" data-off-label="&nbsp;NO&nbsp;&nbsp;">
+
+                                                @Html.CheckBoxFor(m => m.Chem_isRegulate, new { name = "Chem_isRegulate", @checked = "", @class = "toggle" })
+
+                                            </div>
+                                            </td>
+                                        </tr>
+
+                                        <tr><th>COSHH initial assessment completed?</th>
+                                        <td>
+                                            <div class="make-switch" data-on="success" data-off="warning" data-on-label="&nbsp;YES&nbsp;" data-off-label="&nbsp;NO&nbsp;&nbsp;">
+
+                                                @Html.CheckBoxFor(m => m.Coshh_isCompleted, new { name = "Coshh_isCompleted", @checked = "", @class = "toggle" })
+
+                                            </div>
+                                            </td>
+                                        </tr>
+                                        <tr><th>Health Safety and Environment Impact Review</th>
+                                        <td>
+                                            @Html.TextAreaFor(m => m.Chem_Impact, new { @class = "form-control placeholder-no-fix", type = "text", autocomplete = "off", maxlength = "500", rows = "2", placeholder = "HSE Impact", name = "Chem_Impact" })                                        
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <table border="1" style="margin-top: 50px;">
+                                    <tbody>
+                                        
+                                        <tr><th colspan="2" style="padding: 5px 20px; background-color:#2e90f4; color: white;"><strong>Usage Information:</strong> (To be completed by Requestor)</th></tr>
+                                        <tr>
+                                            <th><strong>1.  New Chemical</strong></th>
+                                            <td>
+                                                <div class="make-switch" data-on="success" data-off="warning" data-on-label="&nbsp;YES&nbsp;" data-off-label="&nbsp;NO&nbsp;&nbsp;">
+
+                                                    @Html.CheckBoxFor(m => m.Chem_isNew, new { name = "Chem_isNew", @checked = "", @class = "toggle" })
+
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <th style="padding: 5px 30px;"><strong>1.1 Stock Item</strong></th>
+                                            <td>
+                                                <div class="make-switch" data-on="success" data-off="warning" data-on-label="&nbsp;YES&nbsp;" data-off-label="&nbsp;NO&nbsp;&nbsp;">
+
+                                                    @Html.CheckBoxFor(m => m.Chem_isStock, new { name = "Chem_isStock", @checked = "", @class = "toggle" })
+
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        
+                                        <tr><th style="padding: 5px 50px;">Order Quantity</th>
+                                        <td>
+                                            @Html.TextBoxFor(m => m.Chem_StockOrder, new { @class = "form-control placeholder-no-fix ", type = "text", autocomplete = "off", maxlength = "50", placeholder = "Chem_StockOrder", name = "Chem_StockOrder" })
+                                            @Html.ValidationMessageFor(m => m.Chem_StockOrder)
+                                            </td>
+                                        </tr>
+
+                                        <tr><th style="padding: 5px 50px;"> Projected Max inventory</th>
+                                        <td>
+                                            @Html.TextBoxFor(m => m.Chem_StockMaxInven, new { @class = "form-control placeholder-no-fix ", type = "text", autocomplete = "off", maxlength = "50", placeholder = "Max Inventory", name = "Chem_StockMaxInven" })
+                                            @Html.ValidationMessageFor(m => m.Chem_StockMaxInven)
+                                            </td>
+                                        </tr>
+                                        
+                                        <tr><th style="padding: 5px 50px;">Projected Usage Rate</th>
+                                        <td>
+                                            @Html.TextBoxFor(m => m.Chem_StockUsage, new { @class = "form-control placeholder-no-fix ", type = "text", autocomplete = "off", maxlength = "50", placeholder = "Usage Rate", name = "Chem_StockUsage" })
+                                            @Html.ValidationMessageFor(m => m.Chem_StockUsage)
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th style="padding: 5px 30px;"><strong>1.2 Non-stock Item</strong></th>
+                                            <td>
+                                                <div class="make-switch" data-on="success" data-off="warning" data-on-label="&nbsp;YES&nbsp;" data-off-label="&nbsp;NO&nbsp;&nbsp;">
+
+                                                    @Html.CheckBoxFor(m => m.Chem_isNonStock, new { name = "Chem_isNonStock", @checked = "", @class = "toggle" })
+
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                        <tr><th style="padding: 5px 50px;">Order Quantity</th>
+                                        <td>
+                                            @Html.TextBoxFor(m => m.Chem_NonStockOrder, new { @class = "form-control placeholder-no-fix ", type = "text", autocomplete = "off", maxlength = "50", placeholder = "Order Qty", name = "Chem_NonStockOrder" })
+                                            @Html.ValidationMessageFor(m => m.Chem_NonStockOrder)
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <th><strong>2.  Replacement Chemical</strong></th>
+                                            <td>
+                                                <div class="make-switch" data-on="success" data-off="warning" data-on-label="&nbsp;YES&nbsp;" data-off-label="&nbsp;NO&nbsp;&nbsp;">
+
+                                                    @Html.CheckBoxFor(m => m.Chem_isReplacement, new { name = "Chem_isReplacement", @checked = "", @class = "toggle" })
+
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr><th style="padding: 5px 50px;">Details of chemical being replaced:</th>
+                                        <td>
+                                            @Html.TextBoxFor(m => m.Chem_ReplaceDetails, new { @class = "form-control placeholder-no-fix ", type = "text", autocomplete = "off", maxlength = "50", placeholder = "Details", name = "Chem_ReplaceDetails" })
+                                            @Html.ValidationMessageFor(m => m.Chem_ReplaceDetails)
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th><strong>3.  Temporary/Trial Chemical</strong></th>
+                                            <td>
+                                                <div class="make-switch" data-on="success" data-off="warning" data-on-label="&nbsp;YES&nbsp;" data-off-label="&nbsp;NO&nbsp;&nbsp;">
+
+                                                    @Html.CheckBoxFor(m => m.Chem_isTemp, new { name = "Chem_isTemp", @checked = "", @class = "toggle" })
+
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr><th style="padding: 5px 50px;">Order Quantity:</th>
+                                        <td>
+                                            @Html.TextBoxFor(m => m.Chem_TempOrder, new { @class = "form-control placeholder-no-fix ", type = "text", autocomplete = "off", maxlength = "50", placeholder = "Quantity", name = "Chem_TempOrder" })
+                                            @Html.ValidationMessageFor(m => m.Chem_TempOrder)
+                                            </td>
+                                        </tr>
+
+                                        <tr><th>Additional information:</th>
+                                        <td>
+                                            @Html.TextAreaFor(m => m.Chem_ExtraInfo, new { @class = "form-control placeholder-no-fix", type = "text", autocomplete = "off", maxlength = "500", rows = "2", placeholder = "Additional Info", name = "Chem_ExtraInfo" })
+                                            
+                                            </td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="margiv-top-10">
+                    <a data-toggle="modal" class="btn green" role="button" href="#modalSave" onclick="handleChemicalT();">Save Changes</a>
+
+                </div>
+                <div aria-hidden="true" aria-labelledby="myModalLabel3" role="dialog" tabindex="-1" class="modal fade" id="modalSave" style="display: none;">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button aria-hidden="true" data-dismiss="modal" class="close" type="button"></button>
+                                <h4 class="modal-title"> </h4>
+                            </div>
+                            <div class="modal-body">
+                                @*the value to be set when calling  initModT('Save');*@
+                            </div>
+                            <div class="modal-footer">
+                                <h5 class="modal-msg" style="display:none"> <span><img src='/assets/img/loading.gif'></span> </h5>
+                                <button aria-hidden="true" data-dismiss="modal" class="btn default">Close</button>
+                                <button type="submit" value="Save" class="btn green" id="fsbtn">
+                                    <i class="fa fa-save"></i>Save
+
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </fieldset>
+            <div id="register_tnc_error"></div>
+
+            }
+
+<script type="text/javascript">
+    
+
+                    jQuery(document).ready(function () {
+                        //function format(state) {
+                        //    if (!state.id) return state.text; // optgroup
+                        //    return "<img class='flag' src='/assets/img/flags/" + state.id.toLowerCase() + ".png'/>&nbsp;&nbsp;" + state.text;
+                        //}
+
+
+                        //$("#select2_sample4").select2({
+                        //    placeholder: '<i class="fa fa-map-marker"></i>&nbsp;Select a Country',
+                        //    allowClear: true,
+                        //    formatResult: format,
+                        //    formatSelection: format,
+                        //    escapeMarkup: function (m) {
+                        //        return m;
+                        //    }
+                        //});
+
+                        handleChemicalT();
+
+                    });
+
+                    function toggleUpload() {
+                        $('#rowupload').toggle(); $('#deflogoset').toggle(); $('#deflogo').toggle();
+
+                    }
+
+                    function initModT(type) {
+
+                        if (type == "Delete") {
+
+                            $('[id=modalDef]').find('[class=modal-title]').html("Delete");
+                            $('[id=modalDef]').find('[class=modal-body]').html(" Are you sure you want to Delete this record?</p>");
+
+                            $('#fbbtn').hide();
+                            $('#fdbtn').show();
+
+
+                        }
+
+                        if (type == "Ban") {
+
+                            $('[id=modalDef]').find('[class=modal-title]').html("Activation");
+                            $('[id=modalDef]').find('[class=modal-body]').html(" Are you sure you want to Deactivate this record?</p>");
+
+                            $('#fdbtn').hide();
+                            $('#fbbtn').show();
+                        }
+                        if (type == "Save") {
+                            $('[id=modalSave]').find('[class=modal-title]').html("Save");
+                            $('[id=modalSave]').find('[class=modal-body]').html(" Are you sure you want to Save this record?</p>");
+                            $('#fsbtn').show();
+                            $('#fdbtn').hide();
+                            $('#fbbtn').hide();
+                        }
+                    }
+
+
+
+                    var handleChemicalT = function InitValidate() {
+                        initModT('Save');
+
+                        $('#SubstanceName').maxlength({
+                            limitReachedClass: "label label-danger",
+                            alwaysShow: true
+                        });
+
+
+                        var form1 = $('#Define');
+                        var error1 = $('.alert-danger', form1);
+                        var success1 = $('.alert-success', form1);
+
+                        form1.validate({
+                            errorElement: 'span', //default input error message container
+                            errorClass: 'help-block', // default input error message class
+                            focusInvalid: false, // do not focus the last invalid input
+                            ignore: "",
+                            rules: {
+
+                                SubstanceName: {
+                                    required: true
+                                },
+                                DepartmentDesc: {
+                                    required: true
+                                },
+                                IsActive: {
+                                    required: false
+                                }
+
+
+                            },
+
+                            messages: { // custom messages for radio buttons and checkboxes
+                                IsActive: {
+                                    required: "Please Activate"
+                                },
+                                //DepartmentCountryId: {
+                                //    required: "<i class='fa fa-globe'></i>"
+
+                                //},
+
+
+                            },
+
+                            invalidHandler: function (event, validator) {
+
+                                $('[id=modalSave]').find('[class=modal-title]').html("Save");
+                                $('[id=modalSave]').find('[class=modal-body]').html("<div class='alert alert-warning '><span><i class='fa fa-warning'></i>Insuffeciant  Data</span><p> Please fill all required fields in a valid format.</p> </div>");
+                                $('#fsbtn').hide();
+
+
+                            },
+
+                            highlight: function (element) { // hightlight error inputs
+                                $(element)
+                                    .closest('.form-group').addClass('has-error'); // set error class to the control group
+                                //$("[class=modal-body]").html("   ");
+                                //  initModT('Save');// reset the modal so save mode
+                                error1.show();
+                                $('[id=modalSave]').find('[class=modal-title]').html("Save");
+                                $('[id=modalSave]').find('[class=modal-body]').html("<div class='alert-danger '><p><i class='fa fa-warning'></i> Insuffeciant  Data</p><p> Please fill all required fields in a valid format.</p> </div>");
+                                $('#fsbtn').hide();
+
+                            },
+
+                            success: function (label) {
+                                label.closest('.form-group').removeClass('has-error');
+                                label.remove();
+                                return true;
+                                //$('[id=modalSave]').find('[class=modal-title]').html("Save");
+                                //$('[id=modalSave]').find('[class=modal-body]').html(" Are you sure you want to save this record?</p>");
+                                //$('#fsbtn').show();
+
+                            },
+
+                            errorPlacement: function (error, element) {
+                                //below will write the error after the control
+                                //if (element.closest('.input-icon').size() === 1) {
+                                //    error.insertAfter(element.closest('.input-icon'));
+                                //} else {
+                                //    error.insertAfter(element);
+                                //}
+                                //below will write the error in tooltip
+                                var icon = $(element).parent('.input-icon').children('i');
+                                icon.removeClass('fa-check').addClass("fa-warning");
+                                icon.attr("data-original-title", error.text()).tooltip({ 'container': 'body' });
+                            },
+
+
+                            submitHandler: function (form) {
+                                $('[id=modalSave]').find('[class=modal-msg]').show();
+                                success1.show();
+                                error1.hide();
+                                form.submit();
+                            }
+                        });
+
+
+                    }
+
+
+</script>

@@ -1,0 +1,251 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutBasic.cshtml";
+}
+ 
+@*<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>*@
+    <script src="~/assets/tree/jquery-3.4.1.min.js"></script>
+<script src="~/assets/tree/jquery-ui.min.js"></script>
+ 
+@*<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.fancytree/2.20.0/jquery.fancytree-all.min.js"></script>*@ 
+<link href="~/assets/tree/src/skin-win8/ui.fancytree.css" rel="stylesheet">
+<script src="~/assets/tree/src/jquery.fancytree.js"></script>
+<script src="~/assets/tree/src/jquery.fancytree.edit.js"></script>
+@*<link href="~/assets/tree/sample.css" rel="stylesheet">
+<script src="~/assets/tree/sample.js"></script>*@
+
+<style type="text/css">
+
+ .icon-user {
+    color: grey;
+}
+
+.icon-leader {
+    color: #58CCED;
+}
+
+.icon-manager {
+    color: #1261A0;
+}
+
+.icon-admin {
+    color: #072F5F;
+}
+
+</style>
+<input type="hidden" value="@ViewBag.groupId" id="groupIdVal" />
+<script type="text/javascript">
+    var pId = -1;
+    var groupId = $("#groupIdVal").val();
+ 
+
+    var nParentGroupId = 2683;
+    $(document).ready(function () {
+        LoadTree();
+    });
+
+
+    function SaveTree() {
+        var nSerial = "00001";
+        var nParentGroupId = "2683";
+
+        var selectedList = $('#echoSelection3').text();
+
+        if (selectedList == null || selectedList == "") {
+            alert("must check atleast one or more user. ");
+        }
+        else {
+            $.post('/userTree/SaveTemplateTCheckTree', { serial: nSerial, parentGroupId: nParentGroupId, selectedIds: selectedList, isUpdate: false},
+                function (returnedData) {
+                    if (returnedData) {
+                        alert("Save Succcessfully");
+                    }
+                    else {
+                        alert("Failed to save");
+                    }
+
+                }).fail(function () {
+                    alert("Error on saving");
+                });
+        }
+    }
+
+    function LoadTree() {
+        // ---------------------------------------------------------------------
+        $("#btnDeselectAll3").click(function () {
+            $("#tree3").fancytree("getTree").visit(function (node) {
+                node.setSelected(false);
+            });
+            return false;
+        });
+        $("#btnSelectAll3").click(function () {
+            $("#tree3").fancytree("getTree").visit(function (node) {
+                node.setSelected(true);
+            });
+            return false;
+        });
+
+
+        $("#tree3").fancytree({
+            //selectMode: 3,
+            selectMode: 2,
+            checkbox: true,
+            source: { url: "/userTree/GetTemplateCheckTree?parentGroupId=" + nParentGroupId, cache: false },
+            init: function (event, data) {
+                data.tree.visit(function (n) {
+                    if (n.getLevel() == 1) {
+                        n.key = "G-" + n.key;
+                        n.setExpanded(true);
+                    }
+                    else {
+                        n.setExpanded(true);
+                        if (n.isFolder && n.lazy) {
+                            n.load();
+                        }
+                    }
+                });
+            },
+            lazyLoad: function (event, ctx) {
+                var groupId = -1;
+                ctx.node.visitParents(function (node) {
+                    if (node.getLevel() == 1) {
+                        groupId = Number(node.key.replace('G-', ''));
+                    }
+                   
+                   
+                }, true);
+                ctx.node.isExpanded = true;          
+                ctx.result = { url: "/userTree/GetSubTreeData?Node=" + ctx.node.key + "&groupId=" + groupId };              
+            },
+            loadChildren: function (event, ctx) {  
+                var node = ctx.node;
+                $(node.children).each(function () {
+                    node.setExpanded(true);
+                    if (this.lazy) {
+                        this.load();
+                    }
+                });
+            },
+            icon: function (event, data) {
+                var node = data.node;              
+                if (node.data.userRole == 0) {
+                    return "fa fa-circle icon-admin";
+                }
+                else if (node.data.userRole == 1) {
+                    return "fa fa-circle icon-user";
+                }
+                else if (node.data.userRole == 2) {
+                    return "fa fa-circle icon-leader";
+                }
+                else if (node.data.userRole == 3) {
+                    return "fa fa-circle icon-manager";
+                }
+
+               
+            },
+            beforeSelect: function(event, data){
+                var node = data.node;
+                if (data.node.getLevel() == 1) {
+                    if (!node.isSelected()) {
+                                node.visit(function (childNode) {
+                                    childNode.setSelected(true);
+                                });
+                            }
+                            else {
+                                node.visit(function (childNode) {
+                                    childNode.setSelected(false);
+                                });
+                            }
+                }
+                else {                    
+                    if (!node.isSelected()) {
+                        node.visitParents(function (parentNode) {                        
+                            if (parseInt(parentNode.getLevel()) > 1) {
+                                if (!parentNode.isSelected()) {
+                                    parentNode.setSelected(true);
+                                }                              
+                            }
+                        });
+                    }
+                    else {
+                     
+                    }           
+                }  
+            },
+            select: function (event, data) {
+                var groupId = -1;           
+                var selKeys = $.map(data.tree.getSelectedNodes(), function (node) {
+                    node.visitParents(function (node) {
+                        if (node.getLevel() == 1) {
+                            groupId = Number(node.key.replace('G-', '')); // just remove the G-
+                        }
+                                            
+                    }, true);
+                    return node.key + ":" + groupId;
+                });
+                $("#echoSelection3").text(selKeys.join(", "));
+                
+          
+                var partsel = new Array();
+                $(".fancytree-partsel:not(.fancytree-selected)").each(function () {
+                    var node = $.ui.fancytree.getNode(this);
+                    if (node.key.substring(0, 1) != "G") {
+
+                        var gId = 0;
+                        node.visitParents(function (node) {
+                            if (node.getLevel() == 1) {
+                                gId = Number(node.key.replace('G-', '')); // just remove the G-
+                            }
+                        }, true);
+
+                        partsel.push("M-" + node.key + ":" + gId);
+                    }               
+                });
+                selKeys = selKeys.concat(partsel);
+                $('#echoSelection3').text(selKeys.join(", "));
+              
+
+
+                var selRootNodes = data.tree.getSelectedNodes(true);         
+                var selRootKeys = $.map(selRootNodes, function (node) {
+                    return node.key;
+                });
+                $("#echoSelectionRootKeys3").text(selRootKeys.join(", "));
+            },
+            cookieId: "fancytree-Cb3",
+            idPrefix: "fancytree-Cb3-",
+
+        });
+
+
+
+    }
+</script>
+
+
+<div class="example">
+    <h1>Tree Checkbox</h1>
+    @*<div>
+        <label for="skinswitcher">Skin:</label> <select id="skinswitcher"></select>
+    </div>*@
+    <!-- Tree #3 -->
+    <p>
+        <a href="#" class="btn  btn-info btn-xs   " id="btnSelectAll3"  >Select all</a>-
+        <a href="#" class="btn  btn-default btn-xs   " id="btnDeselectAll3"  >Deselect all</a>
+             
+    </p>
+    <div id="tree3"></div>
+    <div>Selected keys: <span id="echoSelection3">-</span></div>
+    <div>Selected root keys: <span id="echoSelectionRootKeys3">-</span></div>
+
+    <div>Partcel keys: <span id="textField">-</span></div>
+    
+   
+
+    <!-- 	<div>Selected root nodes: <span id="echoSelectionRoots3">-</span></div> -->
+    @*<p id="sampleButtons">*@
+    <a class="btn btn-success" onclick="SaveTree();">Save Tree</a>
+
+</div>
+
+
+

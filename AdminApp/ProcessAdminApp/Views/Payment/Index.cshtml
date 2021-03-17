@@ -1,0 +1,246 @@
+﻿@model Hydron.Models.Definitions.PayRegRequestModel
+
+<script src="~/Scripts/jquery-1.8.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/assets/scripts/plugins.bundle.js"></script>
+
+<link rel="stylesheet" type="text/css" href="~/assets/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.css" />
+<link rel="stylesheet" type="text/css" href="~/assets/plugins/bootstrap-markdown/css/bootstrap-markdown.min.css">
+<link href="~/assets/css/style.bundle.css" rel="stylesheet" />
+
+@{ int status = ViewBag.Status;}
+
+
+@using (Html.BeginForm("Index", "Payment", FormMethod.Post, new { enctype = "multipart/form-data", id = "kt_form_2" }))
+{@Html.AntiForgeryToken()
+@Html.ValidationSummary(true)
+
+<fieldset>
+    <div class="card card-custom gutter-b">
+        <!--begin::Header-->
+        <div class="card-header flex-wrap border-0 pt-6 pb-0">
+            <h3 class="card-title align-items-start flex-column">
+                <span class="card-label font-weight-bolder font-size-h3 text-dark">My Cart</span>
+            </h3>
+            
+        </div>
+        <!--end::Header-->
+        <div class="card-body">
+            <!--begin::Shopping Cart-->
+            <div class="table-responsive">
+                <table class="table">
+                    <!--begin::Cart Header-->
+                    <thead>
+                        <tr>
+                            <th>NOC</th>
+                            <th class="text-center">Qty</th>
+                            <th class="text-right">Price</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <!--end::Cart Header-->
+                    <tbody>
+                        <!--begin::Cart Content-->
+                        <tr>
+                            <td class="d-flex align-items-center font-weight-bolder">
+                                <!--begin::Symbol-->
+                                <div class="symbol symbol-60 flex-shrink-0 mr-4 bg-light">
+                                    <div class="symbol-label" style="background-image: url('https://www.pngitem.com/pimgs/m/81-815388_document-icon-png-transparent-png.png')"></div>
+                                </div>
+                                <!--end::Symbol-->
+                                <a href="#" class="text-dark text-hover-primary">NOC 00001 - Certification</a>
+                            </td>
+                            <td class="text-center align-middle">
+                                <a href="javascript:;" class="btn btn-xs btn-light-success btn-icon mr-2">
+                                    <i class="ki ki-minus icon-xs"></i>
+                                </a>
+                                <span class="mr-2 font-weight-bolder">1</span>
+                                <a href="javascript:;" class="btn btn-xs btn-light-success btn-icon">
+                                    <i class="ki ki-plus icon-xs"></i>
+                                </a>
+                            </td>
+                            <td class="text-right align-middle font-weight-bolder font-size-h5">AED 90.00</td>
+
+                            @if (status == -1)
+                            {
+
+                                <td class="text-right align-middle">
+                                    <a href="#" class="btn btn-danger font-weight-bolder font-size-sm">Remove</a>
+                                </td>
+                            }
+                            else if (status == 0)
+                            {                             
+                                <td class="text-right align-middle">
+                                    <a href="#" class="btn green font-weight-bolder font-size-sm">Download NOC</a>
+                                </td>
+                            }
+
+
+                        </tr>
+                        <!--end::Cart Content-->
+                        <!--begin::Cart Footer-->
+                        <tr>
+                            <td colspan="2"></td>
+                            <td class="font-weight-bolder font-size-h4 text-right">Subtotal</td>
+                            <td class="font-weight-bolder font-size-h4 text-right">AED 90.00</td>
+                        </tr>
+                        <tr>
+                            <td colspan="4" class="border-0 text-muted text-right pt-0">Excludes Vat.</td>
+                        </tr>
+                        <tr>
+                            @if (status == -1)
+                            {
+                                <td colspan="4" class="border-0 text-right pt-10">
+                                    <button type="submit" class="btn btn-info font-weight-bolder px-8">Proceed to Checkout</button>
+                                </td>
+                            }
+                            
+
+                        </tr>
+                        <!--end::Cart Footer-->
+                    </tbody>
+                </table>
+            </div>
+            <!--end::Shopping Cart-->
+        </div>
+        @{
+
+
+            switch (status)
+            {
+
+                case -1:
+
+                    break;
+
+                case 0:
+                    <div class="alert alert-success mb-5 p-5" role="alert">
+                        <h2 class="alert-heading">Payment Success</h2>
+                        <div class="border-bottom border-white opacity-20 mb-5"></div>
+                        <p class="mb-0">Payment Transaction has been completed.</p>
+                    </div>
+                    break;
+
+
+
+                case 51:
+                    <div class="alert alert-warning mb-5 p-5" role="alert">
+                        <h2 class="alert-heading">
+                            Not Sufficient Fund
+                        </h2>
+                        <div class="border-bottom border-white opacity-20 mb-5"></div>
+                        <p class="mb-0">Payment Transaction has been aborted.</p>
+                    </div>
+                    break;
+
+
+                case 5:
+                    <div class="alert alert-danger mb-5 p-5" role="alert">
+                        <h2 class="alert-heading">
+                            Do not Honor
+                        </h2>
+                        <div class="border-bottom border-white opacity-20 mb-5"></div>
+                        <p class="mb-0">Payment Transaction has been aborted.</p>
+                    </div>
+                    break;
+
+                default:
+                    <div class="alert alert-danger mb-5 p-5" role="alert">
+                        <h2 class="alert-heading">
+                            Failed
+                        </h2>
+                        <div class="border-bottom border-white opacity-20 mb-5"></div>
+                        <p class="mb-0">Payment Transaction has been failed.</p>
+                    </div>
+                    break;
+            }
+
+        }
+    </div>
+
+
+
+
+
+
+
+
+
+</fieldset>
+
+}
+
+
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        FormValidation.formValidation(
+            document.getElementById('kt_form_2'),
+            {
+                fields: {
+                    //CardHolderName: {
+                    //    validators: {
+                    //        notEmpty: {
+                    //            message: 'Card Holder Name is required'
+                    //        }
+                    //    }
+                    //},
+                    CardNumber: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Credit card number is required'
+                            },
+                            creditCard: {
+                                message: 'The credit card number is not valid'
+                            }
+                        }
+                    },
+                    ExpMonth: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Expiry Month is required'
+                            }
+                        }
+                    },
+                    ExpYear: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Expiry Year is required'
+                            }
+                        }
+                    },
+                    Cvv: {
+                        validators: {
+                            notEmpty: {
+                                message: 'CVV is required'
+                            },
+                            digits: {
+                                message: 'The CVV velue is not a valid digits'
+                            }
+                        }
+                    },
+
+                },
+
+                plugins: {
+                    trigger: new FormValidation.plugins.Trigger(),
+                    // Validate fields when clicking the Submit button
+                    submitButton: new FormValidation.plugins.SubmitButton(),
+                    // Submit the form when all fields are valid
+                    defaultSubmit: new FormValidation.plugins.DefaultSubmit(),
+                    // Bootstrap Framework Integration
+                    bootstrap: new FormValidation.plugins.Bootstrap({
+                        eleInvalidClass: '',
+                        eleValidClass: '',
+                    })
+                }
+            }
+        );
+    });
+
+
+
+
+</script>

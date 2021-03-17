@@ -1,0 +1,531 @@
+﻿
+
+@model Hydron.Models.Definitions.ReportModel
+
+
+     
+<link rel="stylesheet" href="~/assets/plugins/data-tables/DT_bootstrap.css" />
+<link href="assets/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<link href="~/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+<link href="~/assets/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css" />
+<!-- END GLOBAL MANDATORY STYLES -->
+<!-- BEGIN THEME STYLES -->
+<link href="~/assets/css/print.css" rel="stylesheet" type="text/css" media="print" />
+<link href="~/assets/css/style-metronic.css" rel="stylesheet" type="text/css" />
+<link href="~/assets/css/style.css" rel="stylesheet" type="text/css" />
+<link href="~/assets/css/style-responsive.css" rel="stylesheet" type="text/css" />
+<link href="~/assets/css/plugins.css" rel="stylesheet" type="text/css" />
+
+<link href="~/assets/css/pages/invoice.css" rel="stylesheet" type="text/css" />
+<link href="~/assets/css/custom.css" rel="stylesheet" type="text/css" />
+
+
+
+
+<div class="page-body col-md-12 ">
+    
+    <!-- BEGIN PAGE HEADER-->
+    
+    <!-- END PAGE HEADER-->
+    <!-- BEGIN PAGE CONTENT-->
+    <div class="invoice">
+        
+        <div class="row invoice-logo">
+            <div class="col-xs-4 invoice-logo-space"><img src="~/assets/img/invoice/Snoc_Logo.jpg" style="height: 120px; width: auto;" />  </div>
+            <div class="col-xs-4">
+                
+                <h2 style="text-align: center;">@Model.ReportName</h2>
+            </div>
+           
+            <div class="col-xs-4">
+                <p>@DateTime.Now <span class="muted">Print/Export</span></p>
+            </div>
+        </div>
+        <hr />
+       
+        <div class="row">
+            <div class="col-xs-12">
+
+
+
+                <div class="col-md-12 profile-info">
+                    <h3>@Model.ProcessMaster.Serial</h3>
+
+
+                    <h4 class="form-section"><span class="label label-primary pull-right"><i class="fa fa-circle"></i> @Model.ProcessMaster.PeriodTypeText </span> Title: @Model.ProcessMaster.Title</h4>
+
+
+                    <div class="news-blocks">
+
+
+                        <h3> Description </h3>
+                        <div class="news-block-tags">
+                            <strong>Sajaa Asset</strong>
+                            <em>@Model.ProcessMaster.DateSubmitted</em>
+                        </div>
+                        <p class="editable-pre-wrapped">
+                            @Model.ProcessMaster.Description
+                        </p>
+
+
+                        <ul class="list-inline">
+                            <li title="Equipment"> Equipments:<i class="fa fa-wrench "></i><span class="list-inline sidebar-tags2">@Model.ProcessMaster.EquipmentTag</span></li>
+                        </ul>
+
+                        <ul class="list-inline">
+                            <li title="reference"> References:<i class="fa fa-tags"></i>@Model.ProcessMaster.RefProcessNo </li>
+                        </ul>
+
+                    </div>
+
+
+
+                    <div class="well">
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <div class="card" style="width: auto;">
+                                    <div class="card-header">
+                                        <h4>Submitter</h4>
+                                    </div>
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item">@Model.ProcessMaster.OwnerName</li>
+                                        <li class="list-group-item"><i class="fa fa-envelope"></i>@Model.ProcessMaster.OwnerEmail</li>
+                                        <li class="list-group-item"><i class="fa fa-calendar"></i>@Model.ProcessMaster.DateSubmitted</li>
+                                    </ul>
+                                </div>
+
+                                @*<h4 class="form-section">Submitter</h4>
+                        <div class="profile-info">
+                            <h4>@Model.ProcessMaster.OwnerName </h4>
+
+                            <p><div><i class="fa fa-envelope"></i> @Model.ProcessMaster.OwnerEmail</div></p>
+                            <ul class="list-inline">
+                                <li><i class="fa fa-calendar"></i>@Model.ProcessMaster.DateSubmitted</li>
+
+
+                            </ul>
+                        </div>*@
+                            </div>
+                            <div class="col-xs-4">
+
+                                <div class="card" style="width: auto;">
+                                    <div class="card-header">
+                                        <h4>Responsible</h4>
+                                    </div>
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item">@Model.ProcessMaster.COwnerName</li>
+                                        <li class="list-group-item"><i class="fa fa-envelope"></i>@Model.ProcessMaster.COwnerEmail</li>
+                                        <li class="list-group-item"><i class="fa fa-calendar"></i>@Model.ProcessMaster.DateModified</li>
+                                    </ul>
+                                </div>
+
+                                @*<h4 class="form-section">Responsible</h4>
+
+                        <div class="profile-info">
+                            <h4>@Model.ProcessMaster.COwnerName </h4>
+
+                            <p><div><i class="fa fa-envelope"></i> @Model.ProcessMaster.COwnerEmail</div></p>
+                            <ul class="list-inline">
+                                <li><i class="fa fa-calendar"></i>@Model.ProcessMaster.DateModified</li>
+
+
+                            </ul>
+                        </div>*@
+
+
+
+
+
+                            </div>
+                            <div class="col-xs-4">
+
+                                <div class="card" style="width: auto;">
+                                    <div class="card-header">
+                                        <h4>Reviewer</h4>
+                                    </div>
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item">@Model.ProcessMaster.ReviewerName</li>
+                                        <li class="list-group-item"><i class="fa fa-envelope"></i>@Model.ProcessMaster.ReviewerEmail</li>
+                                        <li class="list-group-item"><i class="fa fa-calendar"></i>@Model.ProcessMaster.DateReviewed</li>
+                                    </ul>
+                                </div>
+                                @*<h4 class="form-section">Reviewer</h4>
+
+                        <div class="profile-info">
+
+                            <h4>@Model.ProcessMaster.ReviewerName </h4>
+
+                            <p><div><i class="fa fa-envelope"></i> @Model.ProcessMaster.ReviewerEmail</div></p>
+                            <ul class="list-inline">
+                                <li><i class="fa fa-calendar"></i>@Model.ProcessMaster.DateReviewed</li>
+
+
+                            </ul>
+                        </div>*@
+
+
+
+
+
+                            </div>
+
+                        </div>
+                    </div>
+                    <div id="moreD" class="well" style="">
+
+                        <h4 class="">Details</h4>
+
+
+                        <div class="row ">
+                            <div class="col-xs-4">
+                                <div class="well-small">
+                                    <table class="table  table-striped table-hover" style="font-size: 12px;">
+
+                                        <tbody>
+                                            <tr>
+                                                <td><i class="fa fa-check-circle-o"></i><label class="control-label">Status:</label></td>
+                                                <td>
+                                                    @if (@Model.ProcessMaster.IsActive)
+                                                    {
+                                                        <span class="label label-sm label-success">Active</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="label label-sm label-default">Inactive</span>
+                                                    }
+                                                </td>
+
+                                            </tr>
+                                            <tr>
+                                                <td><i class="fa fa-check-circle-o"></i><label class="control-label">Posted:</label></td>
+                                                <td>
+                                                    @if (@Model.ProcessMaster.IsPosted == 200)
+                                                    {
+                                                        <span class="label label-sm label-success">YES</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="label label-sm label-default">NO</span>
+                                                    }
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><i class="fa fa-arrow-down"></i><label class="control-label">Number: </label></td>
+                                                <td>@Model.ProcessMaster.Number</td>
+                                            </tr>
+
+                                            <tr>
+                                                <td><i class="fa fa-arrow-down"></i><label class="control-label">Serial: </label></td>
+                                                <td>@Model.ProcessMaster.Serial </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td><i class="fa fa-arrow-circle-up"></i><label class="control-label">Score:</label></td>
+                                                <td>@Model.ProcessMaster.StatusPercent</td>
+
+                                            </tr>
+                                            <tr>
+                                                <td><i class="fa fa-question-circle"></i><label class="control-label">Flow:</label> </td>
+                                                <td>@Model.ProcessMaster.FlowAbbr</td>
+                                            </tr>
+                                            <tr>
+                                                <td><i class="fa fa-quote-left"></i><label class="control-label">Work Flow:</label></td>
+                                                <td>@Model.ProcessMaster.FlowName</td>
+                                            </tr>
+
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="well-small">
+                                    <table class="table  table-striped table-hover" style="font-size: 12px;">
+                                        <tbody>
+                                            <tr>
+                                                <td><i class="fa fa-circle"></i><label class="control-label ">Project:</label></td>
+                                                <td><span class=""><i class="fa fa-briefcase"></i> @Model.ProcessMaster.ProjectTitle</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td><i class="fa fa-circle"></i><label class="control-label ">Period:</label></td>
+                                                <td><span class="label label-sm @Model.ProcessMaster.PeriodTypeClass">  @Model.ProcessMaster.PeriodTypeText</span></td>
+
+                                            </tr>
+                                            <tr>
+                                                <td><i class="fa fa-flag"></i><label class="control-label ">Priority:</label></td>
+                                                <td><span class="label label-sm @Model.ProcessMaster.PriorityClass">@Model.ProcessMaster.PriorityName</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td><i class="fa fa-warning"></i><label class="control-label">Complexity:</label></td>
+                                                <td><span class="label label-sm @Model.ProcessMaster.ComplexityClass"> @Model.ProcessMaster.Complexityname</span></td>
+                                            </tr>
+
+                                            <tr>
+                                                <td><i class="fa fa-dollar"></i><label class="control-label">Cost Range: </label></td>
+                                                <td>@Model.ProcessMaster.CostRangeName</td>
+                                            </tr>
+                                            @if (@Model.ProcessMaster.CostBasic > 0 && @Model.ProcessMaster.CostBasic != null)
+                                            {
+                                                <tr>
+                                                    <td><i class="fa fa-dollar"></i><label class="control-label">Cost: </label> </td>
+                                                    <td>@Model.ProcessMaster.CostBasic</td>
+                                                </tr>
+                                            }
+
+                                            <tr>
+                                                <td><i class="fa fa-map-marker"></i><label class="control-label">Location:</label> </td>
+                                                <td>
+                                                    @Model.ProcessMaster.LocationName
+
+                                                    @if (@Model.ProcessMaster.SubLocationName != null && @Model.ProcessMaster.SubLocationName.Length > 0)
+                                                    {
+                                                        <i class="fa fa-location-arrow"></i>@Model.ProcessMaster.SubLocationName
+
+                                                    }
+                                                            <
+                                                        </td>
+
+
+
+                                                    </tr>
+                                                    <tr>
+                                                        <td><i class="fa fa-th"></i><label class="control-label">Category:</label> </td>
+                                                        <td>
+                                                            @Model.ProcessMaster.CategoryName
+                                                            @if (@Model.ProcessMaster.SubCategoryName != null && @Model.ProcessMaster.SubCategoryName.Length > 0)
+                                                            {
+                                                                <i class="fa fa-crosshairs"></i>@Model.ProcessMaster.SubCategoryName
+                                                            }
+
+
+                                                        </td>
+
+
+                                                    </tr>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <div class="well-small">
+                                            <table class="table  table-striped table-hover" style="font-size: 12px;">
+                                                <tbody>
+                                                    <tr>
+                                                        <td><span class="sale-info "><label class="control-label">Status</label></span> </td>
+                                                        <td>
+                                                            <span class="pull-right badge label-sm @Model.ProcessMaster.FStausClass">@Model.ProcessMaster.FStauseText</span>
+                                                            @if (@Model.ProcessMaster.FStauseText == "Completed" && @Model.ProcessMaster.StatusPercent <= 99)
+                                                            {
+                                                                <span title="" class="badge badge-danger tooltips" data-original-title="Rejected or Failed">x</span>
+                                                            }
+                                                            else if (@Model.ProcessMaster.FStauseText == "Completed" && @Model.ProcessMaster.StatusPercent >= 100)
+                                                            {
+
+                                                                <span class="badge badge-danger tooltips" data-original-title="Healthy"><i class="fa fa-check"></i></span>
+                                                            }
+
+                                                        </td>
+
+
+                                                    </tr>
+                                                    <tr>
+                                                        <td><span class="sale-info"><label class="control-label">Progress</label> <i class="fa fa-calendar"></i></span></td>
+                                                        <td>
+                                                            <div class="progress progress-striped" style="margin-bottom: 0px;">
+                                                                <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="@Model.ProcessMaster.StatusPercent" class="progress-bar progress-bar-primary" style="width: @Model.ProcessMaster.StatusPercent%;">
+                                                                    <span class="sr -only">@Model.ProcessMaster.StatusPercent %</span>
+                                                                </div>
+                                                            </div>
+
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><span class="sale-info"><label class="control-label">Stage</label> <i class="fa fa-circle"></i></span></td>
+                                                        <td><span class="label label-primary pull-right"> <label class="control-label"> @Model.ProcessMaster.ActiveStage</label></span></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><span class="sale-info"><label class="control-label">Date Created</label> <i class="fa fa-calendar"></i></span></td>
+                                                        <td><span class="sale-num">@Model.ProcessMaster.DateCreated</span></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><span class="sale-info"><label class="control-label">Date Modified </label><i class="fa fa-calendar"></i></span></td>
+                                                        <td><span class="sale-num"> @Model.ProcessMaster.DateModified</span></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><span class="sale-info"><label class="control-label">Date Closed</label> <i class="fa fa-calendar"></i></span></td>
+                                                        <td><span class="sale-num">@Model.ProcessMaster.DateClosed</span></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td></td>
+                                                        <td></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
+
+
+
+
+
+
+
+
+                            </div>
+                            @*<h4 class="form-section">Project</h4>*@<h4 class="form-section"></h4>
+
+                    <h4 class="">Assessments</h4>
+                    <div class="row">
+                        <div class="col-xs-6">
+                           
+                        </div>
+
+                        <div class="col-xs-6">
+
+                        </div>
+
+                    </div>
+
+                   <hr />
+
+
+
+
+
+
+
+
+
+            </div>
+         
+
+                                <div class="row ">
+                                    <div class="col-xs-6">
+
+
+                                        <div class="well-small">
+
+                                            <h4>Report Details:</h4>
+                                            <table class="table  table-striped table-hover" style="font-size: 10px;">
+
+                                                <tbody>
+                                                    <tr>
+                                                        <td>Report Name:</td>
+                                                        <td>@Model.ReportName</td>
+
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Report Date:</td>
+                                                        <td>@Model.ReportDate</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>User Name:</td>
+                                                        <td>@Model.PrinterUser</td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td>Process:</td>
+                                                        <td>@Model.ProcessMaster.FlowName  </td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td>Project:</td>
+                                                        <td>@Model.ProcessMaster.ProjectTitle</td>
+
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Workspace:</td>
+                                                        <td>@Model.ProcessMaster.WorkSpaceTitle </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Unit:</td>
+                                                        <td>@Model.ProcessMaster.BUnitName</td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td>Region:</td>
+                                                        <td>@Model.ProcessMaster.DivName </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Company:</td>
+                                                        <td>@Model.ProcessMaster.ComName </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            @*<ul class="list-unstyled">
+                                        <li>Report Name:<strong> @Model.ReportName</strong> </li>
+                                        <li>Report Date:<strong> @Model.ReportDate </strong> </li>
+                                        <li>User Name:<strong> @Model.PrinterUser </strong> </li>
+
+                                        <li>Process:<strong>@Model.ProcessMaster.FlowName  </strong> </li>
+                                        <li>Project:<strong> @Model.ProcessMaster.ProjectTitle </strong> </li>
+                                        <li>Workspace:<strong> @Model.ProcessMaster.WorkSpaceTitle </strong> </li>
+                                        <li>Unit:<strong> @Model.ProcessMaster.BUnitName </strong> </li>
+                                        <li>Region:<strong> @Model.ProcessMaster.DivName </strong> </li>
+                                        <li>Company:<strong> @Model.ProcessMaster.ComName </strong> </li>
+                                    </ul>*@<ul class="list-unstyled">
+                                                <li><strong></strong></li>
+                                                <li><strong></strong></li>
+                                                <li><strong></strong></li>
+
+                                                <li><strong></strong></li>
+                                                <li><strong></strong></li>
+                                                <li><strong></strong></li>
+                                                <li><strong></strong></li>
+                                                <li><strong></strong></li>
+                                                <li><strong></strong></li>
+                                            </ul>
+                                        </div>
+
+
+
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+        
+        <hr />
+        <div class="row">
+            <div class="col-xs-4">
+                <div class="well">
+                    <address>
+                        @*<strong>Loop, Inc.</strong><br />
+                        795 Park Ave, Suite 120<br />
+                        San Francisco, CA 94107<br />
+                        <abbr title="Phone">P:</abbr> (234) 145-1810*@
+                    </address>
+                    <address>
+                        @*<strong>User</strong><br />
+                        <div>@Model.PrinterUser</div>*@
+                    </address>
+                </div>
+            </div>
+
+            <div class="col-xs-8 invoice-block ">
+                <ul class="list-unstyled amounts">
+                    @*<li><strong>Records Count:</strong> @Model.reportlistProcess.Count</li>*@
+                    @*<li><strong>Discount:</strong> 12.9%</li>
+                    <li><strong>VAT:</strong> -----</li>
+                    <li><strong>Grand Total:</strong> $12489</li>*@
+                </ul>
+                <br />
+                <a class="btn btn-lg blue hidden-print" onclick="javascript:window.print();">Print <i class="fa fa-print"></i></a>
+                <a class="btn btn-lg green hidden-print">Export <i class="fa fa-check"></i></a>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.debug.js"></script>
+<script type="text/javascript">
+
+    
+</script>

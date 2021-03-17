@@ -1,0 +1,169 @@
+﻿@model Hydron.Models.Definitions.CommandLockupModel
+
+<script src="~/Scripts/jquery-1.8.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<link href="~/assets/plugins/bootstrap-fileupload/bootstrap-fileupload.css" rel="stylesheet" />
+
+<link rel="stylesheet" type="text/css" href="~/assets/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.css" />
+<link rel="stylesheet" type="text/css" href="~/assets/plugins/bootstrap-markdown/css/bootstrap-markdown.min.css">
+@{
+
+   
+    
+    ViewBag.linkname = "Business Tree";
+    ViewBag.linkurl = "BusinessTree";
+    ViewBag.linkicon = "fa-sitemap";
+    
+    ViewBag.linkname2 = "CommandLockup";
+    ViewBag.linkurl2 = "CommandLockupList";
+    ViewBag.linkicon2 = "fa-list";
+
+
+
+    ViewBag.Title = "CommandLockup";
+    ViewBag.linkname3 = "CommandLockup";
+    ViewBag.linkurl3 = "Define?rid=" + @Model.Id + "&vw=r";
+    ViewBag.linkicon3 = "fa-building";
+
+
+}
+
+
+@section NotifyDocumentReady {
+
+
+    showtoasteralert('@TempData["flag"]','@TempData["title"]','@TempData["statusMsg"]',  this);
+
+}
+
+@{bool isnew = true; if (Model.Id > 0) { isnew = false; }}
+
+<div class=" portlet box light-grey">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-building"></i>@ViewBag.Title @ViewBag.Message
+        </div>
+        <div class="actions">
+
+            <div class="btn-group">
+                @{if (isnew)
+                    {  <a data-toggle="dropdown" href="#" class="btn btn-sm blue">
+                    <i class="fa fa-edit"></i> New Record <i class="fa fa-pencil"></i>
+                </a>}
+                    else
+                    {
+                        <a data-toggle="dropdown" href="#" class="btn btn-sm green">
+                            <i class="fa fa-gear"></i> Manage <i class="fa fa-angle-down"></i>
+                        </a>
+
+                        <ul class="dropdown-menu pull-right ">
+                            <li>
+                                @*<a   href="~/Department/Define?uId=@Model.DepartmentId&vw=e">
+                                        <i class="fa fa-pencil"></i>  Edit
+
+                                    </a>*@
+                                <a href="#" onclick="swichmode(this,'#diveditmod', '#divreadmod');"><i class="fa fa-pencil"></i>  Edit</a>
+                                @*  @Ajax.ActionLink("Edit", "_Edit", "Department", new { uId = Model.DepartmentId, vw = "e" }, new AjaxOptions() { HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "div-def" }, new { @class = "btn default btn-xs purple-stripe" })|*@
+                            </li>
+
+
+                            <li>
+                                @*<a   href="~/Department/Define?uId=@Model.DepartmentId&vw=r">
+                                        <i class="fa fa-eye"></i>  Read
+
+                                    </a>*@
+                                <a href="#" onclick="swichmode( this,'#divreadmod','#diveditmod');"><i class="fa fa-eye"></i>  Read</a>
+                                @* @Ajax.ActionLink("Edit", "_Read", "Department", new { uId = Model.DepartmentId, vw = "r" }, new AjaxOptions() { HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "div-def" }, new { @class = "btn default btn-xs purple-stripe" })|*@
+                            </li>
+                            <li class="divider">
+                            <li>
+                                @{if (Model.IsActive == false)
+                                    {  <a data-toggle="modal" role="button" href="#modalDef" onclick="initModT('Ban');"><i class="fa fa-pencil"></i> Activate</a>}
+                                    else
+                                    { <a data-toggle="modal" role="button" href="#modalDef" onclick="initModT('Ban');"><i class="fa fa-ban"></i> Dectivate</a> }}
+
+                            </li>
+                            <li>
+                                @*<a href="~/Department/Delete?uId=@Model.DepartmentId" onclick="confirm('Are you sure you want to delete this Record'); return true;">
+                                        <i class="fa fa-trash-o"></i> Delete
+                                    </a>*@
+
+                                <a data-toggle="modal" role="button" href="#modalDef" onclick="initModT('Delete');"><i class="fa fa-trash-o"></i> Delete</a>
+                            </li>
+
+                        </ul>
+                                    }}
+            </div>
+
+        </div>
+    </div>
+
+
+    <div class="portlet-body" id="div-def">
+
+        <div aria-hidden="true" aria-labelledby="myModalLabel3" role="dialog" tabindex="-1" class="modal fade" id="modalDef" style="display: none;">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button aria-hidden="true" data-dismiss="modal" class="close" type="button"></button>
+                        <h4 class="modal-title"> </h4>
+                    </div>
+                    <div class="modal-body">
+                        @*the value to be set when calling  initModT('Save');*@
+                    </div>
+                    <div class="modal-footer">
+                        <h5 class="modal-msg" style="display:none"> <span><img src='/assets/img/loading.gif'></span> </h5>
+                        <button aria-hidden="true" data-dismiss="modal" class="btn default">Close</button>
+                        <a class="btn red" href="~/CommandLockup/Delete?rId=@Model.Id" id="fdbtn" onclick="showWait();">
+                            <i class=" fa fa-trash-o">
+                            </i> Delete
+                        </a>
+                        @{if (Model.IsActive == false)
+                            {
+                                <a class="btn blue" href="~/CommandLockup/Deactivate?rId=@Model.Id&val=true" id="fbbtn" onclick="showWait();">
+                                    <i class="fa fa-pencil"></i> Activate
+                                </a>
+                            }
+                            else
+                            {   <a class="btn yellow" href="~/CommandLockup/Deactivate?rId=@Model.Id&val=false" id="fbbtn" onclick="showWait();">
+                            <i class="fa fa-ban"></i> Deactivate
+                        </a>}}
+
+                        @*<button type="submit" value="Save" class="btn green" id="fsbtn">
+                                <i class="fa fa-save"></i>Save
+                            </button>*@
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @{
+            @*if (Model.DepartmentId <= 0)
+                {<div id="diveditmod" style="display:block">@Html.Partial("_Edit", Model)</div><div id="divreadmod" style="display:none">@Html.Partial("_Read", Model)</div>
+                }*@
+        if (Model.ReadEdit == "e")//e =edit, r= read
+        {<div id="diveditmod" style="display:block">@Html.Partial("_Edit", Model)</div><div id="divreadmod" style="display:none">@Html.Partial("_Read", Model)</div>}
+            else
+            { <div id="diveditmod" style="display:none">@Html.Partial("_Edit", Model)</div><div id="divreadmod" style="display: block">@Html.Partial("_Read", Model)</div>}
+        }
+
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    function showWait() { $('[id=modalDef]').find('[class=modal-msg]').show(); };
+    function swichmode(e, divsh, divhi) {
+        var el = jQuery(e).closest(".portlet").children(".portlet-body");
+        App.blockUI(el);
+        window.setTimeout(function () {
+            App.unblockUI(el);
+        }, 1000);
+        $(divsh).show();
+        $(divhi).hide();
+
+    }
+
+
+</script>

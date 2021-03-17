@@ -1,0 +1,89 @@
+﻿@model Hydron.Models.Definitions.NotificationPriority_LockupModel
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-10 profile-info">
+
+
+                <h1 class="form-section">@Model.Prioirity</h1>
+
+
+                <ul class="list-unstyled">
+                    <li>
+                        <i class="fa fa-check-circle-o"></i><label class="control-label">Status:</label><a href="#">
+                            @switch (Model.IsActive)
+                            {
+                                case true: <span class="label label-sm label-success">Active</span>
+                                    break;
+                                case false: <span class="label label-sm label-warning">Not Active</span>
+                                    break;
+                            }
+                        </a>
+                    </li>
+                    
+                    
+                    <li><i class="fa fa-calendar"></i><label class="control-label">Description:</label> @Model.Description</li>
+                    <li><i class="fa fa-calendar"></i><label class="control-label">Icon:</label> @Model.Icon</li>
+                   
+                    <li><i class="fa fa-building"></i><label class="control-label">Icon Class: </label> @Model.IconClass</li>
+                    <li><i class="fa fa-building"></i><label class="control-label">Escalation Interval: </label> @Model.EscalationInterval</li>                  
+                    <li><i class="fa fa-building"></i><label class="control-label">Reminer Frequency:  </label> @Model.ReminerFrequency</li>
+                    <li><i class="fa fa-building"></i><label class="control-label">Ex1:  </label> @Model.Ex1 </li>
+                    <li><i class="fa fa-building"></i><label class="control-label">Ex2:  </label> @Model.Ex2 </li>
+                    <li><i class="fa fa-building"></i><label class="control-label">LifetimeInDays:  </label> @Model.LifetimeInDays </li>
+                    <li><i class="fa fa-building"></i><label class="control-label">ExtensionsAllowed:  </label> @Model.ExtensionsAllowed </li>
+                </ul>
+            </div>
+        </div>    
+
+                <!--end col-md-8-->
+                <!--end col-md-4-->
+            </div>
+            <!--end row-->
+
+          
+        </div>
+
+
+
+
+
+
+
+<script>
+   
+</script>
+        <script type="text/javascript">
+
+
+            //function getBranchList(e) {
+               
+            //    var el = jQuery('#Treediv');
+            //    App.blockUI(el);
+            //    window.setTimeout(function () {
+            //        App.unblockUI(el);
+            //    }, 2000);
+
+            //    $.get("/BCompanies/_subTree?parentId=" + $(e).attr("id"), function (data) {
+
+
+            //        $('#Treediv').html(data);
+
+
+
+
+            //    }).fail(function () {
+
+            //        showtoasteralert('warning', 'Ajax', 'error', this);
+
+            //    })
+
+            //    ;
+            //};
+
+          
+            
+            
+
+        </script> 

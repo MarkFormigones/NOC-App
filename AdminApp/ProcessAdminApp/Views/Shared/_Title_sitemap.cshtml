@@ -1,0 +1,41 @@
+﻿<h3 class="page-title">
+    @ViewBag.Title <small>statistics and more</small>
+</h3>
+<ul class="page-breadcrumb breadcrumb">
+    <li>
+        <i class="fa fa-home"></i>
+        <a href="/Home/index">Home</a>
+        <i class="fa fa-angle-right"></i>
+    </li>
+    @if (ViewBag.linkurl != null) {  <li>
+        <i class="fa @ViewBag.linkicon" ></i>
+        <a href="@ViewBag.linkurl">@ViewBag.linkname</a>
+        <i class="fa fa-angle-right"></i>
+    </li>}
+         
+    @if (ViewBag.linkurl2 != null)
+    {
+    <li>
+        <i class="fa @ViewBag.linkicon2"></i>
+        <a href="@ViewBag.linkurl2">@ViewBag.linkname2</a>
+        <i class="fa fa-angle-right"></i>
+    </li>}
+         
+
+    @if (ViewBag.linkurl3 != null)
+    {
+    <li>
+        <i class="fa @ViewBag.linkicon3"></i>
+        <a href="@ViewBag.linkurl3">@ViewBag.linkname3</a>
+        <i class="fa fa-angle-right"></i>
+    </li>}
+   
+    <li><a href="#">@ViewContext.Controller.ViewBag.Title</a></li>
+    <li class="pull-right">
+       
+    </li>
+   
+  
+
+    
+</ul>

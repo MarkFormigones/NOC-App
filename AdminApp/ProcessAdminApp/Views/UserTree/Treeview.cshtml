@@ -1,0 +1,413 @@
+﻿ 
+ 
+@*<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>*@
+    <script src="~/assets/tree/jquery-3.4.1.min.js"></script>
+<script src="~/assets/tree/jquery-ui.min.js"></script>
+ 
+@*<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.fancytree/2.20.0/jquery.fancytree-all.min.js"></script>*@ 
+<link href="~/assets/tree/src/skin-win8/ui.fancytree.css" rel="stylesheet">
+<script src="~/assets/tree/src/jquery.fancytree.js"></script>
+<script src="~/assets/tree/src/jquery.fancytree.edit.js"></script>
+@*<link href="~/assets/tree/sample.css" rel="stylesheet">
+<script src="~/assets/tree/sample.js"></script>*@
+
+<style type="text/css">
+</style>
+<input type="hidden" value="@ViewBag.groupId" id="groupIdVal" />
+<input type="hidden" value="-1" id="CommIdVal" />
+<script type="text/javascript" id="treescript">
+    var pId = -1;
+    var groupId = $("#groupIdVal").val();
+ 
+
+    var nParentGroupId = 2683;
+    $(document).ready(function () {
+        LoadTree();
+    });
+
+
+    function SaveTree() {
+        var groupId = $("#groupIdVal").val();
+
+        var nSerial = CommIdVal;
+        var nParentGroupId = @ViewBag.groupId ;
+        //region UPDATE
+        var nIsUpdating = false;
+        //endregion
+        var selectedList = $('#echoSelection3').text();
+        var CommIdVal = $('#CommIdVal').text();
+        
+
+        if (selectedList == null || selectedList == "") {
+            alert("must check atleast one or more user. ");
+        }
+        else {
+            //region UPDATE
+            $.post('/userTree/SaveTemplateTCheckTree', { serial: nSerial, parentGroupId: nParentGroupId, selectedIds: selectedList, CommIdVal: CommIdVal, isUpdate: nIsUpdating},
+            //endregion
+                function (returnedData) {
+                    if (returnedData) {
+                        alert("Save Succcessfully");
+                    }
+                    else {
+                        alert("Failed to save");
+                    }
+
+                }).fail(function () {
+                    alert("Error on saving");
+                });
+        }
+    }
+
+    function LoadTree() {
+        // ---------------------------------------------------------------------
+        $("#btnDeselectAll3").click(function () {
+            $("#tree3").fancytree("getTree").visit(function (node) {
+                node.setSelected(false);
+            });
+            return false;
+        });
+        $("#btnSelectAll3").click(function () {
+            $("#tree3").fancytree("getTree").visit(function (node) {
+                node.setSelected(true);
+            });
+            return false;
+        });
+
+
+        $("#tree3").fancytree({
+            checkbox: true,
+            selectMode: 3,
+            source: { url: "/userTree/GetTemplateCheckTree?parentGroupId=" + nParentGroupId, cache: false },
+            init: function (event, data) {
+                data.tree.visit(function (n) {
+                    if (n.getLevel() == 1) {
+                        n.key = "G-" + n.key;
+                        n.setExpanded(true);
+                    }
+                    else {
+                        n.setExpanded(true);
+                        if (n.isFolder && n.lazy) {
+                            n.load();
+                        }
+                    }
+                });
+            },
+            lazyLoad: function (event, ctx) {
+                var groupId = -1;
+                ctx.node.visitParents(function (node) {
+                    if (node.getLevel() == 1) {
+                        groupId = Number(node.key.replace('G-', ''));
+                    }
+                }, true);
+
+                ctx.result = { url: "/userTree/GetSubTreeData?Node=" + ctx.node.key + "&groupId=" + groupId };
+            },
+            loadChildren: function (event, ctx) {
+                ctx.node.fixSelection3AfterClick();
+
+                //allow to load all lazy load
+                var node = ctx.node;
+                $(node.children).each(function () {
+                    node.setExpanded(true);
+                    if (this.lazy) {
+                        this.load();
+                    }
+                });
+            },
+            //region UPDATE
+            icon: function (event, data) {
+                var node = data.node;
+                // Create custom icons
+                if (node.data.userRole == 0) { //admin
+                    return "fa fa-gear";
+                }
+                else if (node.data.userRole == 1) { //user
+                    return "fa fa-user";
+                }
+                else if (node.data.userRole == 2) { //team leader
+                    return "fa fa-users";
+                }
+                else if (node.data.userRole == 3) { //manager
+                    return "fa fa-user-circle";
+                }
+                // Otherwise no value is returned, so continue with default processing
+            },
+            //endregion
+            select: function (event, data) {
+                var groupId = -1;
+
+                // Get a list of all selected nodes, and convert to a key array
+                var selKeys = $.map(data.tree.getSelectedNodes(), function (node) {
+                    node.visitParents(function (node) {
+                        if (node.getLevel() == 1) {
+                            groupId = Number(node.key.replace('G-', '')); // just remove the G-
+                        }
+                    }, true);
+                    return node.key + ":" + groupId;
+                });
+
+
+                $("#echoSelection3").text(selKeys.join(", "));
+
+                // Get a list of all selected TOP nodes
+                var selRootNodes = data.tree.getSelectedNodes(true);
+                // ... and convert to a key array:
+                var selRootKeys = $.map(selRootNodes, function (node) {
+                    return node.key;
+                });
+                $("#echoSelectionRootKeys3").text(selRootKeys.join(", "));
+            },
+            // The following options are only required, if we have more than one tree on one page:
+            cookieId: "fancytree-Cb3",
+            idPrefix: "fancytree-Cb3-",
+
+        });
+
+
+        //$("#tree3").fancytree({
+        //    //extensions: ["edit"],
+        //    checkbox: true,
+        //    selectMode: 3,
+        //    source: { url: "/UserTree/GetTreeData?groupid=" + groupId, cache: false },
+        //    init: function (event, data) {
+        //        // Set key from first part of title (just for this demo output)
+        //        data.tree.visit(function (n) {
+        //            n.key = n.key;
+        //            n.expanded = true;
+        //        });
+        //    },
+        //    lazyLoad: function (event, ctx) {
+        //        ctx.result = { url: "/UserTree/GetSubTreeData?Node=" + ctx.node.key +"&groupid=" + groupId, debugDelay: 1000 };
+        //    },
+        //    loadChildren: function (event, ctx) {
+        //        ctx.node.fixSelection3AfterClick();
+        //    },
+        //    //lazyLoad: function (event, data) {
+        //    //    alert(data.node);
+        //    //    var node = data.key;	    
+        //    //    // Issue an Ajax request to load child nodes
+        //    //    data.result = {
+        //    //        url: "/Tree/GetSubTreeData/Node=" + 1,
+        //    //        data: {root: node.key}
+        //    //    }
+        //    //},
+
+        //    select: function (event, data) {
+        //        // Get a list of all selected nodes, and convert to a key array
+        //        var selKeys = $.map(data.tree.getSelectedNodes(), function (node) {
+        //            return node.key;
+        //        });
+        //        $("#echoSelection3").text(selKeys.join(", "));
+
+        //        // Get a list of all selected TOP nodes
+        //        var selRootNodes = data.tree.getSelectedNodes(true);
+        //        // ... and convert to a key array:
+        //        var selRootKeys = $.map(selRootNodes, function (node) {
+        //            return node.key;
+        //        });
+        //        $("#echoSelectionRootKeys3").text(selRootKeys.join(", "));
+        //        // $("#echoSelectionRoots3").text(selRootNodes.join(", "));
+        //    },
+        //    // The following options are only required, if we have more than one tree on one page:
+        //    cookieId: "fancytree-Cb3",
+        //    idPrefix: "fancytree-Cb3-",
+        //    edit: {
+        //        triggerStart: ["clickActive", "dblclick", "f2", "mac+enter", "shift+click"],
+        //        beforeEdit: function (event, data) {
+        //            // Return false to prevent edit mode
+        //        },
+        //        edit: function (event, data) {
+        //            // Editor was opened (available as data.input)
+        //        },
+        //        beforeClose: function (event, data) {
+        //            // Return false to prevent cancel/save (data.input is available)
+        //            console.log(event.type, event, data);
+        //            if (data.originalEvent.type === "mousedown") {
+        //                // We could prevent the mouse click from generating a blur event
+        //                // (which would then again close the editor) and return `false` to keep
+        //                // the editor open:
+        //                //                  data.originalEvent.preventDefault();
+        //                //                  return false;
+        //                // Or go on with closing the editor, but discard any changes:
+        //                //                  data.save = false;
+        //            }
+        //        },
+
+        //        focus: function (event, data) {
+        //            pId = data.node.key;
+        //        },
+
+        //        save: function (event, data) {
+        //            // Save data.input.val() or return false to keep editor open
+        //            //alert(data.input.val());
+
+        //            alert(data.node.key);
+        //            var str = data.node.key.includes("_");
+
+        //            if (str) {     //add node                  
+        //                var Node = data.input.val();
+        //                var parent = $("#tree3").fancytree("getActiveNode").key;
+
+        //                $.post('/UserTree/AddNode', { NodeName: Node, parentId: parent },
+        //                function (returnedData) {
+        //                    alert("success add");
+        //                    alert(data.node.key);
+        //                    data.node.key = returnedData;
+        //                    alert(data.node.key);
+
+
+
+        //                }).fail(function () {
+        //                    alert("Error adding");
+        //                });
+        //            }
+        //            else {
+        //                var Node = data.input.val();
+        //                var selectedId = data.node.key;
+
+        //                $.post('/UserTree/UpdateNode', { NodeName: Node, selectedId: selectedId },
+        //               function (returnedData) {
+        //                   alert(returnedData);
+        //                   if (returnedData) { alert("success update"); }
+
+        //               }).fail(function () {
+        //                   alert("Error adding");
+        //               });
+        //            }
+
+
+        //            console.log("save...", this, data);
+        //            // Simulate to start a slow ajax request...
+        //            setTimeout(function () {
+        //                $(data.node.span).removeClass("pending");
+        //                // Let's pretend the server returned a slightly modified
+        //                // title:
+        //                data.node.setTitle(data.node.title + "!");
+        //            }, 2000);
+        //            // We return true, so ext-edit will set the current user input
+        //            // as title
+        //            return true;
+        //        },
+        //        close: function (event, data) {
+        //            // Editor was removed
+        //            if (data.save) {
+
+        //                // Since we started an async request, mark the node as preliminary
+        //                $(data.node.span).addClass("pending");
+        //            }
+        //        }
+        //    }
+
+        //});
+
+        //addSampleButton({
+        //    label: "Add child",
+        //    newline: false,
+        //    code: function () {
+        //        var node = $("#tree3").fancytree("getActiveNode");
+        //        if (!node) {
+        //            alert("Please activate a parent node.");
+        //            return;
+        //        }
+        //        node.editCreateNode("child", "Node title");
+        //    }
+        //});
+
+        //addSampleButton({
+        //    label: "Remove selected nodes (but keep children)",
+        //    newline: true,
+        //    code: function () {
+        //        //var tree = $("#tree3").fancytree("getTree"),
+        //        //    selNodes = tree.getSelectedNodes();
+        //        //selNodes.forEach(function (node) {
+        //        //    while (node.hasChildren()) {
+        //        //        node.getFirstChild().moveTo(node.parent, "child");
+        //        //        alert("moved");
+        //        //    }
+        //        //    node.remove();
+        //        //});	        
+        //        var node = $("#tree3").fancytree("getActiveNode");
+        //        if (node == null) {
+        //            alert("Please select node.")
+        //        }
+        //        else {
+        //            while (node.hasChildren()) {
+
+        //                //region No Parent
+        //                if (node.parent.key.search("root_") == 0) { // no parent 
+        //                    var selectedId = node.getFirstChild().key;
+        //                    var newparentId = 0;
+
+        //                    $.post('/UserTree/UpdateNodeParent', { selectedId: selectedId, parentId: newparentId },
+        //                   function (returnedData) {
+        //                       if (returnedData) { //alert("success update"); 
+        //                       }
+
+        //                   }).fail(function () {
+        //                       alert("Error on updating child");
+        //                   });
+        //                }
+        //                    //endregion
+
+        //                    //region has parent
+        //                else if (node.parent.key.search("root_") == -1) { //has parent 
+        //                    var selectedId = node.getFirstChild().key;
+        //                    var newparentId = node.parent.key;
+
+        //                    $.post('/UserTree/UpdateNodeParent', { selectedId: selectedId, parentId: newparentId },
+        //                   function (returnedData) {
+        //                       if (returnedData) { //alert("success update"); 
+        //                       }
+
+        //                   }).fail(function () {
+        //                       alert("Error on updating child");
+        //                   });
+        //                }
+        //                //endregion
+
+        //                node.getFirstChild().moveTo(node.parent, "child");
+        //            }
+        //            //region Remove Selected node
+        //            node.remove();
+        //            var selectedId = node.key;
+        //            $.post('/UserTree/DeleteNode', { selectedId: selectedId },
+        //           function (returnedData) {
+        //               if (returnedData) { alert("success deleted"); }
+
+        //           }).fail(function () {
+        //               alert("Error on deleting");
+        //           });
+        //            //endregion
+
+        //        }
+        //    }
+
+        //});
+
+    }
+</script>
+
+
+<div class="example">
+    
+    @*<div>
+        <label for="skinswitcher">Skin:</label> <select id="skinswitcher"></select>
+    </div>*@
+    <!-- Tree #3 -->
+    <p>
+        <a href="#" class="btn  btn-info btn-xs   " id="btnSelectAll3"  >Select all</a>-
+        <a href="#" class="btn  btn-default btn-xs   " id="btnDeselectAll3"  >Deselect all</a>
+        
+    </p>
+    <div id="tree3"></div>
+    <div>Selected keys: <span id="echoSelection3">-</span></div>
+    <div>Selected root keys: <span id="echoSelectionRootKeys3">-</span></div>
+    <!-- 	<div>Selected root nodes: <span id="echoSelectionRoots3">-</span></div> -->
+    @*<p id="sampleButtons">*@
+    <a  id="savetree"  class="btn btn-success" onclick="SaveTree();">Save Tree</a>
+
+</div>
+
+
+

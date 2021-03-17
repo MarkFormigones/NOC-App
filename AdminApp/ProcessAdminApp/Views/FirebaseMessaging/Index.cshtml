@@ -1,0 +1,48 @@
+﻿@model Hydron.Models.Definitions.FBMessagingModel
+
+<script src="~/Scripts/jquery-1.8.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/assets/scripts/plugins.bundle.js"></script>
+
+<link rel="stylesheet" type="text/css" href="~/assets/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.css" />
+<link rel="stylesheet" type="text/css" href="~/assets/plugins/bootstrap-markdown/css/bootstrap-markdown.min.css">
+<link href="~/assets/css/style.bundle.css" rel="stylesheet" />
+
+
+
+@using (Html.BeginForm("Index", "FirebaseMessaging", FormMethod.Post, new { enctype = "multipart/form-data", id = "kt_form_2" }))
+{@Html.AntiForgeryToken()
+@Html.ValidationSummary(true)
+
+<fieldset>
+    <div class="card card-custom gutter-b">
+        <!--begin::Header-->
+        <div class="card-header flex-wrap border-0 pt-6 pb-0">
+            <h3 class="card-title align-items-start flex-column">
+                <span class="card-label font-weight-bolder font-size-h3 text-dark">Send Notification</span>
+            </h3>
+
+        </div>
+        <!--end::Header-->
+        <div class="card-body">
+            <button type="submit" class="btn btn-info font-weight-bolder px-8">Send</button>
+            
+            <!--end::Shopping Cart-->
+        </div>
+        
+    </div>
+
+
+
+
+
+
+
+
+
+</fieldset>
+
+}
+
+

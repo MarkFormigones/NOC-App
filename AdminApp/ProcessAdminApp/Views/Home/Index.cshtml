@@ -1,0 +1,255 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-1.8.2.min.js"></script>
+
+<script src="~/Scripts/jquery-ui-1.8.24.min.js"></script>
+<script src="~/assets/tour/bootstrap.min.js"></script>
+<script src="~/assets/tour/bootstrap-tour.min.js"></script>
+<link href="~/assets/tour/bootstrap-tour.min.css" rel="stylesheet" />
+
+
+<button class="btn" id="tour-go">Start the tour!</button>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2 id="one">Getting started</h2>
+        <p>
+            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
+            enables a clean separation of concerns and gives you full control over markup
+            for enjoyable, agile development.
+        </p>
+        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2 id="two">Get more libraries</h2>
+        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
+        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2 id="three">Web Hosting</h2>
+        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
+        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+    </div>
+
+    <script type="text/javascript">
+        var listfromdb;
+
+        $(function () {
+            var tour = new Tour({ storage: false });
+
+
+
+
+            //var ListOfAction = $('.timeline2-body');
+
+            //for (var i = 0; i < ListOfAction.length; i++) {
+
+
+            //    var ele=$(ListOfAction[i]).id;
+            //    tour.addStep({
+            //        element: $(ListOfAction[i]),
+            //        title:  "Step " + i.toString(),
+            //        content: '<img src="http://localhost:23671/assets/tour/HydronBoy_MovingOneHand_test1.gif" />' + $(ListOfAction[i]).find('h2').first().html()
+            //    });
+
+            //}
+
+
+
+            loadTour(this, "Home", "Index");
+
+
+            for (var i = 0; i < listfromdb.length; i++) {
+                //alert(listfromdb[i].Controller + "  " + listfromdb[i].Action + "  " +
+
+                // listfromdb[i].TargetUrl + "  " + listfromdb[i].TargetClass + "  " + listfromdb
+
+                // [i].TargetSubject +" "+listfromdb[i].TargetDesc);
+
+
+                var clas = "[class*=" + listfromdb[i].TargetClass + "]";
+                listfromdb[i].TargetIconUrl = listfromdb[i].TargetIconUrl.replace("~", "..");
+                var targetItem = $(clas.toString());
+                tour.addStep({
+                    element: targetItem[0],
+                    placement: listfromdb[i].placement.toString(),
+                    title: " <h3> " + "<img src='" + listfromdb[i].TargetIconUrl + "'/>" + listfromdb[i].TargetSubject + "</h3>",
+                    content: listfromdb[i].TargetDesc,
+                    backdrop: true,
+                    smartPlacement: true,
+                    keyboard: true,
+                    backdropContainer: 'body',
+
+                });
+
+            }
+
+
+
+            //tour.addStep({
+            //    element: ".timeline2-body",
+            //    title: "Step 1",
+            //    content: $('.timeline2-body').find('h2').first().html()
+            //});
+
+            //tour.addStep({
+            //    element: "#two",
+            //    title: "Step 2",
+            //    content: "Content for step 2"
+            //});
+
+            //tour.addStep({
+            //    element: "#three",
+            //    title: "Step 3",
+            //    content: "Content for step 3"
+            //});
+
+
+            $('#tour-go').click(function () {
+
+                if (tour.ended()) {
+
+                    tour.restart(true);
+
+                }
+                else {
+
+                    // Initialize the tour
+                    tour.init();
+
+                    // Start the tour
+                    tour.start(true);
+
+                }
+
+            });
+
+
+
+
+            function loadTour(e, val1, val2) {
+
+
+
+
+                $.ajax({
+                    async: false,
+                    cache: false,
+                    type: "get",
+                    url: "/home/_GetTour?contName=" + val1 + "&actName=" + val2,
+                    success: function (data) {
+                        //$('#div-list').html(data);
+
+
+
+
+                        listfromdb = JSON.parse(data);
+
+                        //do something useful
+                    },
+                    error: function (XMLHttpRequest, status, error) {
+                        //do nothing
+                    }
+                });//ajax
+
+            };
+        });
+
+
+
+    </script>
+
+</div>
+
+
+
+<div class="timelines2-body">
+
+
+    <div class="timeline2-content">
+        <ul class="timeline2">
+            <li class="timeline2">
+                <div class="timeline2-time"></div>
+                <div class="timeline2-icon " onclick="toggleDIV(this);scrollMe(this);"><i class="fa  fa-suitcase"></i></div>
+                <div class="timeline2-body index">
+                    <h2>   Sajaa Asset <small>Details</small></h2>
+
+
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="timeline2-content">
+        <ul class="timeline2">
+            <li class="timeline2">
+                <div class="timeline2-time"> </div>
+                <div class="timeline2-icon shadow" onclick="toggleDIV(this);scrollMe(this);"><i class="fa  fa-circle-o-notch"></i></div>
+                <div class="timeline2-body workspacetor ">
+                    <h2>Workspaces <small>Teams collaboration</small></h2>
+
+                </div>
+            </li>
+        </ul>
+    </div> <div class="timeline2-content">
+
+
+
+        <ul class="timeline2">
+            <li class="timeline2">
+                <div class="timeline2-time"> </div>
+                <div class="timeline2-icon" onclick="toggleDIV(this);scrollMe(this);"><i class="fa fa-male"></i></div>
+                <div class="timeline2-body delegationtor">
+
+
+                    <h2>    Delegations <small>of users</small></h2>
+
+
+
+
+
+
+
+
+                </div>
+            </li>
+        </ul>
+
+
+    </div>
+    <div class="timeline2-content">
+        <ul class="timeline2">
+            <li class="timeline2">
+                <div class="timeline2-time"> </div>
+                <div class="timeline2-icon" onclick="toggleDIV(this); reloadlogTimeLine(0,0,0,0,3,0,0);scrollMe(this);"><i class="fa fa-clock-o"></i></div>
+                <div class="timeline2-body timelinetor">
+                    <h2>
+                        Timeline <small>log</small>
+                    </h2>
+
+
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="timeline2-content">
+        <ul class="timeline2">
+            <li class="timeline2">
+                <div class="timeline2-time"> </div>
+                <div class="timeline2-icon" onclick="toggleDIV(this);scrollMe(this);"><i class="fa fa-users"></i></div>
+                <div class="timeline2-body usertor">
+                    <h2>     Users  <small>Pemissions</small></h2>
+
+
+
+                </div>
+            </li>
+        </ul>
+    </div>
+
+</div>
+

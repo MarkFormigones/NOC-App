@@ -1,0 +1,796 @@
+﻿@model Hydron.Models.Definitions.TourTModel
+@using (Html.BeginForm("Define", "TourT", FormMethod.Post, new { enctype = "multipart/form-data", id = "Define" }))
+{   @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+
+        @*<legend>Departments </legend>*@
+
+        @{
+            if (ViewData.ModelState["error"] != null)
+            {  <div class="alert alert-danger ">
+            <button class="close" data-close="alert"></button>
+            @ViewData.ModelState["error"].Errors[0].ErrorMessage
+
+        </div>}
+        }
+        <div class="alert alert-danger display-hide">
+            <button class="close" data-close="alert"></button>
+            You have some form errors. Please check below.
+
+        </div>
+        <div class="alert alert-success display-hide">
+            <button class="close" data-close="alert"></button>
+            Your form validation is successful!
+        </div>
+
+
+
+        <div class="form-horizontal form-bordered">
+            <div class="col-md-6">
+                <div class="form-body">
+                    <div class="form-group " id="rowlogo">
+
+                        <label class="control-label col-md-3">Icon</label>
+                        <div class="col-md-9">
+
+                            @if (Model.TargetIconUrl == null || Model.TargetIconUrl.Length < 5)
+                        { <div class="tile-sm bg-dark" id="deflogo" style="display:block">
+                                <div class="tile-body ">
+                                    <i class="fa fa-building "> </i>
+                                </div>
+
+                            </div>
+                            <div class=" thumbnail" style="width: 96px; display:none" id="deflogoset">
+                                @{
+                                    //jpeg file
+                                    string jpgpath = @Href(Model.TargetIconUrl + "_thumb.jpg");
+                                    string filejpgPath = Request.MapPath(jpgpath);
+                                    //gif file
+                                    string gifpath = @Href(Model.TargetIconUrl + ".gif");
+                                    string filegifPath = Request.MapPath(gifpath);
+                                 }
+                                @if (System.IO.File.Exists(filejpgPath))
+                                {
+                                <img src="@Href(@Model.TargetIconUrl + "_small.jpg")" alt="Logo" class="img-responsive" />
+                                }
+                                else
+                                {
+                                    <img src="@Href(@Model.TargetIconUrl)" alt="GIF" class="img-responsive" />
+                                }
+
+                            </div>
+                            @*<img src="/assets/img/profile/portfolio/newlogo_small.png" alt="Logo" class="img-responsive" />*@  }
+                        else
+                        {
+                                <div class="tile-sm bg-dark" id="deflogo" style="display:none">
+                                    <div class="tile-body ">
+                                        <i class="fa fa-building "> </i>
+                                    </div>
+
+                                </div>
+                                <div class=" thumbnail" style="width: 96px;" id="deflogoset">
+                                    @{
+                                        //jpeg file
+                                        string jpgpath = @Href(Model.TargetIconUrl + "_thumb.jpg");
+                                        string filejpgPath = Request.MapPath(jpgpath);
+                                        //gif file
+                                        string gifpath = @Href(Model.TargetIconUrl + ".gif");
+                                        string filegifPath = Request.MapPath(gifpath);
+                                    }
+                                    @if (System.IO.File.Exists(filejpgPath))
+                                    {
+                                        <img src="@Href(@Model.TargetIconUrl + "_small.jpg")" alt="Logo" class="img-responsive" />
+                                    }
+                                    else
+                                    {
+                                        <img src="@Href(@Model.TargetIconUrl)" alt="Gif" class="img-responsive" />
+                                    }
+
+
+
+                                </div>
+                        }
+
+                        </div>
+                    </div>
+                    <div class="form-group ">
+                        <label class="control-label col-md-3">Default Logo</label>
+                        <div class="col-md-9">
+                            <div class="make-switch" data-on="success" data-off="info" data-on-label="&nbsp;Yes&nbsp;" data-off-label="&nbsp;No&nbsp; ">
+
+                                @Html.CheckBoxFor(m => m.UseDefaultLogo, new { name = "UseDefaultLogo", @checked = "", onchange = "toggleUpload();", @class = "toggle" })
+                            </div>
+                        </div>
+                    </div>
+
+                    @if (Model.TargetIconUrl == null || Model.TargetIconUrl.Length < 5)
+                {
+
+                        <div class="form-group " id="rowupload" style="display:none">
+                            <label class="control-label col-md-3">Upload file</label>
+                            <div class="col-md-9">
+                                <div class=" margin-top-10 fileupload fileupload-new" data-provides="fileupload">
+                                    <div class="input-group input-group-fixed">
+                                        <div class="fileupload fileupload-new pull-left" data-provides="fileupload">
+
+                                            <div class="fileupload-preview  thumbnail" style="width: 50px; height: 50px;"></div>
+
+
+                                            <span class="btn default btn-file">
+                                                <span class="fileupload-new"><i class="fa fa-paper-clip"></i> Select image</span>
+                                                <span class="fileupload-exists"><i class="fa fa-undo"></i> Change</span>
+                                                <input type="file" class="default" name="Icon" />
+                                            </span>
+                                            <a href="#" class="btn red fileupload-exists" data-dismiss="fileupload"><i class="fa fa-trash-o"></i> Remove</a>
+
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <span class="help-block">Image files Only: JPEG, GIF, BMP, PNG </span>
+                            </div>
+                        </div>
+                }
+                else
+                {
+
+                        <div class="form-group " id="rowupload" style="display:block">
+                            <label class="control-label col-md-3">Upload file</label>
+                            <div class="col-md-9">
+                                <div class=" margin-top-10 fileupload fileupload-new" data-provides="fileupload">
+                                    <div class="input-group input-group-fixed">
+                                        <div class="fileupload fileupload-new pull-left" data-provides="fileupload">
+
+                                            <div class="fileupload-preview  thumbnail" style="width: 50px; height: 50px;"></div>
+
+
+                                            <span class="btn default btn-file">
+                                                <span class="fileupload-new"><i class="fa fa-paper-clip"></i> Select image</span>
+                                                <span class="fileupload-exists"><i class="fa fa-undo"></i> Change</span>
+                                                <input type="file" class="default" name="Icon" />
+                                            </span>
+                                            <a href="#" class="btn red fileupload-exists" data-dismiss="fileupload"><i class="fa fa-trash-o"></i> Remove</a>
+
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <span class="help-block">Image files Only: JPEG, GIF, BMP, PNG </span>
+                            </div>
+                        </div>
+                }
+
+
+
+
+                    <div class="form-group">
+
+                        <label class="control-label col-md-3">Subject<span class="required">*</span></label>
+                        <div class="col-md-9 input-icon">
+                            <i class="fa fa-font"></i>
+                            @Html.HiddenFor(m => m.Id)  @*@Html.HiddenFor(m => m.AdminId)*@
+                            @Html.TextBoxFor(m => m.TargetSubject, new { @class = "form-control placeholder-no-fix", type = "text", autocomplete = "off", maxlength = "50", placeholder = "Target Subject", name = "TargetSubject" })
+                            @Html.ValidationMessageFor(m => m.TargetSubject)
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-3">Description<span class="required">*</span></label>
+                        <div class="col-md-9  ">
+                            @Html.TextAreaFor(m => m.TargetDesc, new { @class = "form-control placeholder-no-fix", type = "text", autocomplete = "off", maxlength = "500", rows = "2", placeholder = "TargetDesc", name = "TargetDesc" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+
+                        <label class="control-label col-md-3">Controller<span class="required">*</span></label>
+                        <div class="col-md-9 input-icon">
+                            <i class="fa fa-font"></i>
+                            @Html.TextBoxFor(m => m.Controller, new { @class = "form-control placeholder-no-fix", type = "text", autocomplete = "off", maxlength = "50", placeholder = "Controller", name = "Controller" })
+                            @Html.ValidationMessageFor(m => m.Controller)
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-3">Action<span class="required">*</span></label>
+                        <div class="col-md-9 input-icon">
+                            <i class="fa fa-font"></i>
+                            @Html.TextBoxFor(m => m.Action, new { @class = "form-control placeholder-no-fix", type = "text", autocomplete = "off", maxlength = "50", placeholder = "Action", name = "Action" })
+                            @Html.ValidationMessageFor(m => m.Action)
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+
+                        <label class="control-label col-md-3">Class<span class="required">*</span></label>
+                        <div class="col-md-9 input-icon">
+                            <i class="fa fa-font"></i>
+                            @Html.TextBoxFor(m => m.TargetClass, new { @class = "form-control placeholder-no-fix", type = "text", autocomplete = "off", maxlength = "50", placeholder = "Target Class", name = "TargetClass" })
+                            @Html.ValidationMessageFor(m => m.TargetClass)
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+
+                        <label class="control-label col-md-3">Order<span class="required">*</span></label>
+                        <div class="col-md-9 input-icon">
+                            <i class="fa fa-font"></i>
+                            @Html.TextBoxFor(m => m.TargetOrder, new { @class = "form-control placeholder-no-fix", type = "text", autocomplete = "off", maxlength = "50", placeholder = "Order", name = "TargetOrder" })
+                            @Html.ValidationMessageFor(m => m.TargetOrder)
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+
+                        <label class="control-label col-md-3">Placement<span class="required">*</span></label>
+                        <div class="col-md-9 input-icon">
+                            <i class="fa fa-font"></i>
+                            @Html.TextBoxFor(m => m.placement, new { @class = "form-control placeholder-no-fix", type = "text", autocomplete = "off", maxlength = "50", placeholder = "placement", name = "placement" })
+                            @Html.ValidationMessageFor(m => m.placement)
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+
+                        <label class="control-label col-md-3">Target Url</label>
+                        <div class="col-md-9 input-icon">
+                            <i class="fa fa-font"></i>
+                            @Html.TextBoxFor(m => m.TargetUrl, new { @class = "form-control placeholder-no-fix", type = "text", autocomplete = "off", maxlength = "50", placeholder = "TargetUrl", name = "TargetUrl" })
+                            @Html.ValidationMessageFor(m => m.TargetUrl)
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-3">Background</label>
+                        <div class="col-md-9">
+                            <div class="col-md-12">
+                                <div class="col-md-1">
+                                    @if (Model.BackgroudImg != null)
+                                    {
+                                        <a href="@Href(Model.BackgroudImg + "_large.jpg")" data-lity data-lity-desc="BackgroudImg" class="img-rounded">
+                                            @if (@Model.BackgroudImg.Contains("http"))
+                                            {
+                                                <img src="@Model.BackgroudImg/_small.jpg" alt="BackgroudImg" class="img-rounded" />
+                                            }
+                                            else
+                                            {
+                                                <img src="@Href(@Model.BackgroudImg + "_thumb.jpg")" alt="BackgroudImg" />
+                                            }
+                                            @*<img class="img-rounded" src="@Href(Model.BackgroudImg + "_thumb.jpg")">*@
+                                        </a>
+                                    }
+
+                                </div>
+                                <div class="col-md-11">
+                                    <div class="col-md-9">
+                                        <div class=" margin-top-10 fileupload fileupload-new" data-provides="fileupload">
+                                            <div class="input-group input-group-fixed">
+                                                <div class="fileupload fileupload-new pull-left" data-provides="fileupload">
+
+                                                    @*<div class="fileupload-preview  thumbnail" style="width: 50px; height: 50px;"></div>*@
+
+
+                                                    <span class="btn default btn-file">
+                                                        <span class="fileupload-new"><i class="fa fa-paper-clip"></i> Select image</span>
+                                                        <span class="fileupload-exists"><i class="fa fa-undo"></i> Change</span>
+                                                        <input type="file" class="default" name="Img" />
+                                                    </span>
+                                                    <a href="#" class="btn red fileupload-exists" data-dismiss="fileupload"><i class="fa fa-trash-o"></i> Remove</a>
+
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <span class="help-block">Image files Only: JPEG, GIF, BMP, PNG </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-3">Video</label>
+                        <div class="col-md-9">
+                            <div class="col-md-12">
+                                <div class="col-md-1">
+                                    @if (Model.VideoUrl != null)
+                                    {
+
+                                        @*<a href="@Href(@Model.VideoUrl + "_Large.jpg")" data-lity data-lity-desc="VideoUrl" class="img-rounded">*@
+                                        <a href="@Href(Model.VideoUrl + ".mp4")" data-lity><i class="fa fa-youtube-play fa-2x"></i></a>                                     
+                                    }
+
+                                </div>
+                                <div class="col-md-11">
+                                    <div class="col-md-9">
+                                        <div class=" margin-top-10 fileupload fileupload-new" data-provides="fileupload">
+                                            <div class="input-group input-group-fixed">
+                                                <div class="fileupload fileupload-new pull-left" data-provides="fileupload">
+
+                                                    @*<div class="fileupload-preview  thumbnail" style="width: 50px; height: 50px;"></div>*@
+
+
+                                                    <span class="btn default btn-file">
+                                                        <span class="fileupload-new"><i class="fa fa-paper-clip"></i> Select image</span>
+                                                        <span class="fileupload-exists"><i class="fa fa-undo"></i> Change</span>
+                                                        <input type="file" class="default" name="Vid" />
+                                                    </span>
+                                                    <a href="#" class="btn red fileupload-exists" data-dismiss="fileupload"><i class="fa fa-trash-o"></i> Remove</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <span class="help-block">Image or Video files Only: JPEG, GIF, BMP, PNG, MP4 </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                            <label class="control-label col-md-3">Is Active</label>
+                            <div class="col-md-9 input-icon">
+                                <i class="fa fa-lock"></i>
+                                <div class="make-switch" data-on="success" data-off="warning" data-on-label="&nbsp;Active&nbsp;" data-off-label="&nbsp;Inactive&nbsp;&nbsp;">
+
+                                    @Html.CheckBoxFor(m => m.IsActive, new { name = "IsActive", @checked = "", @class = "toggle" })
+
+                                </div>
+
+                            </div>
+                            <label> @Html.ValidationMessageFor(m => m.IsActive)</label>
+                        </div>
+
+
+
+
+                    <div class="margiv-top-10">
+                        <a data-toggle="modal" class="btn green" role="button" href="#modalSave" onclick="handleTourT();">Save Changes</a>
+
+                    </div>
+                    <div aria-hidden="true" aria-labelledby="myModalLabel3" role="dialog" tabindex="-1" class="modal fade" id="modalSave" style="display: none;">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button aria-hidden="true" data-dismiss="modal" class="close" type="button"></button>
+                                    <h4 class="modal-title"> </h4>
+                                </div>
+                                <div class="modal-body">
+                                    @*the value to be set when calling  initModT('Save');*@
+                                </div>
+                                <div class="modal-footer">
+                                    <h5 class="modal-msg" style="display:none"> <span><img src='/assets/img/loading.gif'></span> </h5>
+                                    <button aria-hidden="true" data-dismiss="modal" class="btn default">Close</button>
+                                    @*<a class="btn red" href="~/Department/Delete?uId=@Model.DepartmentId" id="fdbtn"> // onclick="initModT('S ave'); removed, no need on close to reinitialize
+                            <i class="fa fa-trash-o"></i> Delete
+                        </a>*@
+                                    <button type="submit" value="Save" class="btn green" id="fsbtn">
+                                        <i class="fa fa-save"></i>Save
+
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-body">
+                    <div class="form-group " id="rowlogo">
+
+                        <label class="control-label col-md-3">Icon Ar</label>
+                        <div class="col-md-9">
+
+                            @if (Model.TargetIconUrlAr == null || Model.TargetIconUrlAr.Length < 5)
+                            { <div class="tile-sm bg-dark" id="deflogoAr" style="display:block">
+                                <div class="tile-body ">
+                                    <i class="fa fa-building "> </i>
+                                </div>
+
+                            </div>
+                            <div class=" thumbnail" style="width: 96px; display:none" id="deflogosetAr">
+                                @{
+                                    //jpeg file
+                                    string jpgpathAr = @Href(Model.TargetIconUrlAr + "_thumb.jpg");
+                                    string filejpgPathAr = Request.MapPath(jpgpathAr);
+                                    //gif file
+                                    string gifpathAr = @Href(Model.TargetIconUrlAr + ".gif");
+                                    string filegifPathAr = Request.MapPath(gifpathAr);
+                                }
+                                @if (System.IO.File.Exists(filejpgPathAr))
+                                {
+                                    <img src="@Href(@Model.TargetIconUrlAr + "_small.jpg")" alt="LogoAr" class="img-responsive" />
+                                }
+                                else
+                                {
+                                    <img src="@Href(@Model.TargetIconUrlAr)" alt="GIFAr" class="img-responsive" />
+                                }
+
+
+                            </div>
+                            @*<img src="/assets/img/profile/portfolio/newlogo_small.png" alt="Logo" class="img-responsive" />*@  }
+                            else
+                            {
+                                <div class="tile-sm bg-dark" id="deflogoAr" style="display:none">
+                                    <div class="tile-body ">
+                                        <i class="fa fa-building "> </i>
+                                    </div>
+
+                                </div>
+                                <div class=" thumbnail" style="width: 96px;" id="deflogosetAr">
+
+
+                                    @{
+                                        //jpeg file
+                                        string jpgpathAr = @Href(Model.TargetIconUrlAr + "_thumb.jpg");
+                                        string filejpgPathAr = Request.MapPath(jpgpathAr);
+                                        //gif file
+                                        string gifpathAr = @Href(Model.TargetIconUrlAr + ".gif");
+                                        string filegifPathAr = Request.MapPath(gifpathAr);
+                                    }
+                                    @if (System.IO.File.Exists(filejpgPathAr))
+                                    {
+                                        <img src="@Href(@Model.TargetIconUrlAr + "_small.jpg")" alt="LogoAr" class="img-responsive" />
+                                    }
+                                    else if (System.IO.File.Exists(filegifPathAr))
+                                    {
+                                        <img src="@Href(@Model.TargetIconUrlAr)" alt="GIFAr" class="img-responsive" />
+                                    }
+
+
+                                </div>
+                            }
+
+                        </div>
+                    </div>
+                    <div class="form-group ">
+                        <label class="control-label col-md-3">Default Logo Ar</label>
+                        <div class="col-md-9">
+                            <div class="make-switch" data-on="success" data-off="info" data-on-label="&nbsp;Yes&nbsp;" data-off-label="&nbsp;No&nbsp; ">
+
+                                @Html.CheckBoxFor(m => m.UseDefaultLogoAr, new { name = "UseDefaultLogoAr", @checked = "", onchange = "toggleUploadAr();", @class = "toggle" })
+                            </div>
+                        </div>
+                    </div>
+
+                    @if (Model.TargetIconUrlAr == null || Model.TargetIconUrl.Length < 5)
+                {
+
+                        <div class="form-group " id="rowuploadAr" style="display:none">
+                            <label class="control-label col-md-3">Upload file</label>
+                            <div class="col-md-9">
+                                <div class=" margin-top-10 fileupload fileupload-new" data-provides="fileupload">
+                                    <div class="input-group input-group-fixed">
+                                        <div class="fileupload fileupload-new pull-left" data-provides="fileupload">
+
+                                            <div class="fileupload-preview  thumbnail" style="width: 50px; height: 50px;"></div>
+
+
+                                            <span class="btn default btn-file">
+                                                <span class="fileupload-new"><i class="fa fa-paper-clip"></i> Select image</span>
+                                                <span class="fileupload-exists"><i class="fa fa-undo"></i> Change</span>
+                                                <input type="file" class="default" name="IconAr" />
+                                            </span>
+                                            <a href="#" class="btn red fileupload-exists" data-dismiss="fileupload"><i class="fa fa-trash-o"></i> Remove</a>
+
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <span class="help-block">Image files Only: JPEG, GIF, BMP, PNG </span>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+
+                        <div class="form-group " id="rowuploadAr" style="display:block">
+                            <label class="control-label col-md-3">Upload file</label>
+                            <div class="col-md-9">
+                                <div class=" margin-top-10 fileupload fileupload-new" data-provides="fileupload">
+                                    <div class="input-group input-group-fixed">
+                                        <div class="fileupload fileupload-new pull-left" data-provides="fileupload">
+
+                                            <div class="fileupload-preview  thumbnail" style="width: 50px; height: 50px;"></div>
+
+
+                                            <span class="btn default btn-file">
+                                                <span class="fileupload-new"><i class="fa fa-paper-clip"></i> Select image</span>
+                                                <span class="fileupload-exists"><i class="fa fa-undo"></i> Change</span>
+                                                <input type="file" class="default" name="IconAr" />
+                                            </span>
+                                            <a href="#" class="btn red fileupload-exists" data-dismiss="fileupload"><i class="fa fa-trash-o"></i> Remove</a>
+
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <span class="help-block">Image files Only: JPEG, GIF, BMP, PNG </span>
+                            </div>
+                        </div>
+                    }
+
+
+
+                    <div class="form-group">
+
+                        <label class="control-label col-md-3">Subject Ar<span class="required">*</span></label>
+                        <div class="col-md-9 input-icon">
+                            <i class="fa fa-font"></i>
+                            @Html.TextBoxFor(m => m.TargetSubjectAr, new { @class = "form-control placeholder-no-fix", type = "text", autocomplete = "off", maxlength = "50", placeholder = "Target Subject Ar", name = "TargetSubjectAr" })
+                            @Html.ValidationMessageFor(m => m.TargetSubject)
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-3">Description Ar<span class="required">*</span></label>
+                        <div class="col-md-9  ">
+                            @Html.TextAreaFor(m => m.TargetDescAr, new { @class = "form-control placeholder-no-fix", type = "text", autocomplete = "off", maxlength = "500", rows = "2", placeholder = "TargetDescAr", name = "TargetDescAr" })
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="control-label col-md-3">Extra Text</label>
+                        <div class="col-md-9 input-icon">
+                            <i class="fa fa-font"></i>
+                            @Html.TextBoxFor(m => m.ExtraText, new { @class = "form-control placeholder-no-fix", type = "text", autocomplete = "off", maxlength = "200", placeholder = "Extra Text", name = "ExtraText" })
+                            @Html.ValidationMessageFor(m => m.ExtraText)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3">Extra Int 1</label>
+                        <div class="col-md-9 input-icon">
+                            <i class="fa fa-font"></i>
+                            @Html.TextBoxFor(m => m.ExtraInt1, new { @class = "form-control placeholder-no-fix", type = "text", autocomplete = "off", maxlength = "50", placeholder = "Extra Int 1", name = "ExtraInt1" })
+                            @Html.ValidationMessageFor(m => m.ExtraInt1)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3">Extra Int 2</label>
+                        <div class="col-md-9 input-icon">
+                            <i class="fa fa-font"></i>
+                            @Html.TextBoxFor(m => m.ExtraInt2, new { @class = "form-control placeholder-no-fix", type = "text", autocomplete = "off", maxlength = "50", placeholder = "Extra Int 2", name = "ExtraInt2" })
+                            @Html.ValidationMessageFor(m => m.ExtraInt2)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3">Extra bit 1</label>
+                        <div class="col-md-9 input-icon">
+                            <i class="fa fa-lock"></i>
+                            <div class="make-switch" data-on="success" data-off="warning" data-on-label="&nbsp;Active&nbsp;" data-off-label="&nbsp;Inactive&nbsp;&nbsp;">
+
+                                @Html.CheckBoxFor(m => m.ExtraBit1, new { name = "ExtraBit1", @checked = "", @class = "toggle" })
+
+                            </div>
+
+                        </div>
+                        <label> @Html.ValidationMessageFor(m => m.ExtraBit1)</label>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3">Extra bit 2</label>
+                        <div class="col-md-9 input-icon">
+                            <i class="fa fa-lock"></i>
+                            <div class="make-switch" data-on="success" data-off="warning" data-on-label="&nbsp;Active&nbsp;" data-off-label="&nbsp;Inactive&nbsp;&nbsp;">
+
+                                @Html.CheckBoxFor(m => m.ExtraBit2, new { name = "ExtraBit2", @checked = "", @class = "toggle" })
+
+                            </div>
+
+                        </div>
+                        <label> @Html.ValidationMessageFor(m => m.ExtraBit2)</label>
+                    </div>
+                    
+                </div>
+                </div>
+        </div>
+       
+
+    </fieldset>
+            <div id="register_tnc_error"></div>
+
+            }
+
+<script type="text/javascript">
+
+
+                    jQuery(document).ready(function () {
+                        //function format(state) {
+                        //    if (!state.id) return state.text; // optgroup
+                        //    return "<img class='flag' src='/assets/img/flags/" + state.id.toLowerCase() + ".png'/>&nbsp;&nbsp;" + state.text;
+                        //}
+
+
+                        //$("#select2_sample4").select2({
+                        //    placeholder: '<i class="fa fa-map-marker"></i>&nbsp;Select a Country',
+                        //    allowClear: true,
+                        //    formatResult: format,
+                        //    formatSelection: format,
+                        //    escapeMarkup: function (m) {
+                        //        return m;
+                        //    }
+                        //});
+
+                        handleTourT();
+
+
+
+
+
+
+                    });
+
+                    function toggleUpload() {
+                        $('#rowupload').toggle(); $('#deflogoset').toggle(); $('#deflogo').toggle();
+
+                    }
+                    function toggleUploadAr() {
+                        $('#rowuploadAr').toggle(); $('#deflogosetAr').toggle(); $('#deflogoAr').toggle();
+
+                    }
+
+                    function initModT(type) {
+
+                        if (type == "Delete") {
+
+                            $('[id=modalDef]').find('[class=modal-title]').html("Delete");
+                            $('[id=modalDef]').find('[class=modal-body]').html(" Are you sure you want to Delete this record?</p>");
+
+                            $('#fbbtn').hide();
+                            $('#fdbtn').show();
+
+
+                        }
+
+                        if (type == "Ban") {
+
+                            $('[id=modalDef]').find('[class=modal-title]').html("Activation");
+                            $('[id=modalDef]').find('[class=modal-body]').html(" Are you sure you want to Deactivate this record?</p>");
+
+                            $('#fdbtn').hide();
+                            $('#fbbtn').show();
+                        }
+                        if (type == "Save") {
+                            $('[id=modalSave]').find('[class=modal-title]').html("Save");
+                            $('[id=modalSave]').find('[class=modal-body]').html(" Are you sure you want to Save this record?</p>");
+                            $('#fsbtn').show();
+                            $('#fdbtn').hide();
+                            $('#fbbtn').hide();
+                        }
+                    }
+
+
+
+                    var handleTourT = function InitValidate() {
+                        initModT('Save');
+
+                        $('#TargetDesc').maxlength({
+                            limitReachedClass: "label label-danger",
+                            alwaysShow: true
+                        });
+                        $('#TargetDescAr').maxlength({
+                            limitReachedClass: "label label-danger",
+                            alwaysShow: true
+                        });
+
+                        var form1 = $('#Define');
+                        var error1 = $('.alert-danger', form1);
+                        var success1 = $('.alert-success', form1);
+
+                        form1.validate({
+                            errorElement: 'span', //default input error message container
+                            errorClass: 'help-block', // default input error message class
+                            focusInvalid: false, // do not focus the last invalid input
+                            ignore: "",
+                            rules: {
+
+                                Controller: {
+                                    required: true
+                                },
+                                Action: {
+                                    required: true
+                                },
+                                TargetClass: {
+                                    required: true
+                                },
+                                TargetOrder: {
+                                    required: true
+                                },
+                                TargetSubject: {
+                                    required: true
+                                },
+                                TargetDesc: {
+                                    required: true
+                                },
+                                placement: {
+                                    required: true
+                                },
+                                TargetSubjectAr: {
+                                    required: true
+                                },
+
+                                IsActive: {
+                                    required: false
+                                }
+
+
+                            },
+
+                            messages: { // custom messages for radio buttons and checkboxes
+                                IsActive: {
+                                    required: "Please Activate"
+                                },
+                                //DepartmentCountryId: {
+                                //    required: "<i class='fa fa-globe'></i>"
+
+                                //},
+
+
+                            },
+
+                            invalidHandler: function (event, validator) {
+
+                                $('[id=modalSave]').find('[class=modal-title]').html("Save");
+                                $('[id=modalSave]').find('[class=modal-body]').html("<div class='alert alert-warning '><span><i class='fa fa-warning'></i>Insuffeciant  Data</span><p> Please fill all required fields in a valid format.</p> </div>");
+                                $('#fsbtn').hide();
+
+
+                            },
+
+                            highlight: function (element) { // hightlight error inputs
+                                $(element)
+                                    .closest('.form-group').addClass('has-error'); // set error class to the control group
+                                //$("[class=modal-body]").html("   ");
+                                //  initModT('Save');// reset the modal so save mode
+                                error1.show();
+                                $('[id=modalSave]').find('[class=modal-title]').html("Save");
+                                $('[id=modalSave]').find('[class=modal-body]').html("<div class='alert-danger '><p><i class='fa fa-warning'></i> Insuffeciant  Data</p><p> Please fill all required fields in a valid format.</p> </div>");
+                                $('#fsbtn').hide();
+
+                            },
+
+                            success: function (label) {
+                                label.closest('.form-group').removeClass('has-error');
+                                label.remove();
+                                return true;
+                                //$('[id=modalSave]').find('[class=modal-title]').html("Save");
+                                //$('[id=modalSave]').find('[class=modal-body]').html(" Are you sure you want to save this record?</p>");
+                                //$('#fsbtn').show();
+
+                            },
+
+                            errorPlacement: function (error, element) {
+                                //below will write the error after the control
+                                //if (element.closest('.input-icon').size() === 1) {
+                                //    error.insertAfter(element.closest('.input-icon'));
+                                //} else {
+                                //    error.insertAfter(element);
+                                //}
+                                //below will write the error in tooltip
+                                var icon = $(element).parent('.input-icon').children('i');
+                                icon.removeClass('fa-check').addClass("fa-warning");
+                                icon.attr("data-original-title", error.text()).tooltip({ 'container': 'body' });
+                            },
+
+
+                            submitHandler: function (form) {
+                                $('[id=modalSave]').find('[class=modal-msg]').show();
+                                success1.show();
+                                error1.hide();
+                                form.submit();
+                            }
+                        });
+
+
+                    }
+
+
+
+</script>

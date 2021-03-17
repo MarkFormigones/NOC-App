@@ -1,0 +1,117 @@
+﻿@model Hydron.Models.Definitions.DepartmentModel
+
+<div class="row">
+    <div class="col-md-2">
+        <ul class="list-unstyled profile-nav">
+            <li>
+                @if (Model.DepartmentLogo == null || Model.DepartmentLogo.Length < 5)
+{
+    <div class="tile selected bg-dark" id="deflogo">
+        <div class="corner"></div>
+        <div class="check"></div>
+        <div class="tile-body ">
+            <i class="fa fa-building"> </i>
+        </div>
+
+    </div>
+                    @*<img src="/assets/img/profile/portfolio/newlogo_medium.png" alt="Logo" class="img-responsive" />*@  }
+                else
+                { <img src="@Href(@Model.DepartmentLogo + "_Medium.jpg")" alt="Logo" class="img-responsive" />  }
+
+            </li>
+            <li class="divider"><br /> </li>
+           
+           
+            <li>
+               
+                @*@{Html.RenderAction("_subtree", "BCompanies", new { parentId = Model .DepartmentId});} thgis will bring data Automatically*@
+            
+            </li>
+
+
+        </ul>
+    </div>
+    <div class="col-md-10">
+        <div class="row">
+            <div class="col-md-10 profile-info">
+
+
+                <h1 class="form-section">@Model.DepartmentName</h1>
+
+
+                <ul class="list-unstyled">
+                   
+                    <li>
+                        <i class="fa fa-check-circle-o"></i><label class="control-label">Status:</label><a href="#">
+                            @switch (Model.IsActive)
+                            {
+                                case true: <span class="label label-sm label-success">Active</span>
+                                    break;
+                                case false: <span class="label label-sm label-warning">Not Active</span>
+                                    break;
+                            }
+                        </a>
+                    </li>
+
+                    <li><i class="fa fa-calendar"></i><label class="control-label">Date:</label> @Model.Dated.Day/@Model.Dated.Month/@Model.Dated.Year  </li>
+                   
+                    <li><i class="fa fa-building"></i><label class="control-label">Description: </label></li>
+                    
+                    <li>@Model.DepartmentDesc</li>
+                    <li>
+
+                    </li>
+                </ul>
+            </div>
+        </div>    
+
+                <!--end col-md-8-->
+                <!--end col-md-4-->
+            </div>
+            <!--end row-->
+
+          
+        </div>
+
+
+
+
+
+
+
+<script>
+   
+</script>
+        <script type="text/javascript">
+
+
+            //function getBranchList(e) {
+               
+            //    var el = jQuery('#Treediv');
+            //    App.blockUI(el);
+            //    window.setTimeout(function () {
+            //        App.unblockUI(el);
+            //    }, 2000);
+
+            //    $.get("/BCompanies/_subTree?parentId=" + $(e).attr("id"), function (data) {
+
+
+            //        $('#Treediv').html(data);
+
+
+
+
+            //    }).fail(function () {
+
+            //        showtoasteralert('warning', 'Ajax', 'error', this);
+
+            //    })
+
+            //    ;
+            //};
+
+          
+            
+            
+
+        </script> 

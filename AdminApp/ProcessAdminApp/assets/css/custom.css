@@ -1,0 +1,222 @@
+/* here you can put your own css to customize and override the theme */
+        /*===== Cross Browser Compatibility =====*/
+        i,
+        a,
+        img,
+        input,
+        button,
+        textarea,
+        :before,
+        :after,
+        nav ul ul,
+        label,
+        .logo,
+        .logo > a img,
+        nav > div > ul ul,
+        nav > div > ul li,
+        .testi-nav-thmb,
+        td {
+            -webkit-transition: all .3s linear;
+            -ms-transition: all .3s linear;
+            -o-transition: all .3s linear;
+            transition: all .3s linear;
+        }
+
+        nav ul ul {
+            -webkit-transition: all 600ms cubic-bezier(0.770, 0.000, 0.175, 1.000);
+            -moz-transition: all 600ms cubic-bezier(0.770, 0.000, 0.175, 1.000);
+            -o-transition: all 600ms cubic-bezier(0.770, 0.000, 0.175, 1.000);
+            transition: all 600ms cubic-bezier(0.770, 0.000, 0.175, 1.000); /* easeInOutQuart */
+            -webkit-transition-timing-function: cubic-bezier(0.770, 0.000, 0.175, 1.000);
+            -moz-transition-timing-function: cubic-bezier(0.770, 0.000, 0.175, 1.000);
+            -o-transition-timing-function: cubic-bezier(0.770, 0.000, 0.175, 1.000);
+            transition-timing-function: cubic-bezier(0.770, 0.000, 0.175, 1.000); /* easeInOutQuart */
+        }
+
+        {
+            -webkit-transform: translateY(-50%);
+            -ms-transform: translateY(-50%);
+            -o-transform: translateY(-50%);
+            transform: translateY(-50%);
+        }
+
+
+        {
+            -webkit-transform: translateX(-50%);
+            -ms-transform: translateX(-50%);
+            -o-transform: translateX(-50%);
+            transform: translateX(-50%);
+        }
+
+
+        {
+            -webkit-transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+            -o-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+        }
+
+        .brd-rd5 {
+            -webkit-border-radius: 5px;
+            border-radius: 5px;
+        }
+
+        table tbody th:nth-child(0),
+        table tbody th:nth-child(1) {
+            width: 50%;
+        }
+
+        .product-detail-tabs table th,
+        .product-detail-tabs table td {
+            padding: 13px 20px;
+            font-size: 15px;
+        }
+
+        .product-detail-tabs {
+            float: left;
+            width: 100%;
+            margin-top: 70px;
+        }
+
+            .product-detail-tabs .tab-content {
+                float: left;
+                width: 100%;
+            }
+
+                .product-detail-tabs .tab-content .tab-pane {
+                    float: left;
+                    width: 100%;
+                }
+
+                    .product-detail-tabs .tab-content .tab-pane > h3 {
+                        margin-bottom: 25px;
+                    }
+
+                    .product-detail-tabs .tab-content .tab-pane > p {
+                        margin: 0;
+                    }
+
+                        .product-detail-tabs .tab-content .tab-pane > p + p {
+                            margin-top: 15px;
+                        }
+
+            .product-detail-tabs table {
+                float: left;
+                width: 100%;
+            }
+
+                .product-detail-tabs table th,
+                .product-detail-tabs table td {
+                    padding: 13px 20px;
+                    font-size: 15px;
+                }
+
+                .product-detail-tabs table tbody tr:nth-child(2n) {
+                }
+
+            /*background-color: #f5f5f5;*/
+
+            .product-detail-tabs > ul.nav-tabs {
+                border-bottom: 0;
+                float: left;
+                width: 100%;
+                display: block;
+                margin-bottom: 20px;
+            }
+
+            .product-detail-tabs > ul.nav-tabs li.nav-item {
+                    margin: 0 10px 10px 0;
+                    float: left;
+                    font-weight: 700;
+                    font-size: 14px;
+                }
+
+            .product-detail-tabs > ul.nav-tabs li.nav-item a.nav-link {
+                        padding: 7px 35px;
+                        border: 1px solid #ddd;
+                        float: left;
+                        -webkit-border-radius: 5px;
+                        border-radius: 5px;
+                        font-family: Merriweather;
+                        font-weight: 500;
+                    }
+
+
+        .brd-rd5 {
+            -webkit-border-radius: 5px;
+            border-radius: 5px;
+        }
+
+         input, textarea{
+            border-color: transparent;
+            outline: none;
+            -webkit-box-shadow: none;
+            -ms-box-shadow: none;
+            -o-box-shadow: none;
+            box-shadow: none;
+        }
+
+        .tab-content > input, 
+        .tab-content > textarea {
+            float: left;
+            width: 100%;
+            padding: 15px 30px;
+            /*border: 1px solid #ddd;*/
+            margin-bottom: 10px;
+            font-size: 15px;
+            height: 50px;
+           
+        }
+
+        checkbox {
+            margin-right : 10px;
+        }
+
+
+        textarea {resize: none;}
+
+        .w100 {
+            width: 100%;
+        }
+        .plrs-wrp {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  margin: 0 -15px;
+  padding-left: 0;
+  list-style: none;
+}
+.plrs-wrp > li {
+  max-width: 15%;
+  flex: 0 0 10%;
+  padding: 0 15px;
+}
+
+.plrs-wrp > li:last-child .plr-bx::before {display: none;}
+.plrs-wrp > li:nth-child(2n) .plr-bx:before {
+  -webkit-transform: rotateX(180deg);
+  -ms-transform: rotateX(180deg);
+  -o-transform: rotateX(180deg);
+  transform: rotateX(180deg);
+  top: 60px;
+}
+
+ .text-line {
+        background-color: transparent;
+        outline: none;
+        width: auto;
+        outline-style: none;
+        outline-offset: 0;
+        border-top: none;
+        border-left: none;
+        border-right: none;
+        border-bottom: solid #000 1px;
+        padding-left: 5px;     
+            -webkit-box-shadow: none;
+            -ms-box-shadow: none;
+            -o-box-shadow: none;
+            box-shadow: none;
+    }

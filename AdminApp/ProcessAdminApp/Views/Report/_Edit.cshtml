@@ -1,0 +1,421 @@
+﻿@model Hydron.Models.Definitions.DepartmentModel
+@using (Html.BeginForm("Define", "Department", FormMethod.Post, new { enctype = "multipart/form-data", id = "Define" }))
+{   @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+
+        @*<legend>Departments </legend>*@
+
+        @{
+            if (ViewData.ModelState["error"] != null)
+            {  <div class="alert alert-danger ">
+            <button class="close" data-close="alert"></button>
+            @ViewData.ModelState["error"].Errors[0].ErrorMessage
+
+        </div>}
+        }
+        <div class="alert alert-danger display-hide">
+            <button class="close" data-close="alert"></button>
+            You have some form errors. Please check below.
+
+        </div>
+        <div class="alert alert-success display-hide">
+            <button class="close" data-close="alert"></button>
+            Your form validation is successful!
+        </div>
+        <div class="form-horizontal form-bordered">
+            <div class="form-body">
+                <div class="form-group " id="rowlogo">
+
+                    <label class="control-label col-md-3">Logo</label>
+                    <div class="col-md-9">
+
+                        @if (Model.DepartmentLogo == null || Model.DepartmentLogo.Length < 5)
+                        { <div class="tile-sm bg-dark" id="deflogo" style="display:block">
+                            <div class="tile-body ">
+                                <i class="fa fa-building "> </i>
+                            </div>
+
+                        </div>
+                        <div class=" thumbnail" style="width: 96px; display:none" id="deflogoset">
+
+
+                            <img src="@Href(@Model.DepartmentLogo + "_small.jpg")" alt="Logo" class="img-responsive" />
+
+
+                        </div>
+                            @*<img src="/assets/img/profile/portfolio/newlogo_small.png" alt="Logo" class="img-responsive" />*@  }
+                        else
+                        {
+                            <div class="tile-sm bg-dark" id="deflogo" style="display:none">
+                                <div class="tile-body ">
+                                    <i class="fa fa-building "> </i>
+                                </div>
+
+                            </div>
+                            <div class=" thumbnail" style="width: 96px;" id="deflogoset">
+
+
+                                <img src="@Href(@Model.DepartmentLogo + "_small.jpg")" alt="Logo" class="img-responsive" />
+
+
+                            </div>
+                        }
+
+
+
+
+                    </div>
+                </div>
+                <div class="form-group ">
+                    <label class="control-label col-md-3">Default Logo</label>
+                    <div class="col-md-9">
+                        <div class="make-switch" data-on="success" data-off="info" data-on-label="&nbsp;Yes&nbsp;" data-off-label="&nbsp;No&nbsp; ">
+
+                            @Html.CheckBoxFor(m => m.UseDefaultLogo, new { name = "UseDefaultLogo", @checked = "", onchange = "toggleUpload();", @class = "toggle" })
+                        </div>
+                    </div>
+                </div>
+
+                @if (Model.DepartmentLogo == null || Model.DepartmentLogo.Length < 5)
+                {
+
+                    <div class="form-group " id="rowupload" style="display:none">
+                        <label class="control-label col-md-3">Upload file</label>
+                        <div class="col-md-9">
+                            <div class=" margin-top-10 fileupload fileupload-new" data-provides="fileupload">
+                                <div class="input-group input-group-fixed">
+                                    <div class="fileupload fileupload-new pull-left" data-provides="fileupload">
+
+                                        <div class="fileupload-preview  thumbnail" style="width: 50px; height: 50px;"></div>
+
+
+                                        <span class="btn default btn-file">
+                                            <span class="fileupload-new"><i class="fa fa-paper-clip"></i> Select image</span>
+                                            <span class="fileupload-exists"><i class="fa fa-undo"></i> Change</span>
+                                            <input type="file" class="default" name="file" />
+                                        </span>
+                                        <a href="#" class="btn red fileupload-exists" data-dismiss="fileupload"><i class="fa fa-trash-o"></i> Remove</a>
+
+
+                                    </div>
+
+                                </div>
+                            </div>
+                            <span class="help-block">Image files Only: JPEG, GIF, BMP, PNG </span>
+                        </div>
+                    </div>
+                }
+                else
+                {
+
+                    <div class="form-group " id="rowupload" style="display:block">
+                        <label class="control-label col-md-3">Upload file</label>
+                        <div class="col-md-9">
+                            <div class=" margin-top-10 fileupload fileupload-new" data-provides="fileupload">
+                                <div class="input-group input-group-fixed">
+                                    <div class="fileupload fileupload-new pull-left" data-provides="fileupload">
+
+                                        <div class="fileupload-preview  thumbnail" style="width: 50px; height: 50px;"></div>
+
+
+                                        <span class="btn default btn-file">
+                                            <span class="fileupload-new"><i class="fa fa-paper-clip"></i> Select image</span>
+                                            <span class="fileupload-exists"><i class="fa fa-undo"></i> Change</span>
+                                            <input type="file" class="default" name="file" />
+                                        </span>
+                                        <a href="#" class="btn red fileupload-exists" data-dismiss="fileupload"><i class="fa fa-trash-o"></i> Remove</a>
+
+
+                                    </div>
+
+                                </div>
+                            </div>
+                            <span class="help-block">Image files Only: JPEG, GIF, BMP, PNG </span>
+                        </div>
+                    </div>
+                }
+
+
+
+
+
+
+                <div class="form-group">
+
+                    <label class="control-label col-md-3">Name<span class="required">*</span></label>
+                    <div class="col-md-9 input-icon">
+                        <i class="fa fa-font"></i>
+                        @Html.HiddenFor(m => m.DepartmentId)  @*@Html.HiddenFor(m => m.AdminId)*@
+                        @Html.TextBoxFor(m => m.DepartmentName, new { @class = "form-control placeholder-no-fix", type = "text", autocomplete = "off", maxlength = "100", placeholder = "DepartmentName", name = "DepartmentName" })
+                        @Html.ValidationMessageFor(m => m.DepartmentName)
+                    </div>
+
+
+
+
+
+                </div>
+
+
+                <div class="form-group">
+                    <label class="control-label col-md-3">Description</label>
+                    <div class="col-md-9  ">
+
+                        @Html.TextAreaFor(m => m.DepartmentDesc, new { @class = "form-control placeholder-no-fix", type = "text", autocomplete = "off", maxlength = "500", rows = "2", placeholder = "DepartmentDesc", name = "DepartmentDesc" })
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                    <label class="control-label col-md-3">Dated</label>
+                    <div class="col-md-9 input-icon">
+                        <i class="fa fa-calendar"></i>
+
+                        @*@Html.TextBoxFor(m => m.UserDoB, new { @class = "form-control placeholder-no-fix", type = "text", autocomplete = "off", placeholder = "Date of Birth", name = "UserDoB" })
+                            @Html.ValidationMessageFor(m => m.UserDoB)*@
+
+
+                        @Html.TextBoxFor(m => m.Dated, new { @class = "form-control placeholder-no-fix date-picker", type = "text", autocomplete = "off", placeholder = "Dated", name = "Dated" })
+                        @Html.ValidationMessageFor(m => m.Dated)
+
+                    </div>
+                </div>
+
+
+
+
+
+
+
+
+
+
+                <div class="form-group">
+                    <label class="control-label col-md-3">Is Active</label>
+
+
+
+                    <div class="col-md-9 input-icon">
+                        <i class="fa fa-lock"></i>
+                        <div class="make-switch" data-on="success" data-off="warning" data-on-label="&nbsp;Active&nbsp;" data-off-label="&nbsp;Inactive&nbsp;&nbsp;">
+
+                            @Html.CheckBoxFor(m => m.IsActive, new { name = "IsActive", @checked = "", @class = "toggle" })
+
+                        </div>
+
+                    </div>
+                    <label> @Html.ValidationMessageFor(m => m.IsActive)</label>
+                </div>
+
+
+
+
+                <div class="margiv-top-10">
+                    <a data-toggle="modal" class="btn green" role="button" href="#modalSave" onclick="handleDepartment();">Save Changes</a>
+
+                </div>
+                <div aria-hidden="true" aria-labelledby="myModalLabel3" role="dialog" tabindex="-1" class="modal fade" id="modalSave" style="display: none;">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button aria-hidden="true" data-dismiss="modal" class="close" type="button"></button>
+                                <h4 class="modal-title"> </h4>
+                            </div>
+                            <div class="modal-body">
+                                @*the value to be set when calling  initModT('Save');*@
+                            </div>
+                            <div class="modal-footer">
+                                <h5 class="modal-msg" style="display:none"> <span><img src='/assets/img/loading.gif'></span> </h5>
+                                <button aria-hidden="true" data-dismiss="modal" class="btn default">Close</button>
+                                @*<a class="btn red" href="~/Department/Delete?uId=@Model.DepartmentId" id="fdbtn"> // onclick="initModT('S ave'); removed, no need on close to reinitialize
+                                        <i class="fa fa-trash-o"></i> Delete
+                                    </a>*@
+                                <button type="submit" value="Save" class="btn green" id="fsbtn">
+                                    <i class="fa fa-save"></i>Save
+
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </fieldset>
+            <div id="register_tnc_error"></div>
+
+            }
+
+<script type="text/javascript">
+
+
+                    jQuery(document).ready(function () {
+                        //function format(state) {
+                        //    if (!state.id) return state.text; // optgroup
+                        //    return "<img class='flag' src='/assets/img/flags/" + state.id.toLowerCase() + ".png'/>&nbsp;&nbsp;" + state.text;
+                        //}
+
+
+                        //$("#select2_sample4").select2({
+                        //    placeholder: '<i class="fa fa-map-marker"></i>&nbsp;Select a Country',
+                        //    allowClear: true,
+                        //    formatResult: format,
+                        //    formatSelection: format,
+                        //    escapeMarkup: function (m) {
+                        //        return m;
+                        //    }
+                        //});
+
+                        handleDepartment();
+
+
+
+
+
+
+                    });
+
+                    function toggleUpload() {
+                        $('#rowupload').toggle(); $('#deflogoset').toggle(); $('#deflogo').toggle();
+
+                    }
+
+                    function initModT(type) {
+
+                        if (type == "Delete") {
+
+                            $('[id=modalDef]').find('[class=modal-title]').html("Delete");
+                            $('[id=modalDef]').find('[class=modal-body]').html(" Are you sure you want to Delete this record?</p>");
+
+                            $('#fbbtn').hide();
+                            $('#fdbtn').show();
+
+
+                        }
+
+                        if (type == "Ban") {
+
+                            $('[id=modalDef]').find('[class=modal-title]').html("Activation");
+                            $('[id=modalDef]').find('[class=modal-body]').html(" Are you sure you want to Deactivate this record?</p>");
+
+                            $('#fdbtn').hide();
+                            $('#fbbtn').show();
+                        }
+                        if (type == "Save") {
+                            $('[id=modalSave]').find('[class=modal-title]').html("Save");
+                            $('[id=modalSave]').find('[class=modal-body]').html(" Are you sure you want to Save this record?</p>");
+                            $('#fsbtn').show();
+                            $('#fdbtn').hide();
+                            $('#fbbtn').hide();
+                        }
+                    }
+
+
+
+                    var handleDepartment = function InitValidate() {
+                        initModT('Save');
+
+                        $('#DepartmentDesc').maxlength({
+                            limitReachedClass: "label label-danger",
+                            alwaysShow: true
+                        });
+
+
+                        var form1 = $('#Define');
+                        var error1 = $('.alert-danger', form1);
+                        var success1 = $('.alert-success', form1);
+
+                        form1.validate({
+                            errorElement: 'span', //default input error message container
+                            errorClass: 'help-block', // default input error message class
+                            focusInvalid: false, // do not focus the last invalid input
+                            ignore: "",
+                            rules: {
+
+                                DepartmentName: {
+                                    required: true
+                                },
+                                DepartmentDesc: {
+                                    required: true
+                                },
+                                IsActive: {
+                                    required: false
+                                }
+
+
+                            },
+
+                            messages: { // custom messages for radio buttons and checkboxes
+                                IsActive: {
+                                    required: "Please Activate"
+                                },
+                                //DepartmentCountryId: {
+                                //    required: "<i class='fa fa-globe'></i>"
+
+                                //},
+
+
+                            },
+
+                            invalidHandler: function (event, validator) {
+
+                                $('[id=modalSave]').find('[class=modal-title]').html("Save");
+                                $('[id=modalSave]').find('[class=modal-body]').html("<div class='alert alert-warning '><span><i class='fa fa-warning'></i>Insuffeciant  Data</span><p> Please fill all required fields in a valid format.</p> </div>");
+                                $('#fsbtn').hide();
+
+
+                            },
+
+                            highlight: function (element) { // hightlight error inputs
+                                $(element)
+                                    .closest('.form-group').addClass('has-error'); // set error class to the control group
+                                //$("[class=modal-body]").html("   ");
+                                //  initModT('Save');// reset the modal so save mode
+                                error1.show();
+                                $('[id=modalSave]').find('[class=modal-title]').html("Save");
+                                $('[id=modalSave]').find('[class=modal-body]').html("<div class='alert-danger '><p><i class='fa fa-warning'></i> Insuffeciant  Data</p><p> Please fill all required fields in a valid format.</p> </div>");
+                                $('#fsbtn').hide();
+
+                            },
+
+                            success: function (label) {
+                                label.closest('.form-group').removeClass('has-error');
+                                label.remove();
+                                return true;
+                                //$('[id=modalSave]').find('[class=modal-title]').html("Save");
+                                //$('[id=modalSave]').find('[class=modal-body]').html(" Are you sure you want to save this record?</p>");
+                                //$('#fsbtn').show();
+
+                            },
+
+                            errorPlacement: function (error, element) {
+                                //below will write the error after the control
+                                //if (element.closest('.input-icon').size() === 1) {
+                                //    error.insertAfter(element.closest('.input-icon'));
+                                //} else {
+                                //    error.insertAfter(element);
+                                //}
+                                //below will write the error in tooltip
+                                var icon = $(element).parent('.input-icon').children('i');
+                                icon.removeClass('fa-check').addClass("fa-warning");
+                                icon.attr("data-original-title", error.text()).tooltip({ 'container': 'body' });
+                            },
+
+
+                            submitHandler: function (form) {
+                                $('[id=modalSave]').find('[class=modal-msg]').show();
+                                success1.show();
+                                error1.hide();
+                                form.submit();
+                            }
+                        });
+
+
+                    }
+
+
+</script>

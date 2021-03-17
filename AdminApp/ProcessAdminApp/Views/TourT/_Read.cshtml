@@ -1,0 +1,280 @@
+﻿@model Hydron.Models.Definitions.TourTModel
+@*<style>
+    video {
+    width: 100%;
+    height: auto;
+}
+</style>*@
+
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="col-md-2">
+            <ul class="list-unstyled profile-nav">
+                <li>
+                    @{ 
+                        //jpeg file
+                        string jpgpath = @Href(Model.TargetIconUrl + "_thumb.jpg");
+                        string filejpgPath = Request.MapPath(jpgpath);
+                        //gif file
+                        string gifpath = @Href(Model.TargetIconUrl + ".gif");
+                        string filegifPath = Request.MapPath(gifpath);
+                    }
+                    @if (Model.TargetIconUrl == null || Model.TargetIconUrl.Length < 5)
+                    {
+                        <div class="tile selected bg-dark" id="deflogo">
+                            <div class="corner"></div>
+                            <div class="check"></div>
+                            <div class="tile-body ">
+                                <i class="fa fa-building"> </i>
+                            </div>
+
+                        </div>
+                    }
+                    else
+                    {                                      
+                        if (System.IO.File.Exists(filejpgPath))
+                        {
+                            <img src="@Href(@Model.TargetIconUrl + "_Medium.jpg")" alt="Logo" class="img-responsive" />
+                        }
+                        else
+                        {
+                            <img src="@Href(@Model.TargetIconUrl)" alt="GIF" class="img-responsive" />
+                        }                       
+                        
+                    }
+
+                </li>
+                <li class="divider"><br /> </li>
+
+
+                <li>
+
+                    @*@{Html.RenderAction("_subtree", "BCompanies", new { parentId = Model .DepartmentId});} thgis will bring data Automatically*@
+
+                </li>
+
+
+            </ul>
+        </div>
+        <div class="col-md-10">
+            <div class="row">
+                <div class="col-md-10 profile-info">
+
+
+                    <h1 class="form-section">@Model.TargetSubject</h1>
+
+
+                    <ul class="list-unstyled">
+
+                        <li>
+                            <i class="fa fa-check-circle-o"></i><label class="control-label">Status:</label><a href="#">
+                                @switch (Model.IsActive)
+                                {
+                                    case true: <span class="label label-sm label-success">Active</span>
+                                        break;
+                                    case false: <span class="label label-sm label-warning">Not Active</span>
+                                        break;
+                                }
+                            </a>
+                        </li>
+
+                        <li><i class="fa fa-building"></i><label class="control-label">Controller: </label> @Model.Controller</li>
+                        <li><i class="fa fa-building"></i><label class="control-label">Action: </label> @Model.Action</li>
+                        <li><i class="fa fa-building"></i><label class="control-label">TargetClass: </label> @Model.TargetClass</li>
+                        <li><i class="fa fa-building"></i><label class="control-label">TargetOrder: </label> @Model.TargetOrder</li>
+                        <li><i class="fa fa-building"></i><label class="control-label">placement: </label> @Model.placement</li>
+                        <li><i class="fa fa-building"></i><label class="control-label">TargetUrl: </label> @Model.TargetUrl</li>
+
+
+                        <li><i class="fa fa-building"></i><label class="control-label">Description: </label></li>
+
+                        <li>@Model.TargetDesc</li>
+                        <li>
+
+
+                        </li>
+
+                        <li>
+                            <div class="col-md-6">
+                                <label class="control-label">Background Image: </label> 
+                                @if (Model.BackgroudImg == null || Model.BackgroudImg.Length < 5)
+                                {
+                                    <div class="tile selected " id="deflogoImg">
+                                        <div class="corner"></div>
+                                        @*<div class="check"></div>*@
+                                        <div class="tile-body ">
+                                            @*<i class="fa fa-building"> </i>*@
+                                        </div>
+
+                                    </div>
+                                    @*<img src="/assets/img/profile/portfolio/newlogo_medium.png" alt="Logo" class="img-responsive" />*@  }
+                                else
+                                { <img src="@Href(@Model.BackgroudImg + "_base.jpg")" alt="Img" class="img-responsive" />  }
+                            </div>
+                        </li>
+                        <div class="col-md-6">
+                            <label class="control-label">Video: </label> 
+                            @if (Model.VideoUrl == null || Model.VideoUrl.Length < 5)
+                            {
+                                <div class="tile selected " id="deflogoImg">
+                                    <div class="corner"></div>
+                                    @*<div class="check"></div>*@
+                                    <div class="tile-body ">
+                                        @*<i class="fa fa-building"> </i>*@
+                                    </div>
+
+                                </div>
+                                    @*<img src="/assets/img/profile/portfolio/newlogo_medium.png" alt="Logo" class="img-responsive" />*@  }
+                            else
+                            {
+                                <video controls class="img-responsive">
+                                    <source src="@Href(@Model.VideoUrl)" type="video/mp4">
+                                    <source src="@Href(@Model.VideoUrl)" type="video/ogg">
+                                    Your browser does not support the video tag.
+                                </video>
+
+                            }
+</div>
+</ul>
+                </div>
+            </div>
+
+            <!--end col-md-8-->
+            <!--end col-md-4-->
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="col-md-2">
+            <ul class="list-unstyled profile-nav">
+                <li>
+                    @{ 
+                        //jpeg file
+                        string jpgpathAr = @Href(Model.TargetIconUrlAr + "_thumb.jpg");
+                        string filejpgPathAr = Request.MapPath(jpgpathAr);
+                        //gif file
+                        string gifpathAr = @Href(Model.TargetIconUrlAr + ".gif");
+                        string filegifPathAr = Request.MapPath(gifpathAr);
+                    }
+                    @if (Model.TargetIconUrlAr == null || Model.TargetIconUrlAr.Length < 5)
+                    {
+                        <div class="tile selected bg-dark" id="deflogoAr">
+                            <div class="corner"></div>
+                            <div class="check"></div>
+                            <div class="tile-body ">
+                                <i class="fa fa-building"> </i>
+                            </div>
+
+                        </div>
+                    }
+                    else
+                    {                        
+                        if (System.IO.File.Exists(filejpgPathAr))
+                        {
+                            <img src="@Href(@Model.TargetIconUrlAr + "_Medium.jpg")" alt="LogoAr" class="img-responsive" />
+                        }
+                    else
+                    {
+                        <img src="@Href(@Model.TargetIconUrlAr)" alt="GIFAr" class="img-responsive" />
+                    }
+
+
+                    }
+               
+                   
+
+                </li>
+                <li class="divider"><br /> </li>
+
+
+                <li>
+
+                    @*@{Html.RenderAction("_subtree", "BCompanies", new { parentId = Model .DepartmentId});} thgis will bring data Automatically*@
+
+                </li>
+
+
+            </ul>
+        </div>
+        <div class="col-md-10">
+            <div class="row">
+                <div class="col-md-10 profile-info">
+
+
+                    <h1 class="form-section">@Model.TargetSubjectAr</h1>
+
+
+                    <ul class="list-unstyled">
+                        
+                        <li><i class="fa fa-building"></i><label class="control-label">Description Ar: </label></li>
+
+                        <li>@Model.TargetDescAr</li>
+                        <li>
+
+                        </li>
+                        <li><i class="fa fa-building"></i><label class="control-label">Extra Text: </label> @Model.ExtraText</li>
+                        <li><i class="fa fa-building"></i><label class="control-label">Extra Int 1: </label> @Model.ExtraInt1</li>
+                        <li><i class="fa fa-building"></i><label class="control-label">Extra Int 2: </label> @Model.ExtraInt2</li>
+                        <li><i class="fa fa-building"></i><label class="control-label">Extra bit 1: </label> @Model.ExtraBit1</li>
+                        <li><i class="fa fa-building"></i><label class="control-label">Extra bit 2: </label> @Model.ExtraBit2</li>  
+                    
+                        
+                    </ul>
+
+
+
+                </div>
+            </div>
+
+            <!--end col-md-8-->
+            <!--end col-md-4-->
+        </div>
+    </div>
+
+        <!--end row-->
+
+    </div>
+
+
+
+
+
+
+
+<script>
+   
+</script>
+        <script type="text/javascript">
+
+
+            //function getBranchList(e) {
+               
+            //    var el = jQuery('#Treediv');
+            //    App.blockUI(el);
+            //    window.setTimeout(function () {
+            //        App.unblockUI(el);
+            //    }, 2000);
+
+            //    $.get("/BCompanies/_subTree?parentId=" + $(e).attr("id"), function (data) {
+
+
+            //        $('#Treediv').html(data);
+
+
+
+
+            //    }).fail(function () {
+
+            //        showtoasteralert('warning', 'Ajax', 'error', this);
+
+            //    })
+
+            //    ;
+            //};
+
+          
+            
+            
+
+        </script> 

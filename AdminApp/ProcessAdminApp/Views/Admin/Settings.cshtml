@@ -1,0 +1,60 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Settings</title>
+
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 15px;
+            }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }      
+    </style>
+
+
+</head>
+ @*<h2>Settings</h2>*@
+<body>
+    <table style="width:100%">
+        <caption>Settings</caption>
+        <tr>
+           
+                <th>@Html.ActionLink("AppLockup", "AppLockupList", "AppLockup")</th>
+                <th>@Html.ActionLink("ChangeType", "ChangeTypeList", "ChangeType")</th>
+                <th>@Html.ActionLink("CommandLockup", "CommandLockupList", "CommandLockup")</th>
+
+        </tr>
+        <tr>
+
+                <th>@Html.ActionLink("Consequence_Lockup", "Consequence_LockupList", "Consequence_Lockup")</th>
+                <th>@Html.ActionLink("Costing", "CostingList", "Costing")</th>
+                <th>@Html.ActionLink("NotificationLockup", "NotificationLockupList", "NotificationLockup")</th>
+
+        </tr>
+        <tr>
+
+                <th>@Html.ActionLink("NotificationPriority_Lockup", "NotificationPriority_LockupList", "NotificationPriority_Lockup")</th>
+                <th> @Html.ActionLink("OperationLockup", "OperationLockupList", "OperationLockup")</th>
+                <th> @Html.ActionLink("OptionsLockup", "OptionsLockupList", "OptionsLockup")</th>
+
+        </tr>
+        </table>
+</body>
+</html>

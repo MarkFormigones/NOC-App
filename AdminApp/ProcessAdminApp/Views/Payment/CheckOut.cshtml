@@ -1,0 +1,94 @@
+﻿
+@model Hydron.Models.Definitions.PayRegResponseModel
+
+<script src="~/Scripts/jquery-1.8.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/assets/scripts/plugins.bundle.js"></script>
+
+<link rel="stylesheet" type="text/css" href="~/assets/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.css" />
+<link rel="stylesheet" type="text/css" href="~/assets/plugins/bootstrap-markdown/css/bootstrap-markdown.min.css">
+<link href="~/assets/css/style.bundle.css" rel="stylesheet" />
+
+
+<form action="@Model.Transaction.PaymentPage" method="post">
+    <input type="Hidden" name="TransactionID" value="@Model.Transaction.TransactionID" />
+    @*<input type="submit" value="Pay Now!">*@
+
+    <div class="ro w">
+        <div class="center-bloc k">
+            <!--begin::Section-->
+            <div class="card card-custom gutter-b">
+                <!--begin::Header-->
+                <div class="card-header flex-wrap border-0 pt-6 pb-0">
+                    @*<h3 class="card-title align-items-start flex-column">
+                            <span class="card-label font-weight-bolder font-size-h3 text-dark">Checkout</span>
+                        </h3>*@
+                    <h4 class="card-title font-weight-bold text-dark">Review your Order and Submit</h4>
+
+                </div>
+                <!--end::Header-->
+                <div class="card-body">
+                    <h6 class="font-weight-bolder mb-3">Order Details:</h6>
+                    <!--begin::Shopping Cart-->
+                    <div class="text-dark-50 line-height-lg">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th class="pl-0 font-weight-bold text-muted text-uppercase">Ordered Items</th>
+                                        <th class="text-right font-weight-bold text-muted text-uppercase">Qty</th>
+                                        <th class="text-right font-weight-bold text-muted text-uppercase">Unit Price</th>
+                                        <th class="text-right pr-0 font-weight-bold text-muted text-uppercase">Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="font-weight-boldest">
+                                        <td class="pl-0 pt-7 d-flex align-items-center">
+                                            <!--begin::Symbol-->
+                                            <div class="symbol symbol-40 flex-shrink-0 mr-4 bg-light">
+                                                <div class="symbol-label" style="background-image: url('https://www.pngitem.com/pimgs/m/81-815388_document-icon-png-transparent-png.png')"></div>
+                                            </div>
+                                            <!--end::Symbol-->
+                                            NOC 00001 - Certification
+                                        </td>
+                                        <td class="text-right pt-7 align-middle">1</td>
+                                        <td class="text-right pt-7 align-middle">AED 90.00</td>
+                                        <td class="text-primary pr-0 pt-7 text-right align-middle">AED 90.00</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td colspan="2"></td>
+                                        <td class="font-weight-bolder text-right">Subtotal</td>
+                                        <td class="font-weight-bolder text-right pr-0">AED 90.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" class="border-0 pt-0"></td>
+                                        <td class="border-0 pt-0 font-weight-bolder text-right">Vat 5%</td>
+                                        <td class="border-0 pt-0 font-weight-bolder text-right pr-0">$4.50</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" class="border-0 pt-0"></td>
+                                        <td class="border-0 pt-0 font-weight-bolder font-size-h5 text-right">Grand Total</td>
+                                        <td class="border-0 pt-0 font-weight-bolder font-size-h5 text-success text-right pr-0">$94.50</td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!--end::Shopping Cart-->
+                </div>
+
+                <div class="card-footer">
+                    @*<a href="#" class="btn btn-success font-weight-bolder px-8 pull-right">Pay Now</a>*@
+                    <input type="submit" class="btn btn-success font-weight-bolder px-8 pull-right" value="Pay Now">
+                </div>
+            </div>
+            <!--end::Section-->
+        </div>
+
+    </div>
+
+</form>
+
