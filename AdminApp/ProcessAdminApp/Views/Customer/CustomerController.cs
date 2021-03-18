@@ -101,13 +101,17 @@ namespace Hydron.Views
 
 
             int tempId = 0; string logMsg = "Division";
-            int cnt = dataMgr.Customers.Where(x => x.CustomerName.Replace(" ", string.Empty).ToUpper() == model.CustomerName.Replace(" ", string.Empty).ToUpper()).Count();
-            if (cnt > 0)
+            
+            if(model.Id == 0)
             {
-                ModelState.AddModelError("DuplicateCustomer", "Customer Name is already exists. ");
+                int cnt = dataMgr.Customers.Where(x => x.CustomerName.Replace(" ", string.Empty).ToUpper() == model.CustomerName.Replace(" ", string.Empty).ToUpper()).Count();
+                if (cnt > 0)
+                {
+                    ModelState.AddModelError("DuplicateCustomer", "Customer Name is already exists. ");
+                }
             }
-               
-
+            
+           
             if (ModelState.IsValid)
             {
 
