@@ -476,15 +476,25 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CustomerNo" Type="nvarchar" MaxLength="20" Nullable="false" />
-          <Property Name="CustomerAcctNo" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="CustomerName" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="CustomerAcctNo" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CustomerAcctNoSub" Type="nvarchar" MaxLength="50" />
           <Property Name="CustomerAddress" Type="nvarchar" MaxLength="200" />
+          <Property Name="CustomerEmail" Type="nvarchar" MaxLength="50" />
           <Property Name="CustomerContactNo" Type="nvarchar" MaxLength="200" />
           <Property Name="CustomerWebsite" Type="nvarchar" MaxLength="200" />
-          <Property Name="CustomerStatus" Type="bit" Nullable="false" />
-          <Property Name="IsDeleted" Type="bit" Nullable="false" />
-          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="CustomerContract" Type="nvarchar" MaxLength="200" />
+          <Property Name="CustomerLogo" Type="nvarchar" MaxLength="300" />
           <Property Name="CustomerClass" Type="int" Nullable="false" />
+          <Property Name="CustomerCategory" Type="int" Nullable="false" />
+          <Property Name="CustomerType" Type="int" Nullable="false" />
+          <Property Name="CreationDate" Type="date" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="ActivateDate" Type="date" />
+          <Property Name="UpdateDate" Type="date" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+          <Property Name="IsClosed" Type="bit" Nullable="false" />
+          <Property Name="ClosingDate" Type="date" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'HydronDB-SNOC-BLOB_V2.dbo.DateExtensions__' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -19844,15 +19854,25 @@ warning 6002: The table/view 'HydronDB-SNOC-BLOB_V2.dbo.Vw_WorldMap2' does not h
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CustomerNo" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="CustomerAcctNo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CustomerName" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CustomerAcctNo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CustomerAcctNoSub" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CustomerAddress" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CustomerEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CustomerContactNo" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="CustomerWebsite" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="CustomerStatus" Type="Boolean" Nullable="false" />
-          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
-          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="CustomerContract" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CustomerLogo" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
           <Property Name="CustomerClass" Type="Int32" Nullable="false" />
+          <Property Name="CustomerCategory" Type="Int32" Nullable="false" />
+          <Property Name="CustomerType" Type="Int32" Nullable="false" />
+          <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="ActivateDate" Type="DateTime" Precision="0" />
+          <Property Name="UpdateDate" Type="DateTime" Precision="0" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="IsClosed" Type="Boolean" Nullable="false" />
+          <Property Name="ClosingDate" Type="DateTime" Precision="0" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -26539,15 +26559,25 @@ warning 6002: The table/view 'HydronDB-SNOC-BLOB_V2.dbo.Vw_WorldMap2' does not h
           <EntitySetMapping Name="Customers">
             <EntityTypeMapping TypeName="ProcessadmindbModel.Customer">
               <MappingFragment StoreEntitySet="Customer">
-                <ScalarProperty Name="CustomerClass" ColumnName="CustomerClass" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="ClosingDate" ColumnName="ClosingDate" />
+                <ScalarProperty Name="IsClosed" ColumnName="IsClosed" />
                 <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
-                <ScalarProperty Name="CustomerStatus" ColumnName="CustomerStatus" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="ActivateDate" ColumnName="ActivateDate" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="CustomerType" ColumnName="CustomerType" />
+                <ScalarProperty Name="CustomerCategory" ColumnName="CustomerCategory" />
+                <ScalarProperty Name="CustomerClass" ColumnName="CustomerClass" />
+                <ScalarProperty Name="CustomerLogo" ColumnName="CustomerLogo" />
+                <ScalarProperty Name="CustomerContract" ColumnName="CustomerContract" />
                 <ScalarProperty Name="CustomerWebsite" ColumnName="CustomerWebsite" />
                 <ScalarProperty Name="CustomerContactNo" ColumnName="CustomerContactNo" />
+                <ScalarProperty Name="CustomerEmail" ColumnName="CustomerEmail" />
                 <ScalarProperty Name="CustomerAddress" ColumnName="CustomerAddress" />
-                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="CustomerAcctNoSub" ColumnName="CustomerAcctNoSub" />
                 <ScalarProperty Name="CustomerAcctNo" ColumnName="CustomerAcctNo" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
                 <ScalarProperty Name="CustomerNo" ColumnName="CustomerNo" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>

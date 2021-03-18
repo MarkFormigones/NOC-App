@@ -254,6 +254,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Models\ActivityLog\ActvityLogModel.cs" />
+    <Compile Include="Models\Definitions\CustomerModel.cs" />
     <Compile Include="Models\Definitions\FBMessagingModel.cs" />
     <Compile Include="Models\Definitions\PayFinalRequestModel.cs" />
     <Compile Include="Models\Definitions\PayFinalResponseModel.cs" />
@@ -284,6 +285,7 @@
     <Compile Include="Views\CommandLockup\CommandLockupController.cs" />
     <Compile Include="Views\Consequence_Lockup\Consequence_LockupController.cs" />
     <Compile Include="Views\Costing\CostingController.cs" />
+    <Compile Include="Views\Customer\CustomerController.cs" />
     <Compile Include="Views\FirebaseMessaging\FirebaseMessagingController.cs" />
     <Compile Include="Views\Payment\PaymentController.cs" />
     <Compile Include="Views\Report\ReportController.cs" />
@@ -2891,6 +2893,11 @@
     <Content Include="Views\Payment\Index - Copy.cshtml" />
     <Content Include="Views\Payment\Index.cshtml" />
     <Content Include="Views\FirebaseMessaging\Index.cshtml" />
+    <Content Include="Views\Customer\_Edit.cshtml" />
+    <Content Include="Views\Customer\_GetList.cshtml" />
+    <Content Include="Views\Customer\_Read.cshtml" />
+    <Content Include="Views\Customer\Define.cshtml" />
+    <Content Include="Views\Customer\CustomersList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ApplicationUploads\UFiles\" />

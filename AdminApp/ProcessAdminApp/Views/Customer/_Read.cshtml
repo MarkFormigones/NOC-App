@@ -1,0 +1,162 @@
+﻿@model Hydron.Models.Definitions.CustomerModel
+
+<div class="row">
+    <div class="col-md-2">
+        <ul class="list-unstyled profile-nav">
+            <li>
+                @if (Model.CustomerLogo == null || Model.CustomerLogo.Length < 5)
+{
+    <div class="tile selected bg-dark" id="deflogo">
+        <div class="corner"></div>
+        <div class="check"></div>
+        <div class="tile-body ">
+            <i class="fa fa-building"> </i>
+        </div>
+
+    </div>
+                    }
+                else
+                { <img src="@Href(@Model.CustomerLogo + "_Medium.jpg")" alt="Logo" class="img-responsive" />  }
+
+            </li>
+            <li class="divider"><br /> </li>
+           
+           
+            <li>
+              
+            
+            </li>
+
+
+        </ul>
+    </div>
+    <div class="col-md-10">
+        <div class="row">
+            <div class="col-md-10 profile-info">
+
+
+                <h1 class="form-section">@Model.CustomerName</h1>
+
+
+                <ul class="list-unstyled">
+
+                    <li>
+                        <i class="fa fa-check-circle-o"></i><label class="control-label">Status:</label><a href="#">
+                            @switch (Model.IsActive)
+                            {
+                                case true:<span class="label label-sm label-success">Active</span>
+                                    break;
+                                case false: <span class="label label-sm label-warning">Not Active</span>
+                                    break;
+                            }
+                        </a>
+                    </li>
+
+                    @if (Model.IsActive)
+                    {
+                        <li><i class="fa fa-calendar"></i><label class="control-label">Date Activate:</label> @Model.ActivateDate.Value.Day/@Model.ActivateDate.Value.Month/@Model.ActivateDate.Value.Year  </li>
+
+                    }
+
+                   
+
+                    @if (Model.UpdateDate != null)
+                    {
+                        <li><i class="fa fa-calendar"></i><label class="control-label">Last Modified:</label> @Model.UpdateDate.Value.Day/@Model.UpdateDate.Value.Month/@Model.UpdateDate.Value.Year  </li>
+
+                    }
+                    <li>
+
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!--end col-md-8-->
+        <!--end col-md-4-->
+
+
+        <table>
+            <tr>
+                <th><i class="fa fa-building"></i><label class="control-label"> Customer No: </label></th>
+                <td> @Model.CustomerNo</td>
+            </tr>
+            <tr>
+                <th><i class="fa fa-info"></i><label class="control-label"> Main Account No: </label></th>
+                <td> @Model.CustomerAcctNo</td>
+            </tr>
+            <tr>
+                <th><i class="fa fa-info"></i><label class="control-label"> Sub Account No: </label></th>
+                <td> @Model.CustomerAcctNoSub</td>
+            </tr>
+
+
+            <tr>
+                <th><i class="fa fa-info"></i><label class="control-label"> Class: </label></th>
+                <td> @Model.CustomerClassName</td>
+            </tr>
+            <tr>
+                <th><i class="fa fa-info"></i><label class="control-label"> Category: </label></th>
+                <td> @Model.CustomerCategoryName</td>
+            </tr>
+            <tr>
+                <th><i class="fa fa-info"></i><label class="control-label"> Type: </label></th>
+                <td> @Model.CustomerTypeName</td>
+            </tr>
+
+
+            <tr>
+                <th><i class="fa fa-location-arrow"></i><label class="control-label"> Address: </label></th>
+                <td> @Model.CustomerAddress</td>
+            </tr>
+            <tr>
+                <th><i class="fa fa-building"></i><label class="control-label"> Email: </label></th>
+                <td> @Model.CustomerEmail</td>
+            </tr>
+            <tr>
+                <th><i class="fa fa-mobile"></i><label class="control-label"> Contact Details: </label></th>
+                <td> @Model.CustomerContactNo</td>
+            </tr>
+            <tr>
+                <th><i class="fa fa-globe"></i><label class="control-label"> Websites: </label></th>
+                <td> @Model.CustomerWebsite</td>
+            </tr>
+            <tr>
+                <th><i class="fa fa-building"></i><label class="control-label"> Contract / SLA: </label></th>
+                <td> @Model.CustomerContract</td>
+            </tr>
+
+            <tr>
+                <th>
+                    <i class="fa fa-check-circle-o"></i>
+                    <label class="control-label">Close:</label>
+                </th>
+                <td>
+                    <a href="#">
+                        @switch (Model.IsClosed)
+                        {
+                            case true:<span class="label label-sm label-success">YES</span>
+                                break;
+                            case false: <span class="label label-sm label-warning">NO</span>
+                                break;
+                        }
+                    </a>
+                </td>
+            </tr>
+
+            @if (Model.IsClosed)
+            {
+        <tr>
+            <th><i class="fa fa-calendar"></i><label class="control-label"> Date Closed: </label></th>
+            <td> @Model.ClosingDate.Value.Day/@Model.ClosingDate.Value.Month/@Model.ClosingDate.Value.Year </td>
+            
+        </tr>
+            }
+            </table>
+
+    </div>
+            <!--end row-->
+
+          
+        </div>
+

@@ -16,14 +16,24 @@ namespace DAL
     {
         public int Id { get; set; }
         public string CustomerNo { get; set; }
-        public string CustomerAcctNo { get; set; }
         public string CustomerName { get; set; }
+        public string CustomerAcctNo { get; set; }
+        public string CustomerAcctNoSub { get; set; }
         public string CustomerAddress { get; set; }
+        public string CustomerEmail { get; set; }
         public string CustomerContactNo { get; set; }
         public string CustomerWebsite { get; set; }
-        public bool CustomerStatus { get; set; }
-        public bool IsDeleted { get; set; }
-        public bool IsActive { get; set; }
+        public string CustomerContract { get; set; }
+        public string CustomerLogo { get; set; }
         public int CustomerClass { get; set; }
+        public int CustomerCategory { get; set; }
+        public int CustomerType { get; set; }
+        public System.DateTime CreationDate { get; set; }
+        public bool IsActive { get; set; }
+        public Nullable<System.DateTime> ActivateDate { get; set; }
+        public Nullable<System.DateTime> UpdateDate { get; set; }
+        public bool IsDeleted { get; set; }
+        public bool IsClosed { get; set; }
+        public Nullable<System.DateTime> ClosingDate { get; set; }
     }
 }

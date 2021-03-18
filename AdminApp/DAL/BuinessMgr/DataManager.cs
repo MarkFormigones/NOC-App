@@ -640,5 +640,61 @@ namespace DAL
         #endregion
 
 
+        #region Customer
+        public Customer GetCustomerInfoById(int? uId)
+        {
+            var query = _DbContext.Customers.Where(x => x.Id == uId).Single();
+            return query;
+        }
+
+        public IList<DAL.Customer> GetCustomer_List()
+        {//Same Table with Type=1
+            IList<DAL.Customer> query;
+            query = _DbContext.Customers.Where(x => x.IsDeleted == false).ToList();
+            return query;
+        }
+
+
+       
+
+
+        public IList<DAL.ProcessCategory> GetCustomerClass_List()
+        {
+
+            IList<DAL.ProcessCategory> query;
+            query = _DbContext.ProcessCategories
+                            .Where(x => x.TypeId == 4 && x.ParentId == 0 && x.IsDeleted != true && x.IsActive == true)
+                            .OrderByDescending(x => x.Id)
+                            .ToList();
+
+            return query;
+        }
+
+        public IList<DAL.ProcessCategory> GetCustomerCategory_List()
+        {
+
+            IList<DAL.ProcessCategory> query;
+            query = _DbContext.ProcessCategories
+                            .Where(x => x.TypeId == 5 && x.ParentId == 0 && x.IsDeleted != true && x.IsActive == true)
+                            .OrderByDescending(x => x.Id)
+                            .ToList();
+
+            return query;
+        }
+
+        public IList<DAL.ProcessCategory> GetCustomerType_List()
+        {
+
+            IList<DAL.ProcessCategory> query;
+            query = _DbContext.ProcessCategories
+                            .Where(x => x.TypeId == 6 && x.ParentId == 0 && x.IsDeleted != true && x.IsActive == true)
+                            .OrderByDescending(x => x.Id)
+                            .ToList();
+
+            return query;
+        }
+
+        #endregion
+
     }
 }
