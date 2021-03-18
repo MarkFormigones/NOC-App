@@ -54,9 +54,7 @@ namespace Hydron.Views
             DAL.DataManager dataMgr = new DAL.DataManager();
             var pInfo = new DAL.Customer();
            
-            var classList = dataMgr.GetCustomerClass_List();
-            var categoryList = dataMgr.GetCustomerCategory_List();
-            var typeList = dataMgr.GetCustomerType_List();
+            
 
 
             int adminId = -1;
@@ -75,7 +73,23 @@ namespace Hydron.Views
 
 
 
-            var pInfoM = new CustomerModel(pInfo);       
+            var pInfoM = new CustomerModel(pInfo);
+            pInfoM = populateDropDown(dataMgr, pInfoM);
+
+
+            if (string.IsNullOrEmpty(pInfoM.CustomerLogo)) { pInfoM.UseDefaultLogo = true; }//logo initialization
+           
+            
+            pInfoM.ReadEdit = vw;
+            return View(pInfoM);
+        }
+
+        public CustomerModel populateDropDown(DAL.DataManager dataMgr, CustomerModel pInfoM)
+        {
+            var classList = dataMgr.GetCustomerClass_List();
+            var categoryList = dataMgr.GetCustomerCategory_List();
+            var typeList = dataMgr.GetCustomerType_List();
+
             pInfoM.CustomerClassList = ToCustomerListItems(classList, -1);
             pInfoM.CustomerClassName = classList.Where(x => x.Id == pInfoM.CustomerClass).Select(x => x.Name).FirstOrDefault();
 
@@ -85,12 +99,7 @@ namespace Hydron.Views
             pInfoM.CustomerTypeList = ToCustomerListItems(typeList, -1);
             pInfoM.CustomerTypeName = typeList.Where(x => x.Id == pInfoM.CustomerType).Select(x => x.Name).FirstOrDefault();
 
-
-            if (string.IsNullOrEmpty(pInfoM.CustomerLogo)) { pInfoM.UseDefaultLogo = true; }//logo initialization
-           
-            
-            pInfoM.ReadEdit = vw;
-            return View(pInfoM);
+            return pInfoM;
         }
 
         
@@ -101,15 +110,6 @@ namespace Hydron.Views
 
 
             int tempId = 0; string logMsg = "Division";
-            
-            if(model.Id == 0)
-            {
-                int cnt = dataMgr.Customers.Where(x => x.CustomerName.Replace(" ", string.Empty).ToUpper() == model.CustomerName.Replace(" ", string.Empty).ToUpper()).Count();
-                if (cnt > 0)
-                {
-                    ModelState.AddModelError("DuplicateCustomer", "Customer Name is already exists. ");
-                }
-            }
             
            
             if (ModelState.IsValid)
@@ -128,7 +128,19 @@ namespace Hydron.Views
                         {
                             isnew = false;
                             item = dataMgr.Customers.Where(x => x.Id == model.Id).SingleOrDefault();
+                                                      
                             item.UpdateDate = DateTime.Now;
+
+                        }
+                        else
+                        {
+                            int cnt = dataMgr.Customers.Where(x => x.CustomerName.Replace(" ", string.Empty).ToUpper() == model.CustomerName.Replace(" ", string.Empty).ToUpper()).Count();
+                            if (cnt > 0)
+                            {
+                                ModelState.AddModelError("CustomerName", "Customer Name is already exists. ");
+                                model = populateDropDown(dataMgr, model);
+                                return View(model);
+                            }                          
                         }
 
 
@@ -467,8 +479,7 @@ namespace Hydron.Views
             return lList.OrderBy(obj => obj.Id).Select(obj => new System.Web.Mvc.SelectListItem { Selected = (obj.Id == selectedId), Text = obj.Name, Value = obj.Id.ToString() });
         }
 
-   
-
+  
 
     }
 }

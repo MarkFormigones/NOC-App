@@ -131,6 +131,7 @@
 
 
                 @Html.HiddenFor(m => m.Id)
+                @Html.HiddenFor(m => m.ReadEdit)
                 <div class="form-group">
                     <label class="control-label col-md-3">Customer No<span class="required">*</span></label>
                     <div class="col-md-9 input-icon">
@@ -146,6 +147,7 @@
                         <i class="fa fa-font"></i>
                         @Html.TextBoxFor(m => m.CustomerName, new { @class = "form-control placeholder-no-fix", type = "text", autocomplete = "off", maxlength = "200", placeholder = "Customer Name", name = "CustomerName" })
                         @Html.ValidationMessageFor(m => m.CustomerName)
+
                     </div>
                 </div>
 
