@@ -166,5 +166,15 @@ namespace DAL
         public DbSet<vw_WorldMap> vw_WorldMap { get; set; }
         public DbSet<Vw_WorldMap2> Vw_WorldMap2 { get; set; }
         public DbSet<Customer> Customers { get; set; }
+        public DbSet<AcctCategory> AcctCategories { get; set; }
+        public DbSet<Contract> Contracts { get; set; }
+        public DbSet<ESSegment> ESSegments { get; set; }
+        public DbSet<Party> Parties { get; set; }
+        public DbSet<Product> Products { get; set; }
+        public DbSet<RequestTransaction> RequestTransactions { get; set; }
+        public DbSet<RequestType> RequestTypes { get; set; }
+        public DbSet<RPlan> RPlans { get; set; }
+        public DbSet<Vw_RequestDetails> Vw_RequestDetails { get; set; }
+        public DbSet<ApprovalRequestStatu> ApprovalRequestStatus { get; set; }
     }
 }

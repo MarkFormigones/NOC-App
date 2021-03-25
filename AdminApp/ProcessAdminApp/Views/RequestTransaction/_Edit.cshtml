@@ -1,0 +1,382 @@
+﻿@model Hydron.Models.Definitions.RequestTransactionModel
+@using (Html.BeginForm("Define", "RequestTransaction", FormMethod.Post, new { enctype = "multipart/form-data", id = "Define" }))
+{   @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+
+        @*<legend>Departments </legend>*@
+
+        @{
+            if (ViewData.ModelState["error"] != null)
+            {  <div class="alert alert-danger ">
+            <button class="close" data-close="alert"></button>
+            @ViewData.ModelState["error"].Errors[0].ErrorMessage
+
+        </div>}
+        }
+        <div class="alert alert-danger display-hide">
+            <button class="close" data-close="alert"></button>
+            You have some form errors. Please check below.
+
+        </div>
+        <div class="alert alert-success display-hide">
+            <button class="close" data-close="alert"></button>
+            Your form validation is successful!
+        </div>
+        <div class="form-horizontal form-bordered">
+            <div class="form-body">
+                <label class="control-label col-md-3">Logo</label>
+                <div class="col-md-9">
+
+
+
+                    @Html.HiddenFor(m => m.Id)
+                    @*@Html.HiddenFor(m => m.ReadEdit)
+        <div class="form-group">
+            <label class="control-label col-md-3">Customer No<span class="required">*</span></label>
+            <div class="col-md-9 input-icon">
+                <i class="fa fa-font"></i>
+                @Html.TextBoxFor(m => m.CustomerNo, new { @class = "form-control placeholder-no-fix", type = "text", autocomplete = "off", maxlength = "20", placeholder = "Customer No", name = "CustomerNo" })
+                @Html.ValidationMessageFor(m => m.CustomerNo)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-3">Customer Name<span class="required">*</span></label>
+            <div class="col-md-9 input-icon">
+                <i class="fa fa-font"></i>
+                @Html.TextBoxFor(m => m.CustomerName, new { @class = "form-control placeholder-no-fix", type = "text", autocomplete = "off", maxlength = "200", placeholder = "Customer Name", name = "CustomerName" })
+                @Html.ValidationMessageFor(m => m.CustomerName)
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-3">Main Account No<span class="required">*</span></label>
+            <div class="col-md-9 input-icon">
+                <i class="fa fa-font"></i>
+                @Html.TextBoxFor(m => m.CustomerAcctNo, new { @class = "form-control placeholder-no-fix", type = "text", autocomplete = "off", maxlength = "50", placeholder = "Account No", name = "CustomerAcctNo" })
+                @Html.ValidationMessageFor(m => m.CustomerAcctNo)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-3">Sub Account No <span class="required">*</span></label>
+            <div class="col-md-9 input-icon">
+                <i class="fa fa-font"></i>
+                @Html.TextBoxFor(m => m.CustomerAcctNoSub, new { @class = "form-control placeholder-no-fix", type = "text", autocomplete = "off", maxlength = "50", placeholder = "Account No 2", name = "CustomerAcctNoSub" })
+                @Html.ValidationMessageFor(m => m.CustomerAcctNoSub)
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label class="control-label col-md-3">Address</label>
+            <div class="col-md-9  ">
+                @Html.TextAreaFor(m => m.CustomerAddress, new { @class = "form-control placeholder-no-fix", type = "text", autocomplete = "off", maxlength = "200", rows = "2", placeholder = "Address", name = "CustomerAddress" })
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <label class="control-label col-md-3">Email<span class="required">*</span></label>
+            <div class="col-md-9 input-icon">
+                <i class="fa fa-font"></i>
+                @Html.TextBoxFor(m => m.CustomerEmail, new { @class = "form-control placeholder-no-fix", type = "text", autocomplete = "off", maxlength = "50", placeholder = "Email", name = "CustomerEmail" })
+                @Html.ValidationMessageFor(m => m.CustomerEmail)
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label class="control-label col-md-3">Contact Details</label>
+            <div class="col-md-9  ">
+                @Html.TextAreaFor(m => m.CustomerContactNo, new { @class = "form-control placeholder-no-fix", type = "text", autocomplete = "off", maxlength = "200", rows = "2", placeholder = "Contact Details", name = "CustomerContactNo" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-3">Websites</label>
+            <div class="col-md-9  ">
+                @Html.TextAreaFor(m => m.CustomerWebsite, new { @class = "form-control placeholder-no-fix", type = "text", autocomplete = "off", maxlength = "200", rows = "2", placeholder = "Websites", name = "CustomerWebsite" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-3">Contract/ SLA</label>
+            <div class="col-md-9  ">
+                @Html.TextAreaFor(m => m.CustomerContract, new { @class = "form-control placeholder-no-fix", type = "text", autocomplete = "off", maxlength = "200", rows = "2", placeholder = "Contract / SLA", name = "CustomerContract" })
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <label class="control-label col-md-3">Class<span class="required">*</span></label>
+            <div class="col-md-9 input-icon">
+                @Html.DropDownListFor(m => m.CustomerClass, Model.CustomerClassList, new { @class = "select2 form-control placeholder-no-fix ", name = "CustomerClass" })
+                @Html.ValidationMessageFor(m => m.CustomerClass)
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label class="control-label col-md-3">Category<span class="required">*</span></label>
+            <div class="col-md-9 input-icon">
+                @Html.DropDownListFor(m => m.CustomerCategory, Model.CustomerCategoryList, new { @class = "select2 form-control placeholder-no-fix ", name = "CustomerCategory" })
+                @Html.ValidationMessageFor(m => m.CustomerCategory)
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label class="control-label col-md-3">Type<span class="required">*</span></label>
+            <div class="col-md-9 input-icon">
+                @Html.DropDownListFor(m => m.CustomerType, Model.CustomerTypeList, new { @class = "select2 form-control placeholder-no-fix ", name = "CustomerType" })
+                @Html.ValidationMessageFor(m => m.CustomerType)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-3">Is Active</label>
+            <div class="col-md-9 input-icon">
+                <i class="fa fa-lock"></i>
+                <div class="make-switch" data-on="success" data-off="warning" data-on-label="&nbsp;Active&nbsp;" data-off-label="&nbsp;Inactive&nbsp;&nbsp;">
+                    @Html.CheckBoxFor(m => m.IsActive, new { name = "IsActive", @checked = "", @class = "toggle" })
+                </div>
+
+            </div>
+            <label> @Html.ValidationMessageFor(m => m.IsActive)</label>
+        </div>
+
+        @if (Model.Id > 0)
+        {
+            <div class="form-group">
+                <label class="control-label col-md-3">Is Close</label>
+                <div class="col-md-9 input-icon">
+                    <i class="fa fa-lock"></i>
+                    <div class="make-switch" data-on="success" data-off="warning" data-on-label="&nbsp;YES&nbsp;" data-off-label="&nbsp;NO&nbsp;&nbsp;">
+                        @Html.CheckBoxFor(m => m.IsClosed, new { name = "IsClosed", @checked = "", @class = "toggle" })
+                    </div>
+
+                </div>
+                <label> @Html.ValidationMessageFor(m => m.IsClosed)</label>
+
+        }*@
+
+                </div>
+
+
+
+                <div class="margiv-top-10">
+                    <a data-toggle="modal" class="btn green" role="button" href="#modalSave" onclick="handleCustomer();">Save Changes</a>
+
+                </div>
+                <div aria-hidden="true" aria-labelledby="myModalLabel3" role="dialog" tabindex="-1" class="modal fade" id="modalSave" style="display: none;">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button aria-hidden="true" data-dismiss="modal" class="close" type="button"></button>
+                                <h4 class="modal-title"> </h4>
+                            </div>
+                            <div class="modal-body">
+
+                            </div>
+                            <div class="modal-footer">
+                                <h5 class="modal-msg" style="display:none"> <span><img src='/assets/img/loading.gif'></span> </h5>
+                                <button aria-hidden="true" data-dismiss="modal" class="btn default">Close</button>
+                                @*<a class="btn red" href="~/Department/Delete?uId=@Model.DepartmentId" id="fdbtn"> // onclick="initModT('S ave'); removed, no need on close to reinitialize
+                            <i class="fa fa-trash-o"></i> Delete
+                        </a>*@
+                                <button type="submit" value="Save" class="btn green" id="fsbtn">
+                                    <i class="fa fa-save"></i>Save
+
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </fieldset>
+            <div id="register_tnc_error"></div>
+
+    }
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        /* code here */
+        $('.date-picker').datepicker({
+            format: "mm/dd/yyyy",
+            todayBtn: "linked",
+            language: "en"
+        });
+    });
+
+
+
+                    jQuery(document).ready(function () {
+                        
+
+                        handleCustomer();
+
+                        
+
+
+
+
+                    });
+
+                    function toggleUpload() {
+                        $('#rowupload').toggle(); $('#deflogoset').toggle(); $('#deflogo').toggle();
+
+                    }
+
+                    function initModT(type) {
+
+                        if (type == "Delete") {
+
+                            $('[id=modalDef]').find('[class=modal-title]').html("Delete");
+                            $('[id=modalDef]').find('[class=modal-body]').html(" Are you sure you want to Delete this record?</p>");
+
+                            $('#fbbtn').hide();
+                            $('#fdbtn').show();
+
+
+                        }
+
+                        if (type == "Ban") {
+
+                            $('[id=modalDef]').find('[class=modal-title]').html("Activation");
+                            $('[id=modalDef]').find('[class=modal-body]').html(" Are you sure you want to Deactivate this record?</p>");
+
+                            $('#fdbtn').hide();
+                            $('#fbbtn').show();
+                        }
+                        if (type == "Save") {
+                            $('[id=modalSave]').find('[class=modal-title]').html("Save");
+                            $('[id=modalSave]').find('[class=modal-body]').html(" Are you sure you want to Save this record?</p>");
+                            $('#fsbtn').show();
+                            $('#fdbtn').hide();
+                            $('#fbbtn').hide();
+                        }
+                    }
+
+
+
+                    var handleCustomer = function InitValidate() {
+                        initModT('Save');
+
+                        $('#CustomerAddress').maxlength({
+                            limitReachedClass: "label label-danger",
+                            alwaysShow: true
+                        });
+
+                        $('#CustomerContactNo').maxlength({
+                            limitReachedClass: "label label-danger",
+                            alwaysShow: true
+                        });
+
+                        $('#CustomerWebsite').maxlength({
+                            limitReachedClass: "label label-danger",
+                            alwaysShow: true
+                        });
+
+
+                        var form1 = $('#Define');
+                        var error1 = $('.alert-danger', form1);
+                        var success1 = $('.alert-success', form1);
+
+                        form1.validate({
+                            errorElement: 'span', //default input error message container
+                            errorClass: 'help-block', // default input error message class
+                            focusInvalid: false, // do not focus the last invalid input
+                            ignore: "",
+                            rules: {
+
+                                CustomerNo: {
+                                    required: true
+                                },
+                                CustomerAcctNo: {
+                                    required: true
+                                },
+                                CustomerName: {
+                                    required: true
+                                },
+                                IsActive: {
+                                    required: false
+                                }
+
+
+                            },
+
+                            messages: { 
+                                IsActive: {
+                                    required: "Please Activate"
+                                },
+                             
+                            },
+
+                            invalidHandler: function (event, validator) {
+
+                                $('[id=modalSave]').find('[class=modal-title]').html("Save");
+                                $('[id=modalSave]').find('[class=modal-body]').html("<div class='alert alert-warning '><span><i class='fa fa-warning'></i>Insuffeciant  Data</span><p> Please fill all required fields in a valid format.</p> </div>");
+                                $('#fsbtn').hide();
+
+
+                            },
+
+                            highlight: function (element) { // hightlight error inputs
+                                $(element)
+                                    .closest('.form-group').addClass('has-error'); // set error class to the control group
+                                //$("[class=modal-body]").html("   ");
+                                //  initModT('Save');// reset the modal so save mode
+                                error1.show();
+                                $('[id=modalSave]').find('[class=modal-title]').html("Save");
+                                $('[id=modalSave]').find('[class=modal-body]').html("<div class='alert-danger '><p><i class='fa fa-warning'></i> Insuffeciant  Data</p><p> Please fill all required fields in a valid format.</p> </div>");
+                                $('#fsbtn').hide();
+
+                            },
+
+                            success: function (label) {
+                                label.closest('.form-group').removeClass('has-error');
+                                label.remove();
+                                return true;
+                                //$('[id=modalSave]').find('[class=modal-title]').html("Save");
+                                //$('[id=modalSave]').find('[class=modal-body]').html(" Are you sure you want to save this record?</p>");
+                                //$('#fsbtn').show();
+
+                            },
+
+                            errorPlacement: function (error, element) {
+                                //below will write the error after the control
+                                //if (element.closest('.input-icon').size() === 1) {
+                                //    error.insertAfter(element.closest('.input-icon'));
+                                //} else {
+                                //    error.insertAfter(element);
+                                //}
+                                //below will write the error in tooltip
+                                var icon = $(element).parent('.input-icon').children('i');
+                                icon.removeClass('fa-check').addClass("fa-warning");
+                                icon.attr("data-original-title", error.text()).tooltip({ 'container': 'body' });
+                            },
+
+
+                            submitHandler: function (form) {
+                                $('[id=modalSave]').find('[class=modal-msg]').show();
+                                success1.show();
+                                error1.hide();
+                                form.submit();
+                            }
+                        });
+
+
+                    }
+
+
+</script>

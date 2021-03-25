@@ -75,6 +75,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AcctCategory.cs">
+      <DependentUpon>DataEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="ActionT.cs">
       <DependentUpon>DataEntities.tt</DependentUpon>
     </Compile>
@@ -85,6 +88,9 @@
       <DependentUpon>DataEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="AppLockup.cs">
+      <DependentUpon>DataEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ApprovalRequestStatu.cs">
       <DependentUpon>DataEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="BroadcastT.cs">
@@ -112,6 +118,9 @@
       <DependentUpon>DataEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Consequence_Lockup.cs">
+      <DependentUpon>DataEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Contract.cs">
       <DependentUpon>DataEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="CountryList.cs">
@@ -154,6 +163,9 @@
       <DependentUpon>DataEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="EmailsT.cs">
+      <DependentUpon>DataEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ESSegment.cs">
       <DependentUpon>DataEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="FilesUploaded.cs">
@@ -223,6 +235,9 @@
     <Compile Include="OptionsLockup.cs">
       <DependentUpon>DataEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Party.cs">
+      <DependentUpon>DataEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="PaymentRegistration.cs">
       <DependentUpon>DataEntities.tt</DependentUpon>
     </Compile>
@@ -245,6 +260,9 @@
       <DependentUpon>DataEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="ProcessstructureTA_VW.cs">
+      <DependentUpon>DataEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Product.cs">
       <DependentUpon>DataEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="ProjectsT.cs">
@@ -272,7 +290,16 @@
     <Compile Include="QuestionnaireScoring.cs">
       <DependentUpon>DataEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="RequestTransaction.cs">
+      <DependentUpon>DataEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RequestType.cs">
+      <DependentUpon>DataEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Risk_Lockup.cs">
+      <DependentUpon>DataEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RPlan.cs">
       <DependentUpon>DataEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="SubRiskManagement.cs">
@@ -462,6 +489,9 @@
       <DependentUpon>DataEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Vw_QuestionnaireA.cs">
+      <DependentUpon>DataEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Vw_RequestDetails.cs">
       <DependentUpon>DataEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="vw_UserGroups.cs">

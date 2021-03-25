@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="ee959a9dab9644b5ad6addaddb7ca103" Name="Diagram1" ZoomLevel="51">
+      <Diagram DiagramId="ee959a9dab9644b5ad6addaddb7ca103" Name="Diagram1" ZoomLevel="50">
         <EntityTypeShape EntityType="ProcessadmindbModel.ActionT" Width="1.5" PointX="12.75" PointY="0.75" />
         <EntityTypeShape EntityType="ProcessadmindbModel.ActionTA" Width="1.5" PointX="5.75" PointY="12.75" />
         <EntityTypeShape EntityType="ProcessadmindbModel.ActivityLog" Width="1.5" PointX="10" PointY="7.125" />
@@ -153,6 +153,16 @@
         <AssociationConnector Association="ProcessadmindbModel.FK_UsersInGroups_UserProfile" />
         <AssociationConnector Association="ProcessadmindbModel.webpages_UsersInRoles" />
         <EntityTypeShape EntityType="ProcessadmindbModel.Customer" Width="1.5" PointX="51.375" PointY="54.75" />
+        <EntityTypeShape EntityType="ProcessadmindbModel.AcctCategory" Width="1.5" PointX="53.375" PointY="54.75" />
+        <EntityTypeShape EntityType="ProcessadmindbModel.Contract" Width="1.5" PointX="55.375" PointY="3.75" />
+        <EntityTypeShape EntityType="ProcessadmindbModel.ESSegment" Width="1.5" PointX="55.375" PointY="6.75" />
+        <EntityTypeShape EntityType="ProcessadmindbModel.Party" Width="1.5" PointX="55.375" PointY="9.75" />
+        <EntityTypeShape EntityType="ProcessadmindbModel.Product" Width="1.5" PointX="55.375" PointY="12.75" />
+        <EntityTypeShape EntityType="ProcessadmindbModel.RequestTransaction" Width="1.5" PointX="55.375" PointY="15.75" />
+        <EntityTypeShape EntityType="ProcessadmindbModel.RequestType" Width="1.5" PointX="19.375" PointY="55.75" />
+        <EntityTypeShape EntityType="ProcessadmindbModel.RPlan" Width="1.5" PointX="55.375" PointY="21.75" />
+        <EntityTypeShape EntityType="ProcessadmindbModel.Vw_RequestDetails" Width="1.5" PointX="21.375" PointY="55.75" />
+        <EntityTypeShape EntityType="ProcessadmindbModel.ApprovalRequestStatu" Width="1.5" PointX="55.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

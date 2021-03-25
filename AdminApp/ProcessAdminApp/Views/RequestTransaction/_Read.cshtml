@@ -1,25 +1,9 @@
-﻿@model Hydron.Models.Definitions.CustomerModel
+﻿@model Hydron.Models.Definitions.RequestTransactionModel
 
 <div class="row">
     <div class="col-md-2">
         <ul class="list-unstyled profile-nav">
             <li>
-
-            </li>
-            <li>
-                @if (Model.CustomerLogo == null || Model.CustomerLogo.Length < 5)
-                {
-                    <div class="tile selected bg-dark" id="deflogo">
-                        <div class="corner"></div>
-                        <div class="check"></div>
-                        <div class="tile-body ">
-                            <i class="fa fa-building"> </i>
-                        </div>
-
-                    </div>
-                }
-                else
-                { <img src="@Href(@Model.CustomerLogo + "_Medium.jpg")" alt="Logo" class="img-responsive" />}
 
             </li>
             <li class="divider"><br /> </li>
@@ -38,10 +22,10 @@
             <div class="col-md-10 profile-info">
 
 
-                <h1 class="form-section">@Model.CustomerName</h1>
+                <h1 class="form-section">@Model.PartyName</h1>
 
 
-                <ul class="list-unstyled">
+                @*<ul class="list-unstyled">
 
                     <li>
                         <i class="fa fa-check-circle-o"></i><label class="control-label">Status:</label><a href="#">
@@ -71,14 +55,14 @@
                     <li>
 
                     </li>
-                </ul>
+                </ul>*@
             </div>
         </div>
 
         <!--end col-md-8-->
         <!--end col-md-4-->
 
-        <div class="row-fluid col-md-6">
+        @*<div class="row-fluid col-md-6">
             <table class="table">
                 <tr>
                  
@@ -157,7 +141,7 @@
                     </tr>
                 }
             </table>
-        </div>
+        </div>*@
         
 
     </div>

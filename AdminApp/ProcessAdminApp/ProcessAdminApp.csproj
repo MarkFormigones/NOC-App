@@ -254,6 +254,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Models\ActivityLog\ActvityLogModel.cs" />
+    <Compile Include="Models\Definitions\RequestTransactionModel.cs" />
+    <Compile Include="Models\Definitions\VwRequestDetailsModel.cs" />
     <Compile Include="Models\Definitions\CustomerModel.cs" />
     <Compile Include="Models\Definitions\FBMessagingModel.cs" />
     <Compile Include="Models\Definitions\PayFinalRequestModel.cs" />
@@ -285,6 +287,7 @@
     <Compile Include="Views\CommandLockup\CommandLockupController.cs" />
     <Compile Include="Views\Consequence_Lockup\Consequence_LockupController.cs" />
     <Compile Include="Views\Costing\CostingController.cs" />
+    <Compile Include="Views\RequestTransaction\RequestTransactionController.cs" />
     <Compile Include="Views\Customer\CustomerController.cs" />
     <Compile Include="Views\FirebaseMessaging\FirebaseMessagingController.cs" />
     <Compile Include="Views\Payment\PaymentController.cs" />
@@ -2898,6 +2901,11 @@
     <Content Include="Views\Customer\_Read.cshtml" />
     <Content Include="Views\Customer\Define.cshtml" />
     <Content Include="Views\Customer\CustomersList.cshtml" />
+    <Content Include="Views\RequestTransaction\_Edit.cshtml" />
+    <Content Include="Views\RequestTransaction\_GetList.cshtml" />
+    <Content Include="Views\RequestTransaction\_Read.cshtml" />
+    <Content Include="Views\RequestTransaction\RequestTransactionList.cshtml" />
+    <Content Include="Views\RequestTransaction\Define.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ApplicationUploads\UFiles\" />

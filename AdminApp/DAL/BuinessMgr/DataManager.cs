@@ -696,5 +696,114 @@ namespace DAL
 
         #endregion
 
+        #region Request Transaction
+        public RequestTransaction GetRequestTransactionInfoById(int? uId)
+        {
+            var query = _DbContext.RequestTransactions.Where(x => x.Id == uId).Single();
+            return query;
+        }
+
+        public IList<DAL.RequestTransaction> GetRequestTransaction_List()
+        {//Same Table with Type=1
+            IList<DAL.RequestTransaction> query;
+            query = _DbContext.RequestTransactions.Where(x => x.IsDeleted == false).Take(10).ToList();
+            return query;
+        }
+
+        public IList<DAL.Vw_RequestDetails> GetVwRequestDetails_List()
+        {//Same Table with Type=1
+            IList<DAL.Vw_RequestDetails> query;
+            query = _DbContext.Vw_RequestDetails.Where(x => x.IsDeleted == false).Take(10).OrderBy(x => x.Id).ToList();
+            return query;
+        }
+
+        public IList<DAL.Product> GetProduct_List()
+        {
+
+            IList<DAL.Product> query;
+            query = _DbContext.Products
+                            .OrderByDescending(x => x.Id)
+                            .ToList();
+
+            return query;
+        }
+
+        public IList<DAL.RequestType> GetRequestType_List()
+        {
+
+            IList<DAL.RequestType> query;
+            query = _DbContext.RequestTypes
+                            .OrderByDescending(x => x.Id)
+                            .ToList();
+
+            return query;
+        }
+
+        public IList<DAL.Party> GetParty_List()
+        {
+
+            IList<DAL.Party> query;
+            query = _DbContext.Parties
+                            .OrderByDescending(x => x.Id)
+                            .ToList();
+
+            return query;
+        }
+
+        public IList<DAL.AcctCategory> GetAcctCategory_List()
+        {
+
+            IList<DAL.AcctCategory> query;
+            query = _DbContext.AcctCategories
+                            .OrderByDescending(x => x.Id)
+                            .ToList();
+
+            return query;
+        }
+
+        public IList<DAL.ESSegment> GetESSegment_List()
+        {
+
+            IList<DAL.ESSegment> query;
+            query = _DbContext.ESSegments
+                            .OrderByDescending(x => x.Id)
+                            .ToList();
+
+            return query;
+        }
+
+        public IList<DAL.RPlan> GetRatePlan_List()
+        {
+
+            IList<DAL.RPlan> query;
+            query = _DbContext.RPlans
+                            .OrderByDescending(x => x.Id)
+                            .ToList();
+
+            return query;
+        }
+
+        public IList<DAL.Contract> GetContract_List()
+        {
+
+            IList<DAL.Contract> query;
+            query = _DbContext.Contracts
+                            .OrderByDescending(x => x.Id)
+                            .ToList();
+
+            return query;
+        }
+        public IList<DAL.ApprovalRequestStatu> GetApprovalRequestStatus_List()
+        {
+
+            IList<DAL.ApprovalRequestStatu> query;
+            query = _DbContext.ApprovalRequestStatus
+                            .OrderByDescending(x => x.Id)
+                            .ToList();
+
+            return query;
+        }
+
+        #endregion
     }
 }
