@@ -48,14 +48,13 @@ namespace Hydron.Views
         {
             return PartialView();
         }
-        public ViewResult Define(int? rId, string vw)
+        public ViewResult Define(int? rId, int pId, string vw)
         {
 
             DAL.DataManager dataMgr = new DAL.DataManager();
             var pInfo = new DAL.RequestTransaction();
            
             
-
 
             int adminId = -1;
             if (rId == null || rId == -1)
@@ -71,23 +70,26 @@ namespace Hydron.Views
 
 
             var pInfoM = new RequestTransactionModel(pInfo);
-            pInfoM = populateDropDown(dataMgr, pInfoM);
+            pInfoM = populateDropDown(dataMgr, pInfoM, pId);
 
                        
             pInfoM.ReadEdit = vw;
             return View(pInfoM);
         }
 
-        public RequestTransactionModel populateDropDown(DAL.DataManager dataMgr, RequestTransactionModel pInfoM)
+        public RequestTransactionModel populateDropDown(DAL.DataManager dataMgr, RequestTransactionModel pInfoM, int pId)
         {
             var productList = dataMgr.GetProduct_List();
             var requestTypeList = dataMgr.GetRequestType_List();
-            var partyList = dataMgr.GetParty_List();
+            var partyList = dataMgr.GetParty_List(pId);
+            
+
             var acctCategoryList = dataMgr.GetAcctCategory_List();
             var esSegmentList = dataMgr.GetESSegment_List();
             var ratePlanList = dataMgr.GetRatePlan_List();
             var contractList = dataMgr.GetContract_List();
             var approvalRequestStatusList = dataMgr.GetApprovalRequestStatus_List();
+            
 
             pInfoM.ProductNameList = ToProductListItems(productList, -1);
             pInfoM.ProductName = productList.Where(x => x.Id == pInfoM.ProductCodeId).Select(x => x.ProductCode).FirstOrDefault();
@@ -95,7 +97,7 @@ namespace Hydron.Views
             pInfoM.RequestTypeList = ToRequestTypeListItems(requestTypeList, -1);
             pInfoM.RequestTypeName = requestTypeList.Where(x => x.Id == pInfoM.RequestTypeId).Select(x => x.SubRequestType).FirstOrDefault();
 
-            pInfoM.PartyNameList = ToPartyListItems(partyList, -1);
+            pInfoM.PartyNameList = ToPartyListItems(partyList, pId);
             pInfoM.PartyName = partyList.Where(x => x.Id == pInfoM.PartyId ).Select(x => x.PartyName).FirstOrDefault();
 
             pInfoM.AcctCategoryList = ToAcctCategoryListItems(acctCategoryList, -1);
@@ -107,11 +109,17 @@ namespace Hydron.Views
             pInfoM.RatePlanList = ToRatePlanListItems(ratePlanList, -1);
             pInfoM.RatePlanName = ratePlanList.Where(x => x.Id == pInfoM.RatePlanId).Select(x => x.RatePlan).FirstOrDefault();
 
+            pInfoM.RatePlanDescList = ToRatePlanDescListItems(ratePlanList, -1);
+            pInfoM.RatePlanDesc = ratePlanList.Where(x => x.Id == pInfoM.RatePlanId).Select(x => x.RatePlanDescription).FirstOrDefault();
+
             pInfoM.ContractList = ToContractListItems(contractList, -1);
             pInfoM.ContractName = contractList.Where(x => x.Id == pInfoM.ContractId).Select(x => x.ContractPeriod).FirstOrDefault();
 
             pInfoM.ApprovalRequestStatusList = ToApprovalRequestStatusListItems(approvalRequestStatusList, -1);
             pInfoM.ApprovalRequestStatusName = approvalRequestStatusList.Where(x => x.Id == pInfoM.ApprovalRequestStatusId).Select(x => x.ApprovalRequestStatusName).FirstOrDefault();
+
+            pInfoM.CBCMStatusList = ToCBCMStatusListItems(approvalRequestStatusList, -1);
+            pInfoM.CBCMStatusName = approvalRequestStatusList.Where(x => x.Id == pInfoM.ApprovalRequestStatusId).Select(x => x.CBCMStatus).FirstOrDefault();
 
             return pInfoM;
         }
@@ -123,7 +131,7 @@ namespace Hydron.Views
             DAL.DataManager dataMgr = new DAL.DataManager();
 
 
-            int tempId = 0; string logMsg = "Division";
+            int tempId = 0; int partyId = 0; string logMsg = "Division";
             
            
             if (ModelState.IsValid)
@@ -185,6 +193,11 @@ namespace Hydron.Views
 
                         ViewBag.status = "Success";
                         tempId = item.Id;
+
+                        if (item.PartyId.HasValue)
+                            partyId = (int)item.PartyId;
+
+                       
                         if (isnew)
                         { logMsg = "Request Transaction Added-OK"; base.Logger(DAL.General.ActivityLokup.ACTIVITY, DAL.General.OperationLokup.ADDNEW, DAL.General.ActionCommandReq.Default,logMsg, tempId, -1, -1, -1,-1,-1,-1,-1,-1); }
                         else
@@ -213,11 +226,11 @@ namespace Hydron.Views
                 base.SetOperationCompleted("info", "Operation", logMsg);
             }
 
-            return RedirectToAction("define", "RequestTransaction", new { rid = tempId });
+            return RedirectToAction("define", "RequestTransaction", new { rid = tempId, pId = partyId  });
         }
         public ActionResult Delete(int rid)
         {
-            string logMsg = "";
+            string logMsg = ""; int partyId = 0;
             if (ModelState.IsValid)
             {
                 // Attempt to register the user
@@ -234,6 +247,10 @@ namespace Hydron.Views
                         ViewBag.status = "Deleted";
                         logMsg = "Request Transaction  Deleted-OK";
                         base.Logger(DAL.General.ActivityLokup.ACTIVITY, DAL.General.OperationLokup.DELETE, DAL.General.ActionCommandReq.Default, logMsg, rid, -1, -1, -1, -1, -1, -1, -1, -1);
+
+                        if (items.PartyId.HasValue)
+                            partyId = (int)items.PartyId;
+
 
                         transaction.Complete();
                         base.SetOperationCompleted("success", "Deleted", "successfully");
@@ -255,11 +272,12 @@ namespace Hydron.Views
                 base.Logger(DAL.General.ActivityLokup.ERROR, DAL.General.OperationLokup.NONE, DAL.General.ActionCommandReq.Default, logMsg, rid, -1, -1, -1, -1, -1, -1, -1, -1);
                 base.SetOperationCompleted("info", "Operation", logMsg);
             }
-            return RedirectToAction("RequestTransactionList", "RequestTransaction");
+            return RedirectToAction("RequestTransactionList", "RequestTransaction", new { pId = partyId  });
+
         }
         public ActionResult Deactivate(int rid, Boolean val)
         {
-            string msg = "Deactivated";
+            string msg = "Deactivated"; int partyId = 0;
             if (val == true) { 
                 msg = "Activated"; 
 
@@ -284,6 +302,11 @@ namespace Hydron.Views
                         logMsg = "Request Transaction " + msg + "-OK";
                         base.Logger(DAL.General.ActivityLokup.ACTIVITY, DAL.General.OperationLokup.UPDATE, DAL.General.ActionCommandReq.Default, logMsg, rid, -1, -1, -1, -1, -1, -1, -1, -1);
                         base.SetOperationCompleted("success", msg, "successfully");
+
+                        if (items.PartyId.HasValue)
+                            partyId = (int)items.PartyId;
+
+
                         transaction.Complete();
                     }
                     catch (Exception e)
@@ -305,7 +328,7 @@ namespace Hydron.Views
 
             //TempData["title"] = msg;
             //TempData["statusMsg"] = "successfully";
-            return RedirectToAction("RequestTransactionList", "RequestTransaction ");
+            return RedirectToAction("RequestTransactionList", "RequestTransaction", new { pId = partyId });
         }
 
         public string UploadLogo(HttpPostedFileBase file)
@@ -392,10 +415,10 @@ namespace Hydron.Views
         [HttpGet]
 
      
-        public ViewResult RequestTransactionList()
+        public ViewResult RequestTransactionList(int? pId)
         {
             DAL.DataManager dataMgr = new DAL.DataManager();
-            var items = dataMgr.GetVwRequestDetails_List();
+            var items = dataMgr.GetVwRequestDetails_ListByParty(pId);
             var Roleitems = dataMgr.GetUser_Roles();
             var ls_items = new List<Models.Definitions.VwRequestDetailsModel>();
             foreach (var item in items)
@@ -423,15 +446,16 @@ namespace Hydron.Views
                 l_item.Created = item.Created;
                 l_item.IsActive = item.IsActive;
                 l_item.IsDeleted = item.IsDeleted;
+                l_item.PartyId = item.PartyId;
                 ls_items.Add(l_item);
             }
 
             return View(ls_items);
         }
-        public PartialViewResult _GetList()
+        public PartialViewResult _GetList(int? pId)
         {
             DAL.DataManager dataMgr = new DAL.DataManager();
-            var items = dataMgr.GetVwRequestDetails_List();
+            var items = dataMgr.GetVwRequestDetails_ListByParty(pId);
             var Roleitems = dataMgr.GetUser_Roles();
             var ls_items = new List<Models.Definitions.VwRequestDetailsModel>();
             foreach (var item in items)
@@ -459,6 +483,7 @@ namespace Hydron.Views
                 l_item.Created = item.Created;
                 l_item.IsActive = item.IsActive;
                 l_item.IsDeleted = item.IsDeleted;
+                l_item.PartyId = item.PartyId;
                 ls_items.Add(l_item);
             }
 
@@ -497,6 +522,12 @@ namespace Hydron.Views
             return lList.OrderBy(obj => obj.Id).Select(obj => new System.Web.Mvc.SelectListItem { Selected = (obj.Id == selectedId), Text = obj.RatePlan, Value = obj.Id.ToString() });
         }
 
+        public static IEnumerable<System.Web.Mvc.SelectListItem> ToRatePlanDescListItems(IEnumerable<DAL.RPlan> lList, int selectedId)
+        {
+            return lList.OrderBy(obj => obj.Id).Select(obj => new System.Web.Mvc.SelectListItem { Selected = (obj.Id == selectedId), Text = obj.RatePlanDescription, Value = obj.Id.ToString() });
+        }
+
+
         public static IEnumerable<System.Web.Mvc.SelectListItem> ToContractListItems(IEnumerable<DAL.Contract> lList, int selectedId)
         {
             return lList.OrderBy(obj => obj.Id).Select(obj => new System.Web.Mvc.SelectListItem { Selected = (obj.Id == selectedId), Text = obj.ContractPeriod, Value = obj.Id.ToString() });
@@ -505,6 +536,11 @@ namespace Hydron.Views
         public static IEnumerable<System.Web.Mvc.SelectListItem> ToApprovalRequestStatusListItems(IEnumerable<DAL.ApprovalRequestStatu> lList, int selectedId)
         {
             return lList.OrderBy(obj => obj.Id).Select(obj => new System.Web.Mvc.SelectListItem { Selected = (obj.Id == selectedId), Text = obj.ApprovalRequestStatusName, Value = obj.Id.ToString() });
+        }
+
+        public static IEnumerable<System.Web.Mvc.SelectListItem> ToCBCMStatusListItems(IEnumerable<DAL.ApprovalRequestStatu> lList, int selectedId)
+        {
+            return lList.OrderBy(obj => obj.Id).Select(obj => new System.Web.Mvc.SelectListItem { Selected = (obj.Id == selectedId), Text = obj.CBCMStatus, Value = obj.Id.ToString() });
         }
 
 

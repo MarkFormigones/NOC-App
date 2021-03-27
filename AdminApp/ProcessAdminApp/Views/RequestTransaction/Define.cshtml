@@ -9,21 +9,21 @@
 <link rel="stylesheet" type="text/css" href="~/assets/plugins/bootstrap-markdown/css/bootstrap-markdown.min.css">
 @{
 
-   
-    
+
+
     ViewBag.linkname = "Business Tree";
     ViewBag.linkurl = "BusinessTree";
     ViewBag.linkicon = "fa-sitemap";
-    
+
     ViewBag.linkname2 = "RequestTransaction";
-    ViewBag.linkurl2 = "RequestTransactionList";
+    ViewBag.linkurl2 = "RequestTransactionList?&pId=" + Model.PartyId;
     ViewBag.linkicon2 = "fa-list";
 
 
 
     ViewBag.Title = "RequestTransaction";
-    ViewBag.linkname3 = "RequestTransaction";
-    ViewBag.linkurl3 = "Define?rid=" + @Model.Id + "&vw=r";
+    ViewBag.linkname3 = "RequestTransaction?&pId=" + Model.PartyId;
+    ViewBag.linkurl3 = "Define?rid=" + @Model.Id + "&pId=" + Model.PartyId +"&vw=r";
     ViewBag.linkicon3 = "fa-building";
 
 

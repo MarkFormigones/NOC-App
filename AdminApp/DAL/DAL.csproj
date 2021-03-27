@@ -75,6 +75,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Account.cs">
+      <DependentUpon>DataEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="AcctCategory.cs">
       <DependentUpon>DataEntities.tt</DependentUpon>
     </Compile>
@@ -290,6 +293,9 @@
     <Compile Include="QuestionnaireScoring.cs">
       <DependentUpon>DataEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Request.cs">
+      <DependentUpon>DataEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="RequestTransaction.cs">
       <DependentUpon>DataEntities.tt</DependentUpon>
     </Compile>
@@ -489,6 +495,9 @@
       <DependentUpon>DataEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Vw_QuestionnaireA.cs">
+      <DependentUpon>DataEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Vw_RawToRequestTrans.cs">
       <DependentUpon>DataEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Vw_RequestDetails.cs">

@@ -87,14 +87,14 @@
                 </td>
 
                 <td>
-                    @Html.DisplayFor(modelItem => item.ApprovalRequestStatusName)
+                    @Html.DisplayFor(modelItem => item.CBCMStatus)
 
                 </td>
 
                 <td>
 
-                    @Html.ActionLink("view", "Define", "RequestTransaction", new { rId = item.Id, vw = "r" }, new { @class = "btn default btn-xs blue-stripe fa fa-eye" }) |
-                    @Html.ActionLink("edit", "Define", "RequestTransaction", new { rId = item.Id, vw = "e" }, new { @class = "btn default btn-xs yellow-stripe fa fa-edit" })
+                    @Html.ActionLink("view", "Define", "RequestTransaction", new { rId = item.Id, pId = item.PartyId, vw = "r" }, new { @class = "btn default btn-xs blue-stripe fa fa-eye" }) |
+                    @Html.ActionLink("edit", "Define", "RequestTransaction", new { rId = item.Id, pId = item.PartyId, vw = "e" }, new { @class = "btn default btn-xs yellow-stripe fa fa-edit" })
 
                 </td>
 

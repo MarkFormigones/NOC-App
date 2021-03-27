@@ -25,123 +25,94 @@
                 <h1 class="form-section">@Model.PartyName</h1>
 
 
-                @*<ul class="list-unstyled">
+                <ul class="list-unstyled">
 
-                    <li>
-                        <i class="fa fa-check-circle-o"></i><label class="control-label">Status:</label><a href="#">
-                            @switch (Model.IsActive)
-                            {
-                                case true:<span class="label label-sm label-success">Active</span>
-                                    break;
-                                case false: <span class="label label-sm label-warning">Not Active</span>
-                                    break;
-                            }
-                        </a>
-                    </li>
-
-                    @if (Model.IsActive)
-                    {
-                        <li><i class="fa fa-calendar"></i><label class="control-label">Date Activate:</label> @Model.ActivateDate.Value.Day/@Model.ActivateDate.Value.Month/@Model.ActivateDate.Value.Year  </li>
-
-                    }
-
-
-
-                    @if (Model.UpdateDate != null)
-                    {
-                        <li><i class="fa fa-calendar"></i><label class="control-label">Last Modified:</label> @Model.UpdateDate.Value.Day/@Model.UpdateDate.Value.Month/@Model.UpdateDate.Value.Year  </li>
-
-                    }
+                    <li><i class="fa fa-calendar"></i><label class="control-label">Date Created:</label> @Model.Created.Day/@Model.Created.Month/@Model.Created.Year  </li>
+                    <li><i class="fa fa-info"></i><label class="control-label">Account No:</label> @Model.AccountNumber  </li>
+                    <li><i class="fa fa-info"></i><label class="control-label">Account Category:</label> @Model.AcctCategoryName  </li>
                     <li>
 
                     </li>
-                </ul>*@
+                </ul>
             </div>
         </div>
 
         <!--end col-md-8-->
         <!--end col-md-4-->
 
-        @*<div class="row-fluid col-md-6">
+        <div class="row-fluid col-md-6">
             <table class="table">
                 <tr>
-                 
-                    <th class="caption"> <i class="fa fa-building"></i> <label class="control-label"> Customer No: </label></th>
-                    <td>@Model.CustomerNo</td>
+
+                    <th class="caption"> <i class="fa fa-building"></i> <label class="control-label"> Product Code: </label></th>
+                    <td>@Model.ProductName</td>
                 </tr>
                 <tr>
-                    <th><i class="fa fa-info"></i>  <label class="control-label"> Main Account No: </label></th>
-                    <td> @Model.CustomerAcctNo</td>
+                    <th><i class="fa fa-info"></i>  <label class="control-label"> Request Number: </label></th>
+                    <td> @Model.RequestNumber</td>
                 </tr>
                 <tr>
-                    <th><i class="fa fa-info"></i>  <label class="control-label"> Sub Account No: </label></th>
-                    <td> @Model.CustomerAcctNoSub</td>
+                    <th><i class="fa fa-info"></i>  <label class="control-label"> Sub Request Number: </label></th>
+                    <td> @Model.SubRequestNumber</td>
                 </tr>
 
 
                 <tr>
-                    <th><i class="fa fa-info"></i>  <label class="control-label"> Class: </label></th>
-                    <td> @Model.CustomerClassName</td>
+                    <th><i class="fa fa-info"></i>  <label class="control-label"> Request Type: </label></th>
+                    <td> @Model.RequestTypeName</td>
                 </tr>
                 <tr>
-                    <th><i class="fa fa-info"></i>  <label class="control-label"> Category: </label></th>
-                    <td> @Model.CustomerCategoryName</td>
+                    <th><i class="fa fa-info"></i>  <label class="control-label"> ES Segment: </label></th>
+                    <td> @Model.ESSegmentName</td>
                 </tr>
                 <tr>
-                    <th><i class="fa fa-info"></i>  <label class="control-label"> Type: </label></th>
-                    <td> @Model.CustomerTypeName</td>
+                    <th><i class="fa fa-info"></i>  <label class="control-label"> Rate Plan: </label></th>
+                    <td> @Model.RatePlanName</td>
                 </tr>
 
 
                 <tr>
-                    <th><i class="fa fa-location-arrow"></i>    <label class="control-label"> Address: </label></th>
-                    <td> @Model.CustomerAddress</td>
+                    <th><i class="fa fa-info"></i>    <label class="control-label"> Rate Plan Description: </label></th>
+                    <td> @Model.RatePlanDesc</td>
                 </tr>
                 <tr>
-                    <th><i class="fa fa-building"></i>  <label class="control-label"> Email: </label></th>
-                    <td> @Model.CustomerEmail</td>
+                    <th><i class="fa fa-info"></i>  <label class="control-label"> Variable Amt MRC: </label></th>
+                    <td> @Model.VariableAmount_MRC</td>
                 </tr>
                 <tr>
-                    <th><i class="fa fa-mobile"></i>    <label class="control-label"> Contact Details: </label></th>
-                    <td> @Model.CustomerContactNo</td>
+                    <th><i class="fa fa-info"></i>  <label class="control-label"> Variable Amt OTC: </label></th>
+                    <td> @Model.VariableAmount_OTC</td>
                 </tr>
                 <tr>
-                    <th><i class="fa fa-globe"></i> <label class="control-label"> Websites: </label></th>
-                    <td> @Model.CustomerWebsite</td>
+                    <th><i class="fa fa-info"></i>  <label class="control-label"> Variable Amt QRC: </label></th>
+                    <td> @Model.VariableAmount_QRC</td>
                 </tr>
                 <tr>
-                    <th><i class="fa fa-building"></i>  <label class="control-label"> Contract / SLA: </label></th>
-                    <td> @Model.CustomerContract</td>
+                    <th><i class="fa fa-info"></i>  <label class="control-label"> Variable Amt YRC: </label></th>
+                    <td> @Model.VariableAmount_YRC</td>
+                </tr>
+
+
+                <tr>
+                    <th><i class="fa fa-info"></i>    <label class="control-label"> Contract Period: </label></th>
+                    <td> @Model.ContractName</td>
+                </tr>
+                <tr>
+                    <th><i class="fa fa-info"></i> <label class="control-label"> Remarks: </label></th>
+                    <td> @Model.ChargeDetails</td>
+                </tr>
+                <tr>
+                    <th><i class="fa fa-info"></i>  <label class="control-label"> Approval Request: </label></th>
+                    <td> @Model.ApprovalRequestStatusName</td>
                 </tr>
 
                 <tr>
-                    <th>
-                        <i class="fa fa-check-circle-o"></i>
-                        <label class="control-label">Close:</label>
-                    </th>
-                    <td>
-                        <a href="#">
-                            @switch (Model.IsClosed)
-                            {
-                                case true:<span class="label label-sm label-success">YES</span>
-                                    break;
-                                case false: <span class="label label-sm label-warning">NO</span>
-                                    break;
-                            }
-                        </a>
-                    </td>
+                    <th><i class="fa fa-info"></i>  <label class="control-label"> CBCM Status: </label></th>
+                    <td> @Model.CBCMStatusName</td>
                 </tr>
-
-                @if (Model.IsClosed)
-                {
-                    <tr>
-                        <th><i class="fa fa-calendar"></i>  <label class="control-label"> Date Closed: </label></th>
-                        <td> @Model.ClosingDate.Value.Day/@Model.ClosingDate.Value.Month/@Model.ClosingDate.Value.Year </td>
-
-                    </tr>
-                }
+               
             </table>
-        </div>*@
+        </div>
         
 
     </div>

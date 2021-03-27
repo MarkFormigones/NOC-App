@@ -112,5 +112,8 @@ this.IsActive                   = pInfo.IsActive               ;
         public string ApprovalRequestStatusName { get; set; }
         public IEnumerable<System.Web.Mvc.SelectListItem> ApprovalRequestStatusList { get; set; }
 
+        public string CBCMStatusName { get; set; }
+        public IEnumerable<System.Web.Mvc.SelectListItem> CBCMStatusList { get; set; }
+
     }
 }

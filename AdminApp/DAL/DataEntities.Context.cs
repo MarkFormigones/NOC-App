@@ -25,10 +25,13 @@ namespace DAL
             throw new UnintentionalCodeFirstException();
         }
     
+        public DbSet<Account> Accounts { get; set; }
+        public DbSet<AcctCategory> AcctCategories { get; set; }
         public DbSet<ActionT> ActionTs { get; set; }
         public DbSet<ActionTA> ActionTAs { get; set; }
         public DbSet<ActivityLog> ActivityLogs { get; set; }
         public DbSet<AppLockup> AppLockups { get; set; }
+        public DbSet<ApprovalRequestStatu> ApprovalRequestStatus { get; set; }
         public DbSet<BroadcastT> BroadcastTs { get; set; }
         public DbSet<BUnitsT> BUnitsTs { get; set; }
         public DbSet<Chat> Chats { get; set; }
@@ -37,13 +40,16 @@ namespace DAL
         public DbSet<CommunicatorT> CommunicatorTs { get; set; }
         public DbSet<CompanyTX> CompanyTXes { get; set; }
         public DbSet<Consequence_Lockup> Consequence_Lockup { get; set; }
+        public DbSet<Contract> Contracts { get; set; }
         public DbSet<CountryList> CountryLists { get; set; }
+        public DbSet<Customer> Customers { get; set; }
         public DbSet<DateExtensionT> DateExtensionTs { get; set; }
         public DbSet<DelegateT> DelegateTs { get; set; }
         public DbSet<DelegationDetailsT> DelegationDetailsTs { get; set; }
         public DbSet<DelegationT> DelegationTs { get; set; }
         public DbSet<Department> Departments { get; set; }
         public DbSet<EmailsT> EmailsTs { get; set; }
+        public DbSet<ESSegment> ESSegments { get; set; }
         public DbSet<FilesUploaded> FilesUploadeds { get; set; }
         public DbSet<FilesUploadedFM> FilesUploadedFMS { get; set; }
         public DbSet<FlowsInWorkSpace> FlowsInWorkSpaces { get; set; }
@@ -65,6 +71,7 @@ namespace DAL
         public DbSet<NotificationsT> NotificationsTs { get; set; }
         public DbSet<OperationLockup> OperationLockups { get; set; }
         public DbSet<OptionsLockup> OptionsLockups { get; set; }
+        public DbSet<Party> Parties { get; set; }
         public DbSet<PaymentRegistration> PaymentRegistrations { get; set; }
         public DbSet<ProcessCategory> ProcessCategories { get; set; }
         public DbSet<ProcessFieldLookup> ProcessFieldLookups { get; set; }
@@ -72,6 +79,7 @@ namespace DAL
         public DbSet<ProcessMaster> ProcessMasters { get; set; }
         public DbSet<ProcessStructureT> ProcessStructureTs { get; set; }
         public DbSet<ProcessStructureTA> ProcessStructureTAs { get; set; }
+        public DbSet<Product> Products { get; set; }
         public DbSet<ProjectsT> ProjectsTs { get; set; }
         public DbSet<ProjectTDetail> ProjectTDetails { get; set; }
         public DbSet<Questionnaire> Questionnaires { get; set; }
@@ -80,7 +88,11 @@ namespace DAL
         public DbSet<QuestionnaireMaster> QuestionnaireMasters { get; set; }
         public DbSet<QuestionnaireMasterA> QuestionnaireMasterAs { get; set; }
         public DbSet<QuestionnaireScoring> QuestionnaireScorings { get; set; }
+        public DbSet<Request> Requests { get; set; }
+        public DbSet<RequestTransaction> RequestTransactions { get; set; }
+        public DbSet<RequestType> RequestTypes { get; set; }
         public DbSet<Risk_Lockup> Risk_Lockup { get; set; }
+        public DbSet<RPlan> RPlans { get; set; }
         public DbSet<SubRiskManagement> SubRiskManagements { get; set; }
         public DbSet<SystemProcessRootT> SystemProcessRootTs { get; set; }
         public DbSet<SystemProcessT> SystemProcessTs { get; set; }
@@ -151,6 +163,8 @@ namespace DAL
         public DbSet<Vw_QuestionaireMasterA> Vw_QuestionaireMasterA { get; set; }
         public DbSet<Vw_QuestionaireMasterXX> Vw_QuestionaireMasterXX { get; set; }
         public DbSet<Vw_QuestionnaireA> Vw_QuestionnaireA { get; set; }
+        public DbSet<Vw_RawToRequestTrans> Vw_RawToRequestTrans { get; set; }
+        public DbSet<Vw_RequestDetails> Vw_RequestDetails { get; set; }
         public DbSet<vw_UserGroups> vw_UserGroups { get; set; }
         public DbSet<Vw_UserInHirarchy> Vw_UserInHirarchy { get; set; }
         public DbSet<Vw_UserInHirarchyT> Vw_UserInHirarchyT { get; set; }
@@ -165,16 +179,5 @@ namespace DAL
         public DbSet<Vw_WorkSpaceT> Vw_WorkSpaceT { get; set; }
         public DbSet<vw_WorldMap> vw_WorldMap { get; set; }
         public DbSet<Vw_WorldMap2> Vw_WorldMap2 { get; set; }
-        public DbSet<Customer> Customers { get; set; }
-        public DbSet<AcctCategory> AcctCategories { get; set; }
-        public DbSet<Contract> Contracts { get; set; }
-        public DbSet<ESSegment> ESSegments { get; set; }
-        public DbSet<Party> Parties { get; set; }
-        public DbSet<Product> Products { get; set; }
-        public DbSet<RequestTransaction> RequestTransactions { get; set; }
-        public DbSet<RequestType> RequestTypes { get; set; }
-        public DbSet<RPlan> RPlans { get; set; }
-        public DbSet<Vw_RequestDetails> Vw_RequestDetails { get; set; }
-        public DbSet<ApprovalRequestStatu> ApprovalRequestStatus { get; set; }
     }
 }

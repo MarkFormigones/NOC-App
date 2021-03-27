@@ -710,10 +710,10 @@ namespace DAL
             return query;
         }
 
-        public IList<DAL.Vw_RequestDetails> GetVwRequestDetails_List()
+        public IList<DAL.Vw_RequestDetails> GetVwRequestDetails_ListByParty(int? pId)
         {//Same Table with Type=1
             IList<DAL.Vw_RequestDetails> query;
-            query = _DbContext.Vw_RequestDetails.Where(x => x.IsDeleted == false).Take(10).OrderBy(x => x.Id).ToList();
+            query = _DbContext.Vw_RequestDetails.Where(x => x.IsDeleted == false && x.PartyId == pId).OrderBy(x => x.Id).ToList();
             return query;
         }
 
@@ -739,11 +739,12 @@ namespace DAL
             return query;
         }
 
-        public IList<DAL.Party> GetParty_List()
+        public IList<DAL.Party> GetParty_List(int pId)
         {
 
             IList<DAL.Party> query;
             query = _DbContext.Parties
+                            .Where(x => x.Id == pId)
                             .OrderByDescending(x => x.Id)
                             .ToList();
 

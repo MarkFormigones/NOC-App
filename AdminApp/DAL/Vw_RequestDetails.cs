@@ -14,6 +14,7 @@ namespace DAL
     
     public partial class Vw_RequestDetails
     {
+        public int Id { get; set; }
         public string ProductCode { get; set; }
         public string RequestNumber { get; set; }
         public string SubRequestNumber { get; set; }
@@ -33,8 +34,8 @@ namespace DAL
         public string ApprovalRequestStatusName { get; set; }
         public string CBCMStatus { get; set; }
         public System.DateTime Created { get; set; }
-        public int Id { get; set; }
         public bool IsActive { get; set; }
         public bool IsDeleted { get; set; }
+        public Nullable<int> PartyId { get; set; }
     }
 }

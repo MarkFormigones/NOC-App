@@ -40,6 +40,7 @@ namespace Hydron.Models.Definitions
         this.Created = pInfo.Created;
             this.IsActive = pInfo.IsActive;
             this.IsDeleted = pInfo.IsDeleted;
+            this.PartyId = pInfo.PartyId;
 
 
 
@@ -67,6 +68,8 @@ namespace Hydron.Models.Definitions
 
         public bool IsActive { get; set; }
         public bool IsDeleted { get; set; }
+
+        public Nullable<int> PartyId { get; set; }
 
 
     }

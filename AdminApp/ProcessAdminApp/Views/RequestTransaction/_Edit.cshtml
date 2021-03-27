@@ -12,7 +12,6 @@
             {  <div class="alert alert-danger ">
             <button class="close" data-close="alert"></button>
             @ViewData.ModelState["error"].Errors[0].ErrorMessage
-
         </div>}
         }
         <div class="alert alert-danger display-hide">
@@ -26,182 +25,226 @@
         </div>
         <div class="form-horizontal form-bordered">
             <div class="form-body">
-                <label class="control-label col-md-3">Logo</label>
-                <div class="col-md-9">
+               
+                <div class="col-md-12">
 
 
 
                     @Html.HiddenFor(m => m.Id)
-                    @*@Html.HiddenFor(m => m.ReadEdit)
-        <div class="form-group">
-            <label class="control-label col-md-3">Customer No<span class="required">*</span></label>
-            <div class="col-md-9 input-icon">
-                <i class="fa fa-font"></i>
-                @Html.TextBoxFor(m => m.CustomerNo, new { @class = "form-control placeholder-no-fix", type = "text", autocomplete = "off", maxlength = "20", placeholder = "Customer No", name = "CustomerNo" })
-                @Html.ValidationMessageFor(m => m.CustomerNo)
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label class="control-label col-md-3">Customer Name<span class="required">*</span></label>
-            <div class="col-md-9 input-icon">
-                <i class="fa fa-font"></i>
-                @Html.TextBoxFor(m => m.CustomerName, new { @class = "form-control placeholder-no-fix", type = "text", autocomplete = "off", maxlength = "200", placeholder = "Customer Name", name = "CustomerName" })
-                @Html.ValidationMessageFor(m => m.CustomerName)
-
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label class="control-label col-md-3">Main Account No<span class="required">*</span></label>
-            <div class="col-md-9 input-icon">
-                <i class="fa fa-font"></i>
-                @Html.TextBoxFor(m => m.CustomerAcctNo, new { @class = "form-control placeholder-no-fix", type = "text", autocomplete = "off", maxlength = "50", placeholder = "Account No", name = "CustomerAcctNo" })
-                @Html.ValidationMessageFor(m => m.CustomerAcctNo)
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label class="control-label col-md-3">Sub Account No <span class="required">*</span></label>
-            <div class="col-md-9 input-icon">
-                <i class="fa fa-font"></i>
-                @Html.TextBoxFor(m => m.CustomerAcctNoSub, new { @class = "form-control placeholder-no-fix", type = "text", autocomplete = "off", maxlength = "50", placeholder = "Account No 2", name = "CustomerAcctNoSub" })
-                @Html.ValidationMessageFor(m => m.CustomerAcctNoSub)
-            </div>
-        </div>
+                    @Html.HiddenFor(m => m.ReadEdit)
 
 
-        <div class="form-group">
-            <label class="control-label col-md-3">Address</label>
-            <div class="col-md-9  ">
-                @Html.TextAreaFor(m => m.CustomerAddress, new { @class = "form-control placeholder-no-fix", type = "text", autocomplete = "off", maxlength = "200", rows = "2", placeholder = "Address", name = "CustomerAddress" })
-            </div>
-        </div>
-
-
-
-        <div class="form-group">
-            <label class="control-label col-md-3">Email<span class="required">*</span></label>
-            <div class="col-md-9 input-icon">
-                <i class="fa fa-font"></i>
-                @Html.TextBoxFor(m => m.CustomerEmail, new { @class = "form-control placeholder-no-fix", type = "text", autocomplete = "off", maxlength = "50", placeholder = "Email", name = "CustomerEmail" })
-                @Html.ValidationMessageFor(m => m.CustomerEmail)
-            </div>
-        </div>
-
-
-        <div class="form-group">
-            <label class="control-label col-md-3">Contact Details</label>
-            <div class="col-md-9  ">
-                @Html.TextAreaFor(m => m.CustomerContactNo, new { @class = "form-control placeholder-no-fix", type = "text", autocomplete = "off", maxlength = "200", rows = "2", placeholder = "Contact Details", name = "CustomerContactNo" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label class="control-label col-md-3">Websites</label>
-            <div class="col-md-9  ">
-                @Html.TextAreaFor(m => m.CustomerWebsite, new { @class = "form-control placeholder-no-fix", type = "text", autocomplete = "off", maxlength = "200", rows = "2", placeholder = "Websites", name = "CustomerWebsite" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label class="control-label col-md-3">Contract/ SLA</label>
-            <div class="col-md-9  ">
-                @Html.TextAreaFor(m => m.CustomerContract, new { @class = "form-control placeholder-no-fix", type = "text", autocomplete = "off", maxlength = "200", rows = "2", placeholder = "Contract / SLA", name = "CustomerContract" })
-            </div>
-        </div>
-
-
-
-        <div class="form-group">
-            <label class="control-label col-md-3">Class<span class="required">*</span></label>
-            <div class="col-md-9 input-icon">
-                @Html.DropDownListFor(m => m.CustomerClass, Model.CustomerClassList, new { @class = "select2 form-control placeholder-no-fix ", name = "CustomerClass" })
-                @Html.ValidationMessageFor(m => m.CustomerClass)
-            </div>
-        </div>
-
-
-        <div class="form-group">
-            <label class="control-label col-md-3">Category<span class="required">*</span></label>
-            <div class="col-md-9 input-icon">
-                @Html.DropDownListFor(m => m.CustomerCategory, Model.CustomerCategoryList, new { @class = "select2 form-control placeholder-no-fix ", name = "CustomerCategory" })
-                @Html.ValidationMessageFor(m => m.CustomerCategory)
-            </div>
-        </div>
-
-
-        <div class="form-group">
-            <label class="control-label col-md-3">Type<span class="required">*</span></label>
-            <div class="col-md-9 input-icon">
-                @Html.DropDownListFor(m => m.CustomerType, Model.CustomerTypeList, new { @class = "select2 form-control placeholder-no-fix ", name = "CustomerType" })
-                @Html.ValidationMessageFor(m => m.CustomerType)
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label class="control-label col-md-3">Is Active</label>
-            <div class="col-md-9 input-icon">
-                <i class="fa fa-lock"></i>
-                <div class="make-switch" data-on="success" data-off="warning" data-on-label="&nbsp;Active&nbsp;" data-off-label="&nbsp;Inactive&nbsp;&nbsp;">
-                    @Html.CheckBoxFor(m => m.IsActive, new { name = "IsActive", @checked = "", @class = "toggle" })
-                </div>
-
-            </div>
-            <label> @Html.ValidationMessageFor(m => m.IsActive)</label>
-        </div>
-
-        @if (Model.Id > 0)
-        {
-            <div class="form-group">
-                <label class="control-label col-md-3">Is Close</label>
-                <div class="col-md-9 input-icon">
-                    <i class="fa fa-lock"></i>
-                    <div class="make-switch" data-on="success" data-off="warning" data-on-label="&nbsp;YES&nbsp;" data-off-label="&nbsp;NO&nbsp;&nbsp;">
-                        @Html.CheckBoxFor(m => m.IsClosed, new { name = "IsClosed", @checked = "", @class = "toggle" })
+                    <div class="form-group">
+                        <label class="control-label col-md-3">Party<span class="required">*</span></label>
+                        <div class="col-md-9 input-icon">
+                            @Html.DropDownListFor(m => m.PartyId, Model.PartyNameList, new { @class = "select2 form-control placeholder-no-fix ", name = "PartyId" })
+                            @Html.ValidationMessageFor(m => m.PartyId)
+                        </div>
                     </div>
 
-                </div>
-                <label> @Html.ValidationMessageFor(m => m.IsClosed)</label>
+                    <div class="form-group">
+                        <label class="control-label col-md-3">Product<span class="required">*</span></label>
+                        <div class="col-md-9 input-icon">
+                            @Html.DropDownListFor(m => m.ProductCodeId, Model.ProductNameList, new { @class = "select2 form-control placeholder-no-fix ", name = "ProductCodeId" })
+                            @Html.ValidationMessageFor(m => m.ProductCodeId)
+                        </div>
+                    </div>
 
-        }*@
-
-                </div>
 
 
+                    <div class="form-group">
+                        <label class="control-label col-md-3">Request Number<span class="required">*</span></label>
+                        <div class="col-md-9 input-icon">
+                            <i class="fa fa-font"></i>
+                            @Html.TextBoxFor(m => m.RequestNumber, new { @class = "form-control placeholder-no-fix", type = "text", autocomplete = "off", maxlength = "50", placeholder = "Request Number", name = "RequestNumber" })
+                            @Html.ValidationMessageFor(m => m.RequestNumber)
+                        </div>
+                    </div>
 
-                <div class="margiv-top-10">
-                    <a data-toggle="modal" class="btn green" role="button" href="#modalSave" onclick="handleCustomer();">Save Changes</a>
+                    <div class="form-group">
+                        <label class="control-label col-md-3">Sub Request Number<span class="required">*</span></label>
+                        <div class="col-md-9 input-icon">
+                            <i class="fa fa-font"></i>
+                            @Html.TextBoxFor(m => m.SubRequestNumber, new { @class = "form-control placeholder-no-fix", type = "text", autocomplete = "off", maxlength = "50", placeholder = "Sub Request Number", name = "SubRequestNumber" })
+                            @Html.ValidationMessageFor(m => m.SubRequestNumber)
+                        </div>
+                    </div>
 
-                </div>
-                <div aria-hidden="true" aria-labelledby="myModalLabel3" role="dialog" tabindex="-1" class="modal fade" id="modalSave" style="display: none;">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button aria-hidden="true" data-dismiss="modal" class="close" type="button"></button>
-                                <h4 class="modal-title"> </h4>
+                    <div class="form-group">
+                        <label class="control-label col-md-3">Request Type<span class="required">*</span></label>
+                        <div class="col-md-9 input-icon">
+                            @Html.DropDownListFor(m => m.RequestTypeId, Model.RequestTypeList, new { @class = "select2 form-control placeholder-no-fix ", name = "RequestTypeId" })
+                            @Html.ValidationMessageFor(m => m.RequestTypeId)
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-3">Account Number<span class="required">*</span></label>
+                        <div class="col-md-9 input-icon">
+                            <i class="fa fa-font"></i>
+                            @Html.TextBoxFor(m => m.AccountNumber, new { @class = "form-control placeholder-no-fix", type = "text", autocomplete = "off", maxlength = "50", placeholder = "AccountNumber", name = "AccountNumber" })
+                            @Html.ValidationMessageFor(m => m.AccountNumber)
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-3">Account Category<span class="required">*</span></label>
+                        <div class="col-md-9 input-icon">
+                            @Html.DropDownListFor(m => m.AcctCategoryId, Model.AcctCategoryList, new { @class = "select2 form-control placeholder-no-fix ", name = "AcctCategoryId" })
+                            @Html.ValidationMessageFor(m => m.AcctCategoryId)
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-3">ES Segment<span class="required">*</span></label>
+                        <div class="col-md-9 input-icon">
+                            @Html.DropDownListFor(m => m.ESSegmentId, Model.ESSegmentList, new { @class = "select2 form-control placeholder-no-fix ", name = "ESSegmentId" })
+                            @Html.ValidationMessageFor(m => m.ESSegmentId)
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-3">Rate Plan<span class="required">*</span></label>
+                        <div class="col-md-9 input-icon">
+                            @Html.DropDownListFor(m => m.RatePlanId, Model.RatePlanList, new { @class = "select2 form-control placeholder-no-fix ", name = "RatePlanId", id = "ratename", onChange = "RateOption(1)" })
+                            @Html.ValidationMessageFor(m => m.RatePlanId)
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+            <label class="control-label col-md-3">Rate Plan Description<span class="required">*</span></label>
+            <div class="col-md-9 input-icon">
+                @Html.DropDownListFor(m => m.RatePlanId, Model.RatePlanDescList, new { @class = "select2 form-control placeholder-no-fix ", name = "RatePlanId", id = "ratedesc", onChange = "RateOption(0)" })
+                @Html.ValidationMessageFor(m => m.RatePlanId)
+            </div>
+        </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-3">Contract<span class="required">*</span></label>
+                        <div class="col-md-9 input-icon">
+                            @Html.DropDownListFor(m => m.ContractId, Model.ContractList, new { @class = "select2 form-control placeholder-no-fix ", name = "ContractList" })
+                            @Html.ValidationMessageFor(m => m.ContractList)
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-3">CBCM Status<span class="required">*</span></label>
+                        <div class="col-md-9 input-icon">
+                            @Html.DropDownListFor(m => m.ApprovalRequestStatusId, Model.CBCMStatusList, new { @class = "select2 form-control placeholder-no-fix ", name = "ApprovalRequestStatusId", id = "cbcmstatus", onChange = "ApprovalStatus(1)" })
+                            @Html.ValidationMessageFor(m => m.ApprovalRequestStatusId)
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label class="control-label col-md-3">Approval Request Status<span class="required">*</span></label>
+                        <div class="col-md-9 input-icon">
+                            @Html.DropDownListFor(m => m.ApprovalRequestStatusId, Model.ApprovalRequestStatusList, new { @class = "select2 form-control placeholder-no-fix", name = "ApprovalRequestStatusId", id = "approvalstatus", onChange = "ApprovalStatus(0)" })
+                            @Html.ValidationMessageFor(m => m.ApprovalRequestStatusId)
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="form-group">
+                        <label class="control-label col-md-3">Amount MRC</label>
+                        <div class="col-md-9 input-icon">
+                            <i class="fa fa-font"></i>
+                            @Html.TextBoxFor(m => m.VariableAmount_MRC, new { @class = "form-control placeholder-no-fix", type = "text", autocomplete = "off", maxlength = "20", placeholder = "Amount MRC", name = "VariableAmount_MRC" })
+                            @Html.ValidationMessageFor(m => m.VariableAmount_MRC)
+
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label class="control-label col-md-3">Amount OTC</label>
+                        <div class="col-md-9 input-icon">
+                            <i class="fa fa-font"></i>
+                            @Html.TextBoxFor(m => m.VariableAmount_OTC, new { @class = "form-control placeholder-no-fix", type = "text", autocomplete = "off", maxlength = "20", placeholder = "Amount OTC", name = "VariableAmount_OTC" })
+                            @Html.ValidationMessageFor(m => m.VariableAmount_OTC)
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-3">Amount QRC</label>
+                        <div class="col-md-9 input-icon">
+                            <i class="fa fa-font"></i>
+                            @Html.TextBoxFor(m => m.VariableAmount_QRC, new { @class = "form-control placeholder-no-fix", type = "text", autocomplete = "off", maxlength = "20", placeholder = "Amount QRC", name = "VariableAmount_QRC" })
+                            @Html.ValidationMessageFor(m => m.VariableAmount_QRC)
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-3">Amount YRC</label>
+                        <div class="col-md-9 input-icon">
+                            <i class="fa fa-font"></i>
+                            @Html.TextBoxFor(m => m.VariableAmount_YRC, new { @class = "form-control placeholder-no-fix", type = "text", autocomplete = "off", maxlength = "20", placeholder = "Amount YRC", name = "VariableAmount_YRC" })
+                            @Html.ValidationMessageFor(m => m.VariableAmount_YRC)
+
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label class="control-label col-md-3">Remarks</label>
+                        <div class="col-md-9  ">
+                            @Html.TextAreaFor(m => m.ChargeDetails, new { @class = "form-control placeholder-no-fix", type = "text", autocomplete = "off", maxlength = "500", rows = "2", placeholder = "Remarks", name = "ChargeDetails" })
+                        </div>
+                    </div>
+
+
+
+
+
+                    <div class="form-group">
+                        <label class="control-label col-md-3">Is Active</label>
+                        <div class="col-md-9 input-icon">
+                            <i class="fa fa-lock"></i>
+                            <div class="make-switch" data-on="success" data-off="warning" data-on-label="&nbsp;Active&nbsp;" data-off-label="&nbsp;Inactive&nbsp;&nbsp;">
+                                @Html.CheckBoxFor(m => m.IsActive, new { name = "IsActive", @checked = "", @class = "toggle" })
                             </div>
-                            <div class="modal-body">
 
-                            </div>
-                            <div class="modal-footer">
-                                <h5 class="modal-msg" style="display:none"> <span><img src='/assets/img/loading.gif'></span> </h5>
-                                <button aria-hidden="true" data-dismiss="modal" class="btn default">Close</button>
-                                @*<a class="btn red" href="~/Department/Delete?uId=@Model.DepartmentId" id="fdbtn"> // onclick="initModT('S ave'); removed, no need on close to reinitialize
+                        </div>
+                        <label> @Html.ValidationMessageFor(m => m.IsActive)</label>
+                    </div>
+
+
+                    <div class="margiv-top-10">
+                        <a data-toggle="modal" class="btn green" role="button" href="#modalSave" onclick="handleRequestTransaction();">Save Changes</a>
+
+                    </div>
+                    <div aria-hidden="true" aria-labelledby="myModalLabel3" role="dialog" tabindex="-1" class="modal fade" id="modalSave" style="display: none;">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button aria-hidden="true" data-dismiss="modal" class="close" type="button"></button>
+                                    <h4 class="modal-title"> </h4>
+                                </div>
+                                <div class="modal-body">
+
+                                </div>
+                                <div class="modal-footer">
+                                    <h5 class="modal-msg" style="display:none"> <span><img src='/assets/img/loading.gif'></span> </h5>
+                                    <button aria-hidden="true" data-dismiss="modal" class="btn default">Close</button>
+                                    @*<a class="btn red" href="~/Department/Delete?uId=@Model.DepartmentId" id="fdbtn"> // onclick="initModT('S ave'); removed, no need on close to reinitialize
                             <i class="fa fa-trash-o"></i> Delete
                         </a>*@
-                                <button type="submit" value="Save" class="btn green" id="fsbtn">
-                                    <i class="fa fa-save"></i>Save
+                                    <button type="submit" value="Save" class="btn green" id="fsbtn">
+                                        <i class="fa fa-save"></i>Save
 
-                                </button>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+                </div>
+
         </div>
-
-
 
     </fieldset>
             <div id="register_tnc_error"></div>
@@ -216,14 +259,36 @@
             todayBtn: "linked",
             language: "en"
         });
+
+      
+    /*alert($("select[name=ApprovalRequestStatusId]").val()); */
+
     });
 
+
+    function ApprovalStatus(val) {
+        if (val == 0) {
+            $('#cbcmstatus').val($('#approvalstatus').val());
+        } else {
+            $('#approvalstatus').val($('#cbcmstatus').val());
+        }
+           
+    }
+
+    function RateOption(val) {
+        if (val == 0) {
+            $('#ratename').val($('#ratedesc').val());
+        } else {
+            $('#ratedesc').val($('#ratename').val());
+        }
+
+    }
 
 
                     jQuery(document).ready(function () {
                         
 
-                        handleCustomer();
+                        handleRequestTransaction();
 
                         
 
@@ -269,24 +334,51 @@
 
 
 
-                    var handleCustomer = function InitValidate() {
+                var handleRequestTransaction = function InitValidate() {
                         initModT('Save');
 
-                        $('#CustomerAddress').maxlength({
+                        $('#RequestNumber').maxlength({
                             limitReachedClass: "label label-danger",
                             alwaysShow: true
                         });
 
-                        $('#CustomerContactNo').maxlength({
+                        $('#SubRequestNumber').maxlength({
                             limitReachedClass: "label label-danger",
                             alwaysShow: true
                         });
 
-                        $('#CustomerWebsite').maxlength({
+                        $('#AccountNumber').maxlength({
                             limitReachedClass: "label label-danger",
                             alwaysShow: true
                         });
 
+                        $('#VariableAmount_MRC').maxlength({
+                            limitReachedClass: "label label-danger",
+                            alwaysShow: true
+                        });
+
+                        $('#VariableAmount_OTC').maxlength({
+                            limitReachedClass: "label label-danger",
+                            alwaysShow: true
+                        });
+
+                        $('#VariableAmount_QRC').maxlength({
+                            limitReachedClass: "label label-danger",
+                            alwaysShow: true
+                        });
+
+                        $('#VariableAmount_YRC').maxlength({
+                            limitReachedClass: "label label-danger",
+                            alwaysShow: true
+                        });
+
+                    
+                        $('#ChargeDetails').maxlength({
+                            limitReachedClass: "label label-danger",
+                            alwaysShow: true
+                        });
+
+                        
 
                         var form1 = $('#Define');
                         var error1 = $('.alert-danger', form1);
@@ -299,13 +391,13 @@
                             ignore: "",
                             rules: {
 
-                                CustomerNo: {
+                                RequestNumber: {
                                     required: true
                                 },
-                                CustomerAcctNo: {
+                                SubRequestNumber: {
                                     required: true
                                 },
-                                CustomerName: {
+                                AccountNumber: {
                                     required: true
                                 },
                                 IsActive: {
