@@ -2219,30 +2219,6 @@ warning 6002: The table/view 'HydronDB-SNOC-BLOB_V2.dbo.MapLongLat' does not hav
           <Property Name="IsActive" Type="bit" Nullable="false" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6013: The table/view 'HydronDB-SNOC-BLOB_V2.dbo.Raw' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="Raw">
-          <Property Name="ID" Type="nvarchar" MaxLength="255" />
-          <Property Name="ProductCode" Type="nvarchar" MaxLength="255" />
-          <Property Name="RequestNumber" Type="nvarchar" MaxLength="255" />
-          <Property Name="SubRequestNumber" Type="nvarchar" MaxLength="255" />
-          <Property Name="SubRequestType" Type="nvarchar" MaxLength="255" />
-          <Property Name="PartyName" Type="nvarchar" MaxLength="255" />
-          <Property Name="AccountNumber" Type="nvarchar" MaxLength="255" />
-          <Property Name="AccountCategory" Type="nvarchar" MaxLength="255" />
-          <Property Name="ESSubSegment" Type="nvarchar" MaxLength="255" />
-          <Property Name="RatePlan" Type="nvarchar" MaxLength="255" />
-          <Property Name="RatePlanDescription" Type="nvarchar" MaxLength="255" />
-          <Property Name="VariableAmount_MRC" Type="float" />
-          <Property Name="VariableAmount_OTC" Type="float" />
-          <Property Name="VariableAmount_QRC" Type="nvarchar" MaxLength="255" />
-          <Property Name="VariableAmount_YRC" Type="nvarchar" MaxLength="255" />
-          <Property Name="ContractPeriod" Type="float" />
-          <Property Name="ChargeDetails" Type="nvarchar" MaxLength="255" />
-          <Property Name="ApprovalRequestStatusName" Type="nvarchar" MaxLength="255" />
-          <Property Name="CBCMStatus" Type="nvarchar" MaxLength="255" />
-          <Property Name="Created" Type="nvarchar" MaxLength="255" />
-        </EntityType>-->
         <EntityType Name="Request">
           <Key>
             <PropertyRef Name="Id" />
@@ -2678,12 +2654,6 @@ warning 6013: The table/view 'HydronDB-SNOC-BLOB_V2.dbo.Raw' does not have a pri
           <Property Name="IsSeen" Type="bit" />
           <Property Name="SeenDate" Type="date" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6013: The table/view 'HydronDB-SNOC-BLOB_V2.dbo.VMap' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="VMap">
-          <Property Name="VmapCode" Type="varchar" MaxLength="50" />
-          <Property Name="VmapValue" Type="varchar" MaxLength="50" />
-        </EntityType>-->
         <EntityType Name="VoteMaster">
           <Key>
             <PropertyRef Name="Id" />
@@ -3594,15 +3564,6 @@ warning 6002: The table/view 'HydronDB-SNOC-BLOB_V2.dbo.vw_ActionTA_Row___' does
           <Property Name="IsActive" Type="bit" Nullable="false" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6013: The table/view 'HydronDB-SNOC-BLOB_V2.dbo.vw_ActivityTotals' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="vw_ActivityTotals">
-          <Property Name="Counter" Type="int" />
-          <Property Name="Activity_Lok" Type="int" />
-          <Property Name="Operation_Lok" Type="int" />
-          <Property Name="Name" Type="nvarchar" MaxLength="50" />
-          <Property Name="TOTAL" Type="int" />
-        </EntityType>-->
         <!--Errors Found During Generation:
 warning 6002: The table/view 'HydronDB-SNOC-BLOB_V2.dbo.vw_ActvityLog' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="vw_ActvityLog">
@@ -7238,6 +7199,9 @@ warning 6002: The table/view 'HydronDB-SNOC-BLOB_V2.dbo.Vw_RequestDetails' does 
             <PropertyRef Name="Created" />
             <PropertyRef Name="IsActive" />
             <PropertyRef Name="IsDeleted" />
+            <PropertyRef Name="ProductCodeId" />
+            <PropertyRef Name="RequestTypeId" />
+            <PropertyRef Name="RatePlanId" />
           </Key>
           <Property Name="Id" Type="int" Nullable="false" />
           <Property Name="ProductCode" Type="varchar" MaxLength="50" Nullable="false" />
@@ -7262,6 +7226,13 @@ warning 6002: The table/view 'HydronDB-SNOC-BLOB_V2.dbo.Vw_RequestDetails' does 
           <Property Name="IsActive" Type="bit" Nullable="false" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
           <Property Name="PartyId" Type="int" />
+          <Property Name="ProductCodeId" Type="int" Nullable="false" />
+          <Property Name="RequestTypeId" Type="int" Nullable="false" />
+          <Property Name="AcctCategoryId" Type="int" />
+          <Property Name="ESSegmentId" Type="int" />
+          <Property Name="RatePlanId" Type="int" Nullable="false" />
+          <Property Name="ContractId" Type="int" />
+          <Property Name="ApprovalRequestStatusId" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'HydronDB-SNOC-BLOB_V2.dbo.vw_UserGroups' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -11445,7 +11416,14 @@ warning 6002: The table/view 'HydronDB-SNOC-BLOB_V2.dbo.Vw_WorldMap2' does not h
     [Vw_RequestDetails].[Created] AS [Created], 
     [Vw_RequestDetails].[IsActive] AS [IsActive], 
     [Vw_RequestDetails].[IsDeleted] AS [IsDeleted], 
-    [Vw_RequestDetails].[PartyId] AS [PartyId]
+    [Vw_RequestDetails].[PartyId] AS [PartyId], 
+    [Vw_RequestDetails].[ProductCodeId] AS [ProductCodeId], 
+    [Vw_RequestDetails].[RequestTypeId] AS [RequestTypeId], 
+    [Vw_RequestDetails].[AcctCategoryId] AS [AcctCategoryId], 
+    [Vw_RequestDetails].[ESSegmentId] AS [ESSegmentId], 
+    [Vw_RequestDetails].[RatePlanId] AS [RatePlanId], 
+    [Vw_RequestDetails].[ContractId] AS [ContractId], 
+    [Vw_RequestDetails].[ApprovalRequestStatusId] AS [ApprovalRequestStatusId]
     FROM [dbo].[Vw_RequestDetails] AS [Vw_RequestDetails]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="vw_UserGroups" EntityType="Self.vw_UserGroups" store:Type="Views" store:Schema="dbo">
@@ -12237,7 +12215,6 @@ warning 6002: The table/view 'HydronDB-SNOC-BLOB_V2.dbo.Vw_WorldMap2' does not h
           <EntitySet Name="Vw_QuestionaireMasterXX" EntityType="ProcessadmindbModel.Vw_QuestionaireMasterXX" />
           <EntitySet Name="Vw_QuestionnaireA" EntityType="ProcessadmindbModel.Vw_QuestionnaireA" />
           <EntitySet Name="Vw_RawToRequestTrans" EntityType="ProcessadmindbModel.Vw_RawToRequestTrans" />
-          <EntitySet Name="Vw_RequestDetails" EntityType="ProcessadmindbModel.Vw_RequestDetails" />
           <EntitySet Name="vw_UserGroups" EntityType="ProcessadmindbModel.vw_UserGroups" />
           <EntitySet Name="Vw_UserInHirarchy" EntityType="ProcessadmindbModel.Vw_UserInHirarchy" />
           <EntitySet Name="Vw_UserInHirarchyT" EntityType="ProcessadmindbModel.Vw_UserInHirarchyT" />
@@ -12280,6 +12257,7 @@ warning 6002: The table/view 'HydronDB-SNOC-BLOB_V2.dbo.Vw_WorldMap2' does not h
             <End Role="webpages_Roles" EntitySet="webpages_Roles" />
             <End Role="UserProfile" EntitySet="UserProfiles" />
           </AssociationSet>
+          <EntitySet Name="Vw_RequestDetails" EntityType="ProcessadmindbModel.Vw_RequestDetails" />
         </EntityContainer>
         <EntityType Name="Account">
           <Key>
@@ -19365,43 +19343,6 @@ warning 6002: The table/view 'HydronDB-SNOC-BLOB_V2.dbo.Vw_WorldMap2' does not h
           <Property Name="Created" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="ChargeDetails" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="Vw_RequestDetails">
-          <Key>
-            <PropertyRef Name="Id" />
-            <PropertyRef Name="ProductCode" />
-            <PropertyRef Name="RequestNumber" />
-            <PropertyRef Name="SubRequestNumber" />
-            <PropertyRef Name="SubRequestType" />
-            <PropertyRef Name="AccountNumber" />
-            <PropertyRef Name="RatePlan" />
-            <PropertyRef Name="Created" />
-            <PropertyRef Name="IsActive" />
-            <PropertyRef Name="IsDeleted" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="ProductCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="RequestNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="SubRequestNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="SubRequestType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="PartyName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="AccountNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="AccountCategory" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="ESSubSegment" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="RatePlan" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="RatePlanDescription" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="VariableAmount_MRC" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="VariableAmount_OTC" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="VariableAmount_QRC" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="VariableAmount_YRC" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="ContractPeriod" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="ChargeDetails" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="ApprovalRequestStatusName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="CBCMStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="IsActive" Type="Boolean" Nullable="false" />
-          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
-          <Property Name="PartyId" Type="Int32" />
-        </EntityType>
         <EntityType Name="vw_UserGroups">
           <Key>
             <PropertyRef Name="UserId" />
@@ -20309,6 +20250,53 @@ warning 6002: The table/view 'HydronDB-SNOC-BLOB_V2.dbo.Vw_WorldMap2' does not h
           <End Type="ProcessadmindbModel.webpages_Roles" Role="webpages_Roles" Multiplicity="*" />
           <End Type="ProcessadmindbModel.UserProfile" Role="UserProfile" Multiplicity="*" />
         </Association>
+        <EntityType Name="Vw_RequestDetails">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="ProductCode" />
+            <PropertyRef Name="RequestNumber" />
+            <PropertyRef Name="SubRequestNumber" />
+            <PropertyRef Name="SubRequestType" />
+            <PropertyRef Name="AccountNumber" />
+            <PropertyRef Name="RatePlan" />
+            <PropertyRef Name="Created" />
+            <PropertyRef Name="IsActive" />
+            <PropertyRef Name="IsDeleted" />
+            <PropertyRef Name="ProductCodeId" />
+            <PropertyRef Name="RequestTypeId" />
+            <PropertyRef Name="RatePlanId" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="ProductCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="RequestNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SubRequestNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SubRequestType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PartyName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="AccountNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AccountCategory" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ESSubSegment" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="RatePlan" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="RatePlanDescription" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="VariableAmount_MRC" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="VariableAmount_OTC" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="VariableAmount_QRC" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="VariableAmount_YRC" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ContractPeriod" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ChargeDetails" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="ApprovalRequestStatusName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CBCMStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="PartyId" Type="Int32" />
+          <Property Name="ProductCodeId" Type="Int32" Nullable="false" />
+          <Property Name="RequestTypeId" Type="Int32" Nullable="false" />
+          <Property Name="AcctCategoryId" Type="Int32" />
+          <Property Name="ESSegmentId" Type="Int32" />
+          <Property Name="RatePlanId" Type="Int32" Nullable="false" />
+          <Property Name="ContractId" Type="Int32" />
+          <Property Name="ApprovalRequestStatusId" Type="Int32" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -26503,35 +26491,6 @@ warning 6002: The table/view 'HydronDB-SNOC-BLOB_V2.dbo.Vw_WorldMap2' does not h
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Vw_RequestDetails">
-            <EntityTypeMapping TypeName="ProcessadmindbModel.Vw_RequestDetails">
-              <MappingFragment StoreEntitySet="Vw_RequestDetails">
-                <ScalarProperty Name="PartyId" ColumnName="PartyId" />
-                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="Created" ColumnName="Created" />
-                <ScalarProperty Name="CBCMStatus" ColumnName="CBCMStatus" />
-                <ScalarProperty Name="ApprovalRequestStatusName" ColumnName="ApprovalRequestStatusName" />
-                <ScalarProperty Name="ChargeDetails" ColumnName="ChargeDetails" />
-                <ScalarProperty Name="ContractPeriod" ColumnName="ContractPeriod" />
-                <ScalarProperty Name="VariableAmount_YRC" ColumnName="VariableAmount_YRC" />
-                <ScalarProperty Name="VariableAmount_QRC" ColumnName="VariableAmount_QRC" />
-                <ScalarProperty Name="VariableAmount_OTC" ColumnName="VariableAmount_OTC" />
-                <ScalarProperty Name="VariableAmount_MRC" ColumnName="VariableAmount_MRC" />
-                <ScalarProperty Name="RatePlanDescription" ColumnName="RatePlanDescription" />
-                <ScalarProperty Name="RatePlan" ColumnName="RatePlan" />
-                <ScalarProperty Name="ESSubSegment" ColumnName="ESSubSegment" />
-                <ScalarProperty Name="AccountCategory" ColumnName="AccountCategory" />
-                <ScalarProperty Name="AccountNumber" ColumnName="AccountNumber" />
-                <ScalarProperty Name="PartyName" ColumnName="PartyName" />
-                <ScalarProperty Name="SubRequestType" ColumnName="SubRequestType" />
-                <ScalarProperty Name="SubRequestNumber" ColumnName="SubRequestNumber" />
-                <ScalarProperty Name="RequestNumber" ColumnName="RequestNumber" />
-                <ScalarProperty Name="ProductCode" ColumnName="ProductCode" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="vw_UserGroups">
             <EntityTypeMapping TypeName="ProcessadmindbModel.vw_UserGroups">
               <MappingFragment StoreEntitySet="vw_UserGroups">
@@ -27180,6 +27139,42 @@ warning 6002: The table/view 'HydronDB-SNOC-BLOB_V2.dbo.Vw_WorldMap2' does not h
               <ScalarProperty Name="RoleId" ColumnName="RoleId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="Vw_RequestDetails">
+            <EntityTypeMapping TypeName="ProcessadmindbModel.Vw_RequestDetails">
+              <MappingFragment StoreEntitySet="Vw_RequestDetails">
+                <ScalarProperty Name="ApprovalRequestStatusId" ColumnName="ApprovalRequestStatusId" />
+                <ScalarProperty Name="ContractId" ColumnName="ContractId" />
+                <ScalarProperty Name="RatePlanId" ColumnName="RatePlanId" />
+                <ScalarProperty Name="ESSegmentId" ColumnName="ESSegmentId" />
+                <ScalarProperty Name="AcctCategoryId" ColumnName="AcctCategoryId" />
+                <ScalarProperty Name="RequestTypeId" ColumnName="RequestTypeId" />
+                <ScalarProperty Name="ProductCodeId" ColumnName="ProductCodeId" />
+                <ScalarProperty Name="PartyId" ColumnName="PartyId" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="CBCMStatus" ColumnName="CBCMStatus" />
+                <ScalarProperty Name="ApprovalRequestStatusName" ColumnName="ApprovalRequestStatusName" />
+                <ScalarProperty Name="ChargeDetails" ColumnName="ChargeDetails" />
+                <ScalarProperty Name="ContractPeriod" ColumnName="ContractPeriod" />
+                <ScalarProperty Name="VariableAmount_YRC" ColumnName="VariableAmount_YRC" />
+                <ScalarProperty Name="VariableAmount_QRC" ColumnName="VariableAmount_QRC" />
+                <ScalarProperty Name="VariableAmount_OTC" ColumnName="VariableAmount_OTC" />
+                <ScalarProperty Name="VariableAmount_MRC" ColumnName="VariableAmount_MRC" />
+                <ScalarProperty Name="RatePlanDescription" ColumnName="RatePlanDescription" />
+                <ScalarProperty Name="RatePlan" ColumnName="RatePlan" />
+                <ScalarProperty Name="ESSubSegment" ColumnName="ESSubSegment" />
+                <ScalarProperty Name="AccountCategory" ColumnName="AccountCategory" />
+                <ScalarProperty Name="AccountNumber" ColumnName="AccountNumber" />
+                <ScalarProperty Name="PartyName" ColumnName="PartyName" />
+                <ScalarProperty Name="SubRequestType" ColumnName="SubRequestType" />
+                <ScalarProperty Name="SubRequestNumber" ColumnName="SubRequestNumber" />
+                <ScalarProperty Name="RequestNumber" ColumnName="RequestNumber" />
+                <ScalarProperty Name="ProductCode" ColumnName="ProductCode" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

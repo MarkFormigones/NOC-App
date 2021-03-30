@@ -41,8 +41,13 @@ namespace Hydron.Models.Definitions
             this.IsActive = pInfo.IsActive;
             this.IsDeleted = pInfo.IsDeleted;
             this.PartyId = pInfo.PartyId;
-
-
+        this.ProductCodeId = pInfo.ProductCodeId;
+        this.RequestTypeId = pInfo.RequestTypeId;
+        this.AcctCategoryId = pInfo.AcctCategoryId;
+        this.ESSegmentId = pInfo.ESSegmentId;
+        this.RatePlanId = pInfo.RatePlanId;
+        this.ContractId = pInfo.ContractId;
+        this.ApprovalRequestStatusId = pInfo.ApprovalRequestStatusId;
 
         }
         public int Id { get; set; }
@@ -65,11 +70,37 @@ namespace Hydron.Models.Definitions
         public string ApprovalRequestStatusName { get; set; }
         public string CBCMStatus { get; set; }
         public System.DateTime Created { get; set; }
-
         public bool IsActive { get; set; }
         public bool IsDeleted { get; set; }
-
         public Nullable<int> PartyId { get; set; }
+        public int ProductCodeId { get; set; }
+        public int RequestTypeId { get; set; }
+        public Nullable<int> AcctCategoryId { get; set; }
+        public Nullable<int> ESSegmentId { get; set; }
+        public int RatePlanId { get; set; }
+        public Nullable<int> ContractId { get; set; }
+        public Nullable<int> ApprovalRequestStatusId { get; set; }
+
+        public IEnumerable<System.Web.Mvc.SelectListItem> ProductNameList { get; set; }
+
+      
+        public IEnumerable<System.Web.Mvc.SelectListItem> RequestTypeList { get; set; }
+
+       
+        public IEnumerable<System.Web.Mvc.SelectListItem> PartyNameList { get; set; }
+
+    
+        public IEnumerable<System.Web.Mvc.SelectListItem> AcctCategoryList { get; set; }
+
+       
+        public IEnumerable<System.Web.Mvc.SelectListItem> ESSegmentList { get; set; }
+
+        
+        public IEnumerable<System.Web.Mvc.SelectListItem> RatePlanList { get; set; }
+     
+        public IEnumerable<System.Web.Mvc.SelectListItem> ContractList { get; set; }
+     
+        public IEnumerable<System.Web.Mvc.SelectListItem> CBCMStatusList { get; set; }
 
 
     }

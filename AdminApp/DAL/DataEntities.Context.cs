@@ -164,7 +164,6 @@ namespace DAL
         public DbSet<Vw_QuestionaireMasterXX> Vw_QuestionaireMasterXX { get; set; }
         public DbSet<Vw_QuestionnaireA> Vw_QuestionnaireA { get; set; }
         public DbSet<Vw_RawToRequestTrans> Vw_RawToRequestTrans { get; set; }
-        public DbSet<Vw_RequestDetails> Vw_RequestDetails { get; set; }
         public DbSet<vw_UserGroups> vw_UserGroups { get; set; }
         public DbSet<Vw_UserInHirarchy> Vw_UserInHirarchy { get; set; }
         public DbSet<Vw_UserInHirarchyT> Vw_UserInHirarchyT { get; set; }
@@ -179,5 +178,6 @@ namespace DAL
         public DbSet<Vw_WorkSpaceT> Vw_WorkSpaceT { get; set; }
         public DbSet<vw_WorldMap> vw_WorldMap { get; set; }
         public DbSet<Vw_WorldMap2> Vw_WorldMap2 { get; set; }
+        public DbSet<Vw_RequestDetails> Vw_RequestDetails { get; set; }
     }
 }

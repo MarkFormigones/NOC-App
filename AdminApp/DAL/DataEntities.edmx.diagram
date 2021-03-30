@@ -144,7 +144,6 @@
         <EntityTypeShape EntityType="ProcessadmindbModel.Vw_QuestionaireMasterXX" Width="1.5" PointX="2.75" PointY="51.75" />
         <EntityTypeShape EntityType="ProcessadmindbModel.Vw_QuestionnaireA" Width="1.5" PointX="40.75" PointY="51.75" />
         <EntityTypeShape EntityType="ProcessadmindbModel.Vw_RawToRequestTrans" Width="1.5" PointX="52.75" PointY="0.75" />
-        <EntityTypeShape EntityType="ProcessadmindbModel.Vw_RequestDetails" Width="1.5" PointX="52.75" PointY="6.75" />
         <EntityTypeShape EntityType="ProcessadmindbModel.vw_UserGroups" Width="1.5" PointX="52.75" PointY="13.75" />
         <EntityTypeShape EntityType="ProcessadmindbModel.Vw_UserInHirarchy" Width="1.5" PointX="18.75" PointY="52.75" />
         <EntityTypeShape EntityType="ProcessadmindbModel.Vw_UserInHirarchyT" Width="1.5" PointX="52.75" PointY="21.75" />
@@ -166,6 +165,7 @@
         <AssociationConnector Association="ProcessadmindbModel.FK_UserPictures_UserProfile" />
         <AssociationConnector Association="ProcessadmindbModel.FK_UsersInGroups_UserProfile" />
         <AssociationConnector Association="ProcessadmindbModel.webpages_UsersInRoles" />
+        <EntityTypeShape EntityType="ProcessadmindbModel.Vw_RequestDetails" Width="1.5" PointX="55.375" PointY="37.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

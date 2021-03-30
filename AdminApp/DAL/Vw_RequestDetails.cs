@@ -37,5 +37,12 @@ namespace DAL
         public bool IsActive { get; set; }
         public bool IsDeleted { get; set; }
         public Nullable<int> PartyId { get; set; }
+        public int ProductCodeId { get; set; }
+        public int RequestTypeId { get; set; }
+        public Nullable<int> AcctCategoryId { get; set; }
+        public Nullable<int> ESSegmentId { get; set; }
+        public int RatePlanId { get; set; }
+        public Nullable<int> ContractId { get; set; }
+        public Nullable<int> ApprovalRequestStatusId { get; set; }
     }
 }

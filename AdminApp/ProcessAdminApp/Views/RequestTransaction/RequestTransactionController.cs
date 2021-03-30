@@ -81,9 +81,7 @@ namespace Hydron.Views
         {
             var productList = dataMgr.GetProduct_List();
             var requestTypeList = dataMgr.GetRequestType_List();
-            var partyList = dataMgr.GetParty_List(pId);
-            
-
+            var partyList = dataMgr.GetParty_List(pId);           
             var acctCategoryList = dataMgr.GetAcctCategory_List();
             var esSegmentList = dataMgr.GetESSegment_List();
             var ratePlanList = dataMgr.GetRatePlan_List();
@@ -544,5 +542,126 @@ namespace Hydron.Views
         }
 
 
-    }
+        
+
+
+        public ActionResult _Search(int? pId)
+        {
+            DAL.DataManager dataMgr = new DAL.DataManager();
+            var pInfo = new DAL.Vw_RequestDetails();
+            var productList = dataMgr.GetProduct_List();
+            var requestTypeList = dataMgr.GetRequestType_List();
+            var partyList = dataMgr.GetParty_List((int)pId);
+            var acctCategoryList = dataMgr.GetAcctCategory_List();
+            var esSegmentList = dataMgr.GetESSegment_List();
+            var ratePlanList = dataMgr.GetRatePlan_List();
+            var contractList = dataMgr.GetContract_List();
+            var approvalRequestStatusList = dataMgr.GetApprovalRequestStatus_List();
+
+            var pInfoM = new VwRequestDetailsModel(pInfo);
+            pInfoM.ProductNameList = ToProductListItems(productList, -1);           
+            pInfoM.RequestTypeList = ToRequestTypeListItems(requestTypeList, -1);
+            pInfoM.PartyNameList = ToPartyListItems(partyList, (int) pId);          
+            pInfoM.AcctCategoryList = ToAcctCategoryListItems(acctCategoryList, -1);
+            pInfoM.ESSegmentList = ToESSegmentListItems(esSegmentList, -1);          
+            pInfoM.RatePlanList = ToRatePlanListItems(ratePlanList, -1);
+            pInfoM.ContractList = ToContractListItems(contractList, -1);      
+            pInfoM.CBCMStatusList = ToCBCMStatusListItems(approvalRequestStatusList, -1);
+
+            return PartialView(pInfoM);
+        }
+
+
+
+        [HttpPost]
+        public ActionResult Search(RequestTransactionModel model)
+        {
+            DAL.DataManager dataMgr = new DAL.DataManager();
+            var items = dataMgr.GetVwRequestDetails_ListByParty(model.PartyId);
+
+            
+            if(model.ProductCodeId > 0){
+                items = items.Where(x => x.ProductCodeId == model.ProductCodeId).OrderBy(x => x.Id).ToList();
+            }
+
+
+            if (!string.IsNullOrEmpty(model.RequestNumber)){
+                items = items.Where(x => x.RequestNumber.Contains(model.RequestNumber)).OrderBy(x => x.Id).ToList();
+            }
+
+            if (!string.IsNullOrEmpty(model.SubRequestNumber))
+            {
+                items = items.Where(x => x.SubRequestNumber.Contains(model.SubRequestNumber)).OrderBy(x => x.Id).ToList();
+            }
+
+            if (model.RequestTypeId > 0)
+            {
+                items = items.Where(x => x.RequestTypeId == model.RequestTypeId).OrderBy(x => x.Id).ToList();
+            }
+
+            if (!string.IsNullOrEmpty(model.AccountNumber))
+            {
+                items = items.Where(x => x.AccountNumber.Contains(model.AccountNumber)).OrderBy(x => x.Id).ToList();
+            }
+
+            if (model.AcctCategoryId > 0)
+            {
+                items = items.Where(x => x.AcctCategoryId == model.AcctCategoryId).OrderBy(x => x.Id).ToList();
+            }
+
+            if (model.ESSegmentId > 0)
+            {
+                items = items.Where(x => x.ESSegmentId == model.ESSegmentId).OrderBy(x => x.Id).ToList();
+            }
+
+            if (model.RatePlanId > 0)
+            {
+                items = items.Where(x => x.RatePlanId == model.RatePlanId).OrderBy(x => x.Id).ToList();
+            }
+
+            if (model.ContractId > 0)
+            {
+                items = items.Where(x => x.ContractId == model.ContractId).OrderBy(x => x.Id).ToList();
+            }
+
+            if (model.ApprovalRequestStatusId > 0)
+            {
+                items = items.Where(x => x.ApprovalRequestStatusId == model.ApprovalRequestStatusId).OrderBy(x => x.Id).ToList();
+            }
+
+
+            var ls_items = new List<Models.Definitions.VwRequestDetailsModel>();
+            foreach (var item in items)
+            {
+                var l_item = new Models.Definitions.VwRequestDetailsModel();
+                l_item.Id = item.Id;
+                l_item.ProductCode = item.ProductCode;
+                l_item.RequestNumber = item.RequestNumber;
+                l_item.SubRequestNumber = item.SubRequestNumber;
+                l_item.SubRequestType = item.SubRequestType;
+                l_item.PartyName = item.PartyName;
+                l_item.AccountNumber = item.AccountNumber;
+                l_item.AccountCategory = item.AccountCategory;
+                l_item.ESSubSegment = item.ESSubSegment;
+                l_item.RatePlan = item.RatePlan;
+                l_item.RatePlanDescription = item.RatePlanDescription;
+                l_item.VariableAmount_MRC = item.VariableAmount_MRC;
+                l_item.VariableAmount_OTC = item.VariableAmount_OTC;
+                l_item.VariableAmount_QRC = item.VariableAmount_QRC;
+                l_item.VariableAmount_YRC = item.VariableAmount_YRC;
+                l_item.ContractPeriod = item.ContractPeriod;
+                l_item.ChargeDetails = item.ChargeDetails;
+                l_item.ApprovalRequestStatusName = item.ApprovalRequestStatusName;
+                l_item.CBCMStatus = item.CBCMStatus;
+                l_item.Created = item.Created;
+                l_item.IsActive = item.IsActive;
+                l_item.IsDeleted = item.IsDeleted;
+                l_item.PartyId = item.PartyId;
+                ls_items.Add(l_item);
+            }
+
+            return PartialView("_GetList", ls_items);
+        }
+
+     }
 }
