@@ -1381,6 +1381,7 @@ warning 6002: The table/view 'HydronDB-SNOC-BLOB_V2.dbo.MapLongLat' does not hav
           <Property Name="ProcessIdList" Type="nvarchar" MaxLength="150" />
           <Property Name="WorkSpaceList" Type="nvarchar" MaxLength="150" />
           <Property Name="BUnitIdList" Type="nvarchar" MaxLength="150" />
+          <Property Name="Description" Type="varchar" MaxLength="500" />
         </EntityType>
         <EntityType Name="ProcessFieldLookup">
           <Key>
@@ -7204,24 +7205,24 @@ warning 6002: The table/view 'HydronDB-SNOC-BLOB_V2.dbo.Vw_RequestDetails' does 
             <PropertyRef Name="RatePlanId" />
           </Key>
           <Property Name="Id" Type="int" Nullable="false" />
-          <Property Name="ProductCode" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ProductCode" Type="nvarchar" MaxLength="500" Nullable="false" />
           <Property Name="RequestNumber" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="SubRequestNumber" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="SubRequestType" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="SubRequestType" Type="nvarchar" MaxLength="500" Nullable="false" />
           <Property Name="PartyName" Type="varchar" MaxLength="200" />
           <Property Name="AccountNumber" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="AccountCategory" Type="varchar" MaxLength="50" />
-          <Property Name="ESSubSegment" Type="varchar" MaxLength="50" />
-          <Property Name="RatePlan" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="AccountCategory" Type="nvarchar" MaxLength="500" />
+          <Property Name="ESSubSegment" Type="nvarchar" MaxLength="500" />
+          <Property Name="RatePlan" Type="nvarchar" MaxLength="500" Nullable="false" />
           <Property Name="RatePlanDescription" Type="varchar" MaxLength="500" />
           <Property Name="VariableAmount_MRC" Type="varchar" MaxLength="20" />
           <Property Name="VariableAmount_OTC" Type="varchar" MaxLength="20" />
           <Property Name="VariableAmount_QRC" Type="varchar" MaxLength="20" />
           <Property Name="VariableAmount_YRC" Type="varchar" MaxLength="20" />
-          <Property Name="ContractPeriod" Type="varchar" MaxLength="50" />
+          <Property Name="ContractPeriod" Type="nvarchar" MaxLength="500" />
           <Property Name="ChargeDetails" Type="varchar" MaxLength="500" />
-          <Property Name="ApprovalRequestStatusName" Type="varchar" MaxLength="50" />
-          <Property Name="CBCMStatus" Type="varchar" MaxLength="20" />
+          <Property Name="CBCMStatus" Type="nvarchar" MaxLength="500" />
+          <Property Name="ApprovalRequestStatusName" Type="varchar" MaxLength="500" />
           <Property Name="Created" Type="datetime" Nullable="false" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
@@ -11411,8 +11412,8 @@ warning 6002: The table/view 'HydronDB-SNOC-BLOB_V2.dbo.Vw_WorldMap2' does not h
     [Vw_RequestDetails].[VariableAmount_YRC] AS [VariableAmount_YRC], 
     [Vw_RequestDetails].[ContractPeriod] AS [ContractPeriod], 
     [Vw_RequestDetails].[ChargeDetails] AS [ChargeDetails], 
-    [Vw_RequestDetails].[ApprovalRequestStatusName] AS [ApprovalRequestStatusName], 
     [Vw_RequestDetails].[CBCMStatus] AS [CBCMStatus], 
+    [Vw_RequestDetails].[ApprovalRequestStatusName] AS [ApprovalRequestStatusName], 
     [Vw_RequestDetails].[Created] AS [Created], 
     [Vw_RequestDetails].[IsActive] AS [IsActive], 
     [Vw_RequestDetails].[IsDeleted] AS [IsDeleted], 
@@ -13594,6 +13595,7 @@ warning 6002: The table/view 'HydronDB-SNOC-BLOB_V2.dbo.Vw_WorldMap2' does not h
           <Property Name="ProcessIdList" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="WorkSpaceList" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="BUnitIdList" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="ProcessFieldLookup">
           <Key>
@@ -20267,24 +20269,24 @@ warning 6002: The table/view 'HydronDB-SNOC-BLOB_V2.dbo.Vw_WorldMap2' does not h
             <PropertyRef Name="RatePlanId" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="ProductCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ProductCode" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="RequestNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="SubRequestNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="SubRequestType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SubRequestType" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="PartyName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="AccountNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="AccountCategory" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="ESSubSegment" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="RatePlan" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AccountCategory" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="ESSubSegment" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="RatePlan" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="RatePlanDescription" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="VariableAmount_MRC" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="VariableAmount_OTC" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="VariableAmount_QRC" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="VariableAmount_YRC" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="ContractPeriod" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ContractPeriod" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="ChargeDetails" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="ApprovalRequestStatusName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="CBCMStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CBCMStatus" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="ApprovalRequestStatusName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
@@ -21664,6 +21666,7 @@ warning 6002: The table/view 'HydronDB-SNOC-BLOB_V2.dbo.Vw_WorldMap2' does not h
           <EntitySetMapping Name="ProcessCategories">
             <EntityTypeMapping TypeName="ProcessadmindbModel.ProcessCategory">
               <MappingFragment StoreEntitySet="ProcessCategory">
+                <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="BUnitIdList" ColumnName="BUnitIdList" />
                 <ScalarProperty Name="WorkSpaceList" ColumnName="WorkSpaceList" />
                 <ScalarProperty Name="ProcessIdList" ColumnName="ProcessIdList" />
@@ -27153,8 +27156,8 @@ warning 6002: The table/view 'HydronDB-SNOC-BLOB_V2.dbo.Vw_WorldMap2' does not h
                 <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="Created" ColumnName="Created" />
-                <ScalarProperty Name="CBCMStatus" ColumnName="CBCMStatus" />
                 <ScalarProperty Name="ApprovalRequestStatusName" ColumnName="ApprovalRequestStatusName" />
+                <ScalarProperty Name="CBCMStatus" ColumnName="CBCMStatus" />
                 <ScalarProperty Name="ChargeDetails" ColumnName="ChargeDetails" />
                 <ScalarProperty Name="ContractPeriod" ColumnName="ContractPeriod" />
                 <ScalarProperty Name="VariableAmount_YRC" ColumnName="VariableAmount_YRC" />

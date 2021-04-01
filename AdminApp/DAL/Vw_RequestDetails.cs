@@ -31,8 +31,8 @@ namespace DAL
         public string VariableAmount_YRC { get; set; }
         public string ContractPeriod { get; set; }
         public string ChargeDetails { get; set; }
-        public string ApprovalRequestStatusName { get; set; }
         public string CBCMStatus { get; set; }
+        public string ApprovalRequestStatusName { get; set; }
         public System.DateTime Created { get; set; }
         public bool IsActive { get; set; }
         public bool IsDeleted { get; set; }

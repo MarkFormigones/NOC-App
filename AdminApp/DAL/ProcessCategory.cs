@@ -30,5 +30,6 @@ namespace DAL
         public string ProcessIdList { get; set; }
         public string WorkSpaceList { get; set; }
         public string BUnitIdList { get; set; }
+        public string Description { get; set; }
     }
 }

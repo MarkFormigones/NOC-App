@@ -73,7 +73,7 @@
                     <div class="form-group">
                         <label class="control-label col-md-3">Request Type<span class="required">*</span></label>
                         <div class="col-md-9 input-icon">
-                            @Html.DropDownListFor(m => m.RequestTypeId, Model.RequestTypeList, new { @class = "select2 form-control placeholder-no-fix ", name = "RequestTypeId" })
+                            @Html.DropDownListFor(m => m.RequestTypeId, Model.RequestTypeList, "--Select--", new { @class = "select2 form-control placeholder-no-fix ", name = "RequestTypeId" })
                             @Html.ValidationMessageFor(m => m.RequestTypeId)
                         </div>
                     </div>
@@ -90,15 +90,15 @@
                     <div class="form-group">
                         <label class="control-label col-md-3">Account Category<span class="required">*</span></label>
                         <div class="col-md-9 input-icon">
-                            @Html.DropDownListFor(m => m.AcctCategoryId, Model.AcctCategoryList, new { @class = "select2 form-control placeholder-no-fix ", name = "AcctCategoryId" })
+                            @Html.DropDownListFor(m => m.AcctCategoryId, Model.AcctCategoryList, "--Select--", new { @class = "select2 form-control placeholder-no-fix ", name = "AcctCategoryId" })
                             @Html.ValidationMessageFor(m => m.AcctCategoryId)
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label col-md-3">ES Segment<span class="required">*</span></label>
+                        <label class="control-label col-md-3">ES Segment</label>
                         <div class="col-md-9 input-icon">
-                            @Html.DropDownListFor(m => m.ESSegmentId, Model.ESSegmentList, new { @class = "select2 form-control placeholder-no-fix ", name = "ESSegmentId" })
+                            @Html.DropDownListFor(m => m.ESSegmentId, Model.ESSegmentList, "--Select--", new { @class = "select2 form-control placeholder-no-fix ", name = "ESSegmentId" })
                             @Html.ValidationMessageFor(m => m.ESSegmentId)
                         </div>
                     </div>
@@ -106,23 +106,23 @@
                     <div class="form-group">
                         <label class="control-label col-md-3">Rate Plan<span class="required">*</span></label>
                         <div class="col-md-9 input-icon">
-                            @Html.DropDownListFor(m => m.RatePlanId, Model.RatePlanList, new { @class = "select2 form-control placeholder-no-fix ", name = "RatePlanId", id = "ratename", onChange = "RateOption(1)" })
+                            @Html.DropDownListFor(m => m.RatePlanId, Model.RatePlanList, "--Select--", new { @class = "select2 form-control placeholder-no-fix ", name = "RatePlanId", id = "ratename", onChange = "RateOption(1)" })
                             @Html.ValidationMessageFor(m => m.RatePlanId)
                         </div>
                     </div>
-
+                    @*
                     <div class="form-group">
-            <label class="control-label col-md-3">Rate Plan Description<span class="required">*</span></label>
-            <div class="col-md-9 input-icon">
-                @Html.DropDownListFor(m => m.RatePlanId, Model.RatePlanDescList, new { @class = "select2 form-control placeholder-no-fix ", name = "RatePlanId", id = "ratedesc", onChange = "RateOption(0)" })
-                @Html.ValidationMessageFor(m => m.RatePlanId)
-            </div>
-        </div>
-
-                    <div class="form-group">
-                        <label class="control-label col-md-3">Contract<span class="required">*</span></label>
+                        <label class="control-label col-md-3">Rate Plan Description<span class="required">*</span></label>
                         <div class="col-md-9 input-icon">
-                            @Html.DropDownListFor(m => m.ContractId, Model.ContractList, new { @class = "select2 form-control placeholder-no-fix ", name = "ContractList" })
+                            @Html.DropDownListFor(m => m.RatePlanId, Model.RatePlanDescList, "--Select--", new { @class = "select2 form-control placeholder-no-fix ", name = "RatePlanId", id = "ratedesc", onChange = "RateOption(0)" })
+                            @Html.ValidationMessageFor(m => m.RatePlanId)
+                        </div>
+                    </div>*@
+
+                    <div class="form-group">
+                        <label class="control-label col-md-3">Contract</label>
+                        <div class="col-md-9 input-icon">
+                            @Html.DropDownListFor(m => m.ContractId, Model.ContractList, "--Select--", new { @class = "select2 form-control placeholder-no-fix ", name = "ContractList" })
                             @Html.ValidationMessageFor(m => m.ContractList)
                         </div>
                     </div>
@@ -130,20 +130,20 @@
                     <div class="form-group">
                         <label class="control-label col-md-3">CBCM Status<span class="required">*</span></label>
                         <div class="col-md-9 input-icon">
-                            @Html.DropDownListFor(m => m.ApprovalRequestStatusId, Model.CBCMStatusList, new { @class = "select2 form-control placeholder-no-fix ", name = "ApprovalRequestStatusId", id = "cbcmstatus", onChange = "ApprovalStatus(1)" })
+                            @Html.DropDownListFor(m => m.ApprovalRequestStatusId, Model.CBCMStatusList, "--Select--", new { @class = "select2 form-control placeholder-no-fix ", name = "ApprovalRequestStatusId", id = "cbcmstatus", onChange = "ApprovalStatus(1)" })
                             @Html.ValidationMessageFor(m => m.ApprovalRequestStatusId)
                         </div>
                     </div>
 
 
-                    <div class="form-group">
-                        <label class="control-label col-md-3">Approval Request Status<span class="required">*</span></label>
-                        <div class="col-md-9 input-icon">
-                            @Html.DropDownListFor(m => m.ApprovalRequestStatusId, Model.ApprovalRequestStatusList, new { @class = "select2 form-control placeholder-no-fix", name = "ApprovalRequestStatusId", id = "approvalstatus", onChange = "ApprovalStatus(0)" })
-                            @Html.ValidationMessageFor(m => m.ApprovalRequestStatusId)
-                        </div>
-                    </div>
-
+                    @*<div class="form-group">
+            <label class="control-label col-md-3">Approval Request Status<span class="required">*</span></label>
+            <div class="col-md-9 input-icon">
+                @Html.DropDownListFor(m => m.ApprovalRequestStatusId, Model.ApprovalRequestStatusList, new { @class = "select2 form-control placeholder-no-fix", name = "ApprovalRequestStatusId", id = "approvalstatus", onChange = "ApprovalStatus(0)" })
+                @Html.ValidationMessageFor(m => m.ApprovalRequestStatusId)
+            </div>
+        </div>
+                    *@
 
 
 

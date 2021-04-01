@@ -717,6 +717,13 @@ namespace DAL
             return query;
         }
 
+        public IList<DAL.ProcessCategory> GetLookup_List()
+        {
+            IList<DAL.ProcessCategory> query;
+            query = _DbContext.ProcessCategories.Where(x => x.IsDeleted == false).OrderBy(x => x.Value).ToList();
+            return query;
+        }
+
         public IList<DAL.Product> GetProduct_List()
         {
 

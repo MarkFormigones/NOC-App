@@ -79,45 +79,46 @@ namespace Hydron.Views
 
         public RequestTransactionModel populateDropDown(DAL.DataManager dataMgr, RequestTransactionModel pInfoM, int pId)
         {
-            var productList = dataMgr.GetProduct_List();
-            var requestTypeList = dataMgr.GetRequestType_List();
+            var lookupList = dataMgr.GetLookup_List();
+            var productList = lookupList.Where(x => x.TypeId == 7).ToList();
+            var requestTypeList = lookupList.Where(x => x.TypeId == 8).ToList();
             var partyList = dataMgr.GetParty_List(pId);           
-            var acctCategoryList = dataMgr.GetAcctCategory_List();
-            var esSegmentList = dataMgr.GetESSegment_List();
-            var ratePlanList = dataMgr.GetRatePlan_List();
-            var contractList = dataMgr.GetContract_List();
-            var approvalRequestStatusList = dataMgr.GetApprovalRequestStatus_List();
-            
+            var acctCategoryList = lookupList.Where(x => x.TypeId == 9 ).ToList();
+            var esSegmentList = lookupList.Where(x => x.TypeId == 10 ).ToList();
+            var ratePlanList = lookupList.Where(x => x.TypeId ==  11).ToList();
+            var contractList = lookupList.Where(x => x.TypeId == 12).ToList();
+            var approvalRequestStatusList = lookupList.Where(x => x.TypeId == 13).ToList();
 
-            pInfoM.ProductNameList = ToProductListItems(productList, -1);
-            pInfoM.ProductName = productList.Where(x => x.Id == pInfoM.ProductCodeId).Select(x => x.ProductCode).FirstOrDefault();
 
-            pInfoM.RequestTypeList = ToRequestTypeListItems(requestTypeList, -1);
-            pInfoM.RequestTypeName = requestTypeList.Where(x => x.Id == pInfoM.RequestTypeId).Select(x => x.SubRequestType).FirstOrDefault();
+            pInfoM.ProductNameList = ToLookupListItems(productList, -1);
+            pInfoM.ProductName = productList.Where(x => x.Id == pInfoM.ProductCodeId).Select(x => x.Name).FirstOrDefault();
+
+            pInfoM.RequestTypeList = ToLookupListItems(requestTypeList, -1);
+            pInfoM.RequestTypeName = requestTypeList.Where(x => x.Id == pInfoM.RequestTypeId).Select(x => x.Name).FirstOrDefault();
 
             pInfoM.PartyNameList = ToPartyListItems(partyList, pId);
             pInfoM.PartyName = partyList.Where(x => x.Id == pInfoM.PartyId ).Select(x => x.PartyName).FirstOrDefault();
 
-            pInfoM.AcctCategoryList = ToAcctCategoryListItems(acctCategoryList, -1);
-            pInfoM.AcctCategoryName = acctCategoryList.Where(x => x.Id == pInfoM.AcctCategoryId).Select(x => x.AccountCategory).FirstOrDefault();
+            pInfoM.AcctCategoryList = ToLookupListItems(acctCategoryList, -1);
+            pInfoM.AcctCategoryName = acctCategoryList.Where(x => x.Id == pInfoM.AcctCategoryId).Select(x => x.Name).FirstOrDefault();
 
-            pInfoM.ESSegmentList = ToESSegmentListItems(esSegmentList, -1);
-            pInfoM.ESSegmentName = esSegmentList.Where(x => x.Id == pInfoM.ESSegmentId).Select(x => x.ESSubSegment).FirstOrDefault();
+            pInfoM.ESSegmentList = ToLookupListItems(esSegmentList, -1);
+            pInfoM.ESSegmentName = esSegmentList.Where(x => x.Id == pInfoM.ESSegmentId).Select(x => x.Name).FirstOrDefault();
 
-            pInfoM.RatePlanList = ToRatePlanListItems(ratePlanList, -1);
-            pInfoM.RatePlanName = ratePlanList.Where(x => x.Id == pInfoM.RatePlanId).Select(x => x.RatePlan).FirstOrDefault();
+            pInfoM.RatePlanList = ToLookupListItems(ratePlanList, -1);
+            pInfoM.RatePlanName = ratePlanList.Where(x => x.Id == pInfoM.RatePlanId).Select(x => x.Name).FirstOrDefault();
 
-            pInfoM.RatePlanDescList = ToRatePlanDescListItems(ratePlanList, -1);
-            pInfoM.RatePlanDesc = ratePlanList.Where(x => x.Id == pInfoM.RatePlanId).Select(x => x.RatePlanDescription).FirstOrDefault();
+            pInfoM.RatePlanDescList = ToLookupDescListItems(ratePlanList, -1);
+            pInfoM.RatePlanDesc = ratePlanList.Where(x => x.Id == pInfoM.RatePlanId).Select(x => x.Description).FirstOrDefault();
 
-            pInfoM.ContractList = ToContractListItems(contractList, -1);
-            pInfoM.ContractName = contractList.Where(x => x.Id == pInfoM.ContractId).Select(x => x.ContractPeriod).FirstOrDefault();
+            pInfoM.ContractList = ToLookupListItems(contractList, -1);
+            pInfoM.ContractName = contractList.Where(x => x.Id == pInfoM.ContractId).Select(x => x.Name).FirstOrDefault();
 
-            pInfoM.ApprovalRequestStatusList = ToApprovalRequestStatusListItems(approvalRequestStatusList, -1);
-            pInfoM.ApprovalRequestStatusName = approvalRequestStatusList.Where(x => x.Id == pInfoM.ApprovalRequestStatusId).Select(x => x.ApprovalRequestStatusName).FirstOrDefault();
+            pInfoM.ApprovalRequestStatusList = ToLookupDescListItems(approvalRequestStatusList, -1);
+            pInfoM.ApprovalRequestStatusName = approvalRequestStatusList.Where(x => x.Id == pInfoM.ApprovalRequestStatusId).Select(x => x.Description).FirstOrDefault();
 
-            pInfoM.CBCMStatusList = ToCBCMStatusListItems(approvalRequestStatusList, -1);
-            pInfoM.CBCMStatusName = approvalRequestStatusList.Where(x => x.Id == pInfoM.ApprovalRequestStatusId).Select(x => x.CBCMStatus).FirstOrDefault();
+            pInfoM.CBCMStatusList = ToLookupListItems(approvalRequestStatusList, -1);
+            pInfoM.CBCMStatusName = approvalRequestStatusList.Where(x => x.Id == pInfoM.ApprovalRequestStatusId).Select(x => x.Name).FirstOrDefault();
 
             return pInfoM;
         }
@@ -490,27 +491,38 @@ namespace Hydron.Views
         }
 
 
-        public static IEnumerable<System.Web.Mvc.SelectListItem> ToProductListItems(IEnumerable<DAL.Product> lList, int selectedId)
+        public static IEnumerable<System.Web.Mvc.SelectListItem> ToLookupListItems(IEnumerable<DAL.ProcessCategory> lList, int selectedId)
         {
-            return lList.OrderBy(obj => obj.Id).Select(obj => new System.Web.Mvc.SelectListItem { Selected = (obj.Id == selectedId), Text = obj.ProductCode, Value = obj.Id.ToString() });
+            return lList.OrderBy(obj => obj.Id).Select(obj => new System.Web.Mvc.SelectListItem { Selected = (obj.Id == selectedId), Text = obj.Name, Value = obj.Id.ToString() });
         }
 
-        public static IEnumerable<System.Web.Mvc.SelectListItem> ToRequestTypeListItems(IEnumerable<DAL.RequestType> lList, int selectedId)
+        public static IEnumerable<System.Web.Mvc.SelectListItem> ToLookupDescListItems(IEnumerable<DAL.ProcessCategory> lList, int selectedId)
+        {
+            return lList.OrderBy(obj => obj.Id).Select(obj => new System.Web.Mvc.SelectListItem { Selected = (obj.Id == selectedId), Text = obj.Description, Value = obj.Id.ToString() });
+        }
+
+
+       /* public static ienumerable<system.web.mvc.selectlistitem> toproductlistitems(ienumerable<dal.product> llist, int selectedid)
+        {
+            return llist.orderby(obj => obj.id).select(obj => new system.web.mvc.selectlistitem { selected = (obj.id == selectedid), text = obj.productcode, value = obj.id.tostring() });
+        }*/
+
+      /*  public static IEnumerable<System.Web.Mvc.SelectListItem> ToRequestTypeListItems(IEnumerable<DAL.RequestType> lList, int selectedId)
         {
             return lList.OrderBy(obj => obj.Id).Select(obj => new System.Web.Mvc.SelectListItem { Selected = (obj.Id == selectedId), Text = obj.SubRequestType, Value = obj.Id.ToString() });
-        }
+        }*/
 
         public static IEnumerable<System.Web.Mvc.SelectListItem> ToPartyListItems(IEnumerable<DAL.Party> lList, int selectedId)
         {
             return lList.OrderBy(obj => obj.Id).Select(obj => new System.Web.Mvc.SelectListItem { Selected = (obj.Id == selectedId), Text = obj.PartyName, Value = obj.Id.ToString() });
         }
 
-        public static IEnumerable<System.Web.Mvc.SelectListItem> ToAcctCategoryListItems(IEnumerable<DAL.AcctCategory> lList, int selectedId)
+       /* public static IEnumerable<System.Web.Mvc.SelectListItem> ToAcctCategoryListItems(IEnumerable<DAL.AcctCategory> lList, int selectedId)
         {
             return lList.OrderBy(obj => obj.Id).Select(obj => new System.Web.Mvc.SelectListItem { Selected = (obj.Id == selectedId), Text = obj.AccountCategory, Value = obj.Id.ToString() });
-        }
+        }*/
 
-        public static IEnumerable<System.Web.Mvc.SelectListItem> ToESSegmentListItems(IEnumerable<DAL.ESSegment> lList, int selectedId)
+     /*   public static IEnumerable<System.Web.Mvc.SelectListItem> ToESSegmentListItems(IEnumerable<DAL.ESSegment> lList, int selectedId)
         {
             return lList.OrderBy(obj => obj.Id).Select(obj => new System.Web.Mvc.SelectListItem { Selected = (obj.Id == selectedId), Text = obj.ESSubSegment, Value = obj.Id.ToString() });
         }
@@ -539,7 +551,7 @@ namespace Hydron.Views
         public static IEnumerable<System.Web.Mvc.SelectListItem> ToCBCMStatusListItems(IEnumerable<DAL.ApprovalRequestStatu> lList, int selectedId)
         {
             return lList.OrderBy(obj => obj.Id).Select(obj => new System.Web.Mvc.SelectListItem { Selected = (obj.Id == selectedId), Text = obj.CBCMStatus, Value = obj.Id.ToString() });
-        }
+        }*/
 
 
         
@@ -549,25 +561,25 @@ namespace Hydron.Views
         {
             DAL.DataManager dataMgr = new DAL.DataManager();
             var pInfo = new DAL.Vw_RequestDetails();
-            var productList = dataMgr.GetProduct_List();
-            var requestTypeList = dataMgr.GetRequestType_List();
+            var lookupList = dataMgr.GetLookup_List();
+            var productList = lookupList.Where(x => x.TypeId == 7).ToList();
+            var requestTypeList = lookupList.Where(x => x.TypeId == 8).ToList();
             var partyList = dataMgr.GetParty_List((int)pId);
-            var acctCategoryList = dataMgr.GetAcctCategory_List();
-            var esSegmentList = dataMgr.GetESSegment_List();
-            var ratePlanList = dataMgr.GetRatePlan_List();
-            var contractList = dataMgr.GetContract_List();
-            var approvalRequestStatusList = dataMgr.GetApprovalRequestStatus_List();
+            var acctCategoryList = lookupList.Where(x => x.TypeId == 9).ToList();
+            var esSegmentList = lookupList.Where(x => x.TypeId == 10).ToList();
+            var ratePlanList = lookupList.Where(x => x.TypeId == 11).ToList();
+            var contractList = lookupList.Where(x => x.TypeId == 12).ToList();
+            var approvalRequestStatusList = lookupList.Where(x => x.TypeId == 13).ToList();
 
             var pInfoM = new VwRequestDetailsModel(pInfo);
-            pInfoM.ProductNameList = ToProductListItems(productList, -1);           
-            pInfoM.RequestTypeList = ToRequestTypeListItems(requestTypeList, -1);
-            pInfoM.PartyNameList = ToPartyListItems(partyList, (int) pId);          
-            pInfoM.AcctCategoryList = ToAcctCategoryListItems(acctCategoryList, -1);
-            pInfoM.ESSegmentList = ToESSegmentListItems(esSegmentList, -1);          
-            pInfoM.RatePlanList = ToRatePlanListItems(ratePlanList, -1);
-            pInfoM.ContractList = ToContractListItems(contractList, -1);      
-            pInfoM.CBCMStatusList = ToCBCMStatusListItems(approvalRequestStatusList, -1);
-
+            pInfoM.ProductNameList = ToLookupListItems(productList, -1);
+            pInfoM.RequestTypeList = ToLookupListItems(requestTypeList, -1);
+            pInfoM.PartyNameList = ToPartyListItems(partyList, (int) pId);
+            pInfoM.AcctCategoryList = ToLookupListItems(acctCategoryList, -1);
+            pInfoM.ESSegmentList = ToLookupListItems(esSegmentList, -1);
+            pInfoM.RatePlanList = ToLookupListItems(ratePlanList, -1);
+            pInfoM.ContractList = ToLookupListItems(contractList, -1);          
+            pInfoM.CBCMStatusList = ToLookupListItems(approvalRequestStatusList, -1);
             return PartialView(pInfoM);
         }
 
