@@ -12,6 +12,12 @@ using System.Web.Configuration;
 using System.Web.Mvc;
 using System.Web.Security;
 
+
+using System.Data;
+using System.Data.OleDb;
+using System.Configuration;
+using System.Data.SqlClient;
+
 namespace Hydron.Views
 {
     public class RequestTransactionController : BaseController
@@ -675,5 +681,138 @@ namespace Hydron.Views
             return PartialView("_GetList", ls_items);
         }
 
-     }
+
+
+        public ViewResult Import()
+        {
+
+            var list = new List<SelectListItem>();
+            list.Add(new SelectListItem { Selected = true, Text = "Add", Value = "1" });
+            list.Add(new SelectListItem { Selected = true, Text = "Update", Value = "2" });
+
+           
+            var pInfoM = new ImportExcelModel();
+            pInfoM.TypeList = list;
+
+            return View(pInfoM);
+        }
+
+       
+        public static IEnumerable<System.Web.Mvc.SelectListItem> ImportTypeListItems()
+        {
+            var list = new List<SelectListItem>();
+            list.Add(new SelectListItem { Selected = true, Text = "Add", Value = "1" });
+            list.Add(new SelectListItem { Selected = true, Text = "Update", Value = "2" });
+            return list;
+        }
+
+        [HttpPost]
+        public ActionResult Import(ImportExcelModel model)
+        {
+            
+            int tempId = 0; string logMsg = "Division";
+            model.TypeList = ImportTypeListItems();
+
+            if (ModelState.IsValid)
+            {
+                using (TransactionScope transaction = new TransactionScope())
+                {
+                    try
+                    {
+                        DAL.DataManager dataMgr = new DAL.DataManager();
+                        dataMgr.removeAllRawRecords();
+
+                        string path = Server.MapPath("~/ApplicationUploads/");
+                        if (!Directory.Exists(path))
+                        {
+                            Directory.CreateDirectory(path);
+                        }
+                        string filePath = path + Path.GetFileName(model.file.FileName);
+                        string extension = Path.GetExtension(model.file.FileName);
+                        model.file.SaveAs(filePath);
+
+                        string conString = string.Empty;
+                        switch (extension)
+                        {
+                            case ".xls": //Excel 97-03.
+                                conString = ConfigurationManager.ConnectionStrings["Excel03ConString"].ConnectionString;
+                                break;
+                            case ".xlsx": //Excel 07 and above.
+                                conString = ConfigurationManager.ConnectionStrings["Excel07ConString"].ConnectionString;
+                                break;
+                        }
+                        conString = string.Format(conString, filePath);
+                        OleDbConnection excelConnection = new OleDbConnection(conString);
+                        //Sheet Name
+                        excelConnection.Open();
+                        string tableName = excelConnection.GetSchema("Tables").Rows[0]["TABLE_NAME"].ToString();
+                        excelConnection.Close();
+                        //End
+                        OleDbCommand cmd = new OleDbCommand("Select * from [" + tableName + "]", excelConnection);
+                        excelConnection.Open();
+                        OleDbDataReader dReader;
+                        dReader = cmd.ExecuteReader();
+                        SqlBulkCopy sqlBulk = new SqlBulkCopy(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
+                        //Give your Destination table name
+                        sqlBulk.DestinationTableName = "raw";
+                        //Mappings
+                        sqlBulk.ColumnMappings.Add("ID", "ID");
+                        sqlBulk.ColumnMappings.Add("ProductCode", "ProductCode");
+                        sqlBulk.ColumnMappings.Add("RequestNumber", "RequestNumber");
+                        sqlBulk.ColumnMappings.Add("SubRequestNumber", "SubRequestNumber");
+                        sqlBulk.ColumnMappings.Add("PartyName", "PartyName");
+                        sqlBulk.ColumnMappings.Add("AccountNumber", "AccountNumber");
+                        sqlBulk.ColumnMappings.Add("AccountCategory", "AccountCategory");
+                        sqlBulk.ColumnMappings.Add("ESSubSegment", "ESSubSegment");
+                        sqlBulk.ColumnMappings.Add("RatePlan", "RatePlan");
+                        sqlBulk.ColumnMappings.Add("RatePlanDescription", "RatePlanDescription");
+                        sqlBulk.ColumnMappings.Add("VariableAmount_MRC", "VariableAmount_MRC");
+                        sqlBulk.ColumnMappings.Add("VariableAmount_OTC", "VariableAmount_OTC");
+                        sqlBulk.ColumnMappings.Add("VariableAmount_QRC", "VariableAmount_QRC");
+                        sqlBulk.ColumnMappings.Add("VariableAmount_YRC", "VariableAmount_YRC");
+                        sqlBulk.ColumnMappings.Add("ContractPeriod", "ContractPeriod");
+                        sqlBulk.ColumnMappings.Add("ChargeDetails", "ChargeDetails");
+                        sqlBulk.ColumnMappings.Add("ApprovalRequestStatusName", "ApprovalRequestStatusName");
+                        sqlBulk.ColumnMappings.Add("CBCMStatus", "CBCMStatus");
+                        sqlBulk.ColumnMappings.Add("Created", "Created");
+
+                        
+                        
+                        dataMgr.SaveChanges(); // commit truncate
+                        sqlBulk.WriteToServer(dReader); //add new records
+                        excelConnection.Close();                
+                        transaction.Complete();
+
+                        base.SetOperationCompleted("success", "Saved", "successfully");
+
+                    }
+
+                    catch (Exception e)
+                    {
+                        transaction.Dispose();
+                        base.Logger(DAL.General.ActivityLokup.EXCEPTION, DAL.General.OperationLokup.NONE, DAL.General.ActionCommandReq.Default, logMsg, tempId, -1, -1, -1, -1, -1, -1, -1, -1);
+                        base.SetOperationCompleted("error", "Operation", "failed");
+                        base.SetInnerOperationCompleted("error", "Operation", e.Message);
+                        ModelState.AddModelError("error", e.Message);
+                    }
+                }
+            }
+            else
+            {
+                logMsg = "invalid model state";
+                base.Logger(DAL.General.ActivityLokup.ERROR, DAL.General.OperationLokup.NONE, DAL.General.ActionCommandReq.Default, logMsg, tempId, -1, -1, -1, -1, -1, -1, -1, -1);
+                base.SetOperationCompleted("info", "Operation", logMsg);
+                
+                
+                return View(model);
+            }
+
+            ViewBag.Result = "Successfully Imported";
+            
+           
+            return View(model);
+        }
+
+
+    }
 }

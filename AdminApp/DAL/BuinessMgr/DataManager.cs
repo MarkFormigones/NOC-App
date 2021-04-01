@@ -812,6 +812,16 @@ namespace DAL
             return query;
         }
 
+        
+        public void removeAllRawRecords()
+        {
+            _DbContext.Database.ExecuteSqlCommand("TRUNCATE TABLE [RAW]");
+           
+        }
+        
         #endregion
+
+
+
     }
 }

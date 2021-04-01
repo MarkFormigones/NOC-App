@@ -254,6 +254,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Models\ActivityLog\ActvityLogModel.cs" />
+    <Compile Include="Models\Definitions\ImportExcelModel.cs" />
     <Compile Include="Models\Definitions\RequestMasterModel.cs" />
     <Compile Include="Models\Definitions\RequestTransactionModel.cs" />
     <Compile Include="Models\Definitions\VwRequestDetailsModel.cs" />
@@ -2908,6 +2909,7 @@
     <Content Include="Views\RequestTransaction\RequestTransactionList.cshtml" />
     <Content Include="Views\RequestTransaction\Define.cshtml" />
     <Content Include="Views\RequestTransaction\_Search.cshtml" />
+    <Content Include="Views\RequestTransaction\Import.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ApplicationUploads\UFiles\" />

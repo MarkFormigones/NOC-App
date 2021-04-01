@@ -1,0 +1,124 @@
+﻿@model Hydron.Models.Definitions.ImportExcelModel
+
+@using (Html.BeginForm("Import", "RequestTransaction", FormMethod.Post, new { enctype = "multipart/form-data", id = "Import" }))
+{@Html.AntiForgeryToken()
+@Html.ValidationSummary(true)
+
+<fieldset>
+    @{
+        if (ViewData.ModelState["error"] != null)
+        { <div class="alert alert-danger ">
+                <button class="close" data-close="alert"></button>
+                @ViewData.ModelState["error"].Errors[0].ErrorMessage
+
+            </div>
+        }
+
+        if (ViewBag.Result != null)
+        {
+            <div class="alert alert-success ">
+                <button class="close" data-close="alert"></button>
+                @ViewBag.Result
+            </div>
+        }
+
+
+    }
+
+    <legend>Import Excel Records </legend>
+
+    <div class="form-horizontal form-bordered">
+        <div class="form-body">
+
+            <div class="form-group " id="rowupload" style="display:block">
+                <label class="control-label col-md-3">Upload file</label>
+                <div class="col-md-9">
+                    <div class=" margin-top-10 fileupload fileupload-new" data-provides="fileupload">
+                        <div class="input-group input-group-fixed">
+                            <div class="fileupload fileupload-new pull-left" data-provides="fileupload">
+
+                                <div class="fileupload-preview  thumbnail" style="width: 50px; height: 50px;"></div>
+
+
+                                <span class="btn default btn-file">
+                                    <span class="fileupload-new"><i class="fa fa-paper-clip"></i> Select image</span>
+                                    <span class="fileupload-exists"><i class="fa fa-undo"></i> Change</span>
+                                    <input type="file" class="default" name="file" />
+
+                                </span>
+                                <a href="#" class="btn red fileupload-exists" data-dismiss="fileupload"><i class="fa fa-trash-o"></i> Remove</a>
+                            </div>
+
+                        </div>
+                    </div>
+                    <span class="help-block">Excel file Only: .xls, .xlsx </span>
+                    <br>
+                    @Html.ValidationMessageFor(m => m.file)
+                </div>
+               
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-3">Type<span class="required">*</span></label>
+                <div class="col-md-9 input-icon">
+                    @Html.DropDownListFor(m => m.TypeId, Model.TypeList, new { @class = "select2 form-control placeholder-no-fix ", name = "TypeId" })
+                    @Html.ValidationMessageFor(m => m.TypeId)
+
+                    
+                </div>
+            </div>
+
+
+            <div class="margiv-top-10">
+                <a data-toggle="modal" class="btn green" role="button" href="#modalSave" onclick="handleLogo();">Import File</a>
+
+            </div>
+            <div aria-hidden="true" aria-labelledby="myModalLabel3" role="dialog" tabindex="-1" class="modal fade" id="modalSave" style="display: none;">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button aria-hidden="true" data-dismiss="modal" class="close" type="button"></button>
+                            <h4 class="modal-title"> Import Excel </h4>
+                        </div>
+                        <div class="modal-body">
+                            Are you sure you want to import?
+                        </div>
+                        <div class="modal-footer">
+                            <h5 class="modal-msg" style="display:none"> <span><img src='/assets/img/loading.gif'></span> </h5>
+                            <button aria-hidden="true" data-dismiss="modal" class="btn default">Close</button>
+
+                            <button type="submit" value="Save" class="btn green" id="fsbtn">
+                                <i class="fa fa-save"></i>Import
+
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</fieldset>
+<div id="register_tnc_error"></div>
+
+}
+
+<script type="text/javascript">
+
+
+    jQuery(document).ready(function () {
+
+
+    });
+
+
+
+
+
+
+
+
+</script>
+

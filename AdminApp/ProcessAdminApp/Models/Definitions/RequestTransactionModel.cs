@@ -14,6 +14,8 @@ namespace Hydron.Models.Definitions
         public string ReadEdit { get; set; }
         public bool UseDefaultLogo { get; set; }
 
+        public string ImportFile { get; set; }
+
         public RequestTransactionModel() { }
         public RequestTransactionModel(DAL.RequestTransaction pInfo)
         {
